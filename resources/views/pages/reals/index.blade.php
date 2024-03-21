@@ -14,13 +14,13 @@
             <div class="section-header">
                 <h1>Users</h1>
                 <div class="section-header-button">
-                    <a href="{{route('user.create')}}"
+                    <a href="{{route('target.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Users</a></div>
-                    <div class="breadcrumb-item">All Users</div>
+                    <div class="breadcrumb-item"><a href="#">Realisasi</a></div>
+                    <div class="breadcrumb-item">All Realisasi</div>
                 </div>
             </div>
             <div class="section-body">
@@ -29,13 +29,14 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Users</h2>
+                <h2 class="section-title">Realisasi</h2>
+
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Posts</h4>
+                                <h4>All Realisasi</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
@@ -47,7 +48,7 @@
                                     </select>
                                 </div>
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('user.index')}}">
+                                    <form method="GET" action="{{route('real.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -64,26 +65,31 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Created At</th>
+                                            <th>No</th>
+                                            <th>Tanggal Laporan</th>
+                                            <th>UP3</th>
+                                            <th>ULP</th>
+                                            <th>ID Pelanggan</th>
                                             <th>Action</th>
                                         </tr>
 
-                                        @foreach ($users as $user)
+                                        @php($i = 1)
+                                        @foreach ($reals as $real)
                                             <tr>
-                                                <td>{{$user->name}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->created_at}}</td>
+                                                <td>{{ $i++ }}</td>
+                                                <td>{{$real->tanggal_laporan}}</td>
+                                                <td>{{$real->up3}}</td>
+                                                <td>{{$real->ulp}}</td>
+                                                <td>{{$real->id_pelanggan}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('user.edit', $user->id) }}'
+                                                        <a href='{{ route('real.edit', $real->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                        <form action="{{ route('real.destroy', $real->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -100,7 +106,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$users->withQueryString()->links()}}
+                                    {{$reals->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>

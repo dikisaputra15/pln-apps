@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\TargetController;
+use App\Http\Controllers\RealController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +27,9 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
 
     Route::resource('user', UserController::class);
+    Route::resource('unit', UnitController::class);
+    Route::resource('target', TargetController::class);
+    Route::resource('real', RealController::class);
 
-    Route::resource('soal', SoalController::class);
+    Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);
 });

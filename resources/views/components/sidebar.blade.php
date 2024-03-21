@@ -19,7 +19,7 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a class="nav-link"
-                            href="">Unit</a>
+                            href="{{ Route('unit.index') }}">Unit</a>
                     </li>
                     <li>
                         <a class="nav-link"
@@ -34,11 +34,11 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a class="nav-link"
-                            href="">Target</a>
+                            href="{{ Route('target.index') }}">Target</a>
                     </li>
                     <li>
                         <a class="nav-link"
-                            href="">Realisasi</a>
+                            href="{{ Route('real.index') }}">Realisasi</a>
                     </li>
                 </ul>
             </li>

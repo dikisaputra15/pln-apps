@@ -83,26 +83,23 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number" class="form-control" name="phone" value="{{ $user->phone }}">
-                            </div>
+
                             <div class="form-group">
                                 <label class="form-label">Roles</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="ADMIN" class="selectgroup-input"
-                                            @if ($user->roles == 'ADMIN') checked @endif>
+                                            @if ($user->roles == 'admin') checked @endif>
                                         <span class="selectgroup-button">Admin</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="STAFF" class="selectgroup-input"
-                                            @if ($user->roles == 'STAFF') checked @endif>
+                                            @if ($user->roles == 'staff') checked @endif>
                                         <span class="selectgroup-button">Staff</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="USER" class="selectgroup-input"
-                                            @if ($user->roles == 'USER') checked @endif>
+                                            @if ($user->roles == 'user') checked @endif>
                                         <span class="selectgroup-button">User</span>
                                     </label>
 

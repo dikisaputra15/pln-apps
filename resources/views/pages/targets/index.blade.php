@@ -1,24 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Bank Soal')
+@section('title', 'Users')
 
 @push('style')
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('library/selectric/public/selectric.css') }}">
 @endpush
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Bank Soal - Diki Saputra</h1>
+                <h1>Users</h1>
                 <div class="section-header-button">
-                    <a href="{{ route('soal.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{route('target.create')}}"
+                        class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Soal</a></div>
-                    <div class="breadcrumb-item">All Soal</div>
+                    <div class="breadcrumb-item"><a href="#">Target</a></div>
+                    <div class="breadcrumb-item">All Target</div>
                 </div>
             </div>
             <div class="section-body">
@@ -27,17 +29,14 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Soal</h2>
-                <p class="section-lead">
-                    You can manage all Users, such as editing, deleting and more.
-                </p>
+                <h2 class="section-title">Target</h2>
 
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Soal</h4>
+                                <h4>All Target</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
@@ -49,10 +48,11 @@
                                     </select>
                                 </div>
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('soal.index') }}">
+                                    <form method="GET" action="{{route('target.index')}}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search"
-                                                name="pertanyaan">
+                                            <input type="text"
+                                                class="form-control"
+                                                placeholder="Search" name="name">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -65,38 +65,31 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-
-                                            <th>id</th>
-                                            <th>Soal</th>
-                                            <th>Jawaban A</th>
-                                            <th>Jawaban A</th>
-                                            <th>Jawaban B</th>
-                                            <th>Jawaban D</th>
+                                            <th>No</th>
+                                            <th>Tanggal</th>
+                                            <th>Unit</th>
+                                            <th>Target</th>
+                                            <th>Realisasi</th>
+                                            <th>Action</th>
                                         </tr>
-                                        @foreach ($soals as $soal)
+
+                                        @php($i = 1)
+                                        @foreach ($targets as $target)
                                             <tr>
-
-                                                <td>{{ $soal->id }}
-                                                </td>
+                                                <td>{{ $i++ }}</td>
+                                                <td>{{$target->tanggal}}</td>
+                                                <td>{{$target->unit}}</td>
+                                                <td>{{$target->target}}</td>
+                                                <td>{{$target->realisasi}}</td>
                                                 <td>
-                                                    {{ $soal->pertanyaan }}
-                                                </td>
-                                                <td>
-                                                    {{ $soal->jawaban_a }}
-                                                </td>
-                                                <td>{{ $soal->jawaban_b }}</td>
-                                                <td>{{ $soal->jawaban_c }}</td>
-                                                <td>{{ $soal->jawaban_d }}</td>
-
-                                                {{-- <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('user.edit', $user->id) }}'
+                                                        <a href='{{ route('target.edit', $target->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                        <form action="{{ route('target.destroy', $target->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -106,15 +99,14 @@
                                                             </button>
                                                         </form>
                                                     </div>
-                                                </td> --}}
+                                                </td>
                                             </tr>
                                         @endforeach
-
 
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $soals->withQueryString()->links() }}
+                                    {{$targets->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>

@@ -14,13 +14,13 @@
             <div class="section-header">
                 <h1>Users</h1>
                 <div class="section-header-button">
-                    <a href="{{route('user.create')}}"
+                    <a href="{{route('unit.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Users</a></div>
-                    <div class="breadcrumb-item">All Users</div>
+                    <div class="breadcrumb-item"><a href="#">Unit</a></div>
+                    <div class="breadcrumb-item">All Unit</div>
                 </div>
             </div>
             <div class="section-body">
@@ -29,13 +29,14 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Users</h2>
+                <h2 class="section-title">Unit</h2>
+
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Posts</h4>
+                                <h4>All Unit</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
@@ -64,26 +65,26 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Created At</th>
+                                            <th>UID</th>
+                                            <th>UP3</th>
+                                            <th>ULP</th>
                                             <th>Action</th>
                                         </tr>
 
-                                        @foreach ($users as $user)
+                                        @foreach ($units as $unit)
                                             <tr>
-                                                <td>{{$user->name}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->created_at}}</td>
+                                                <td>{{$unit->uid}}</td>
+                                                <td>{{$unit->up3}}</td>
+                                                <td>{{$unit->ulp}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('user.edit', $user->id) }}'
+                                                        <a href='{{ route('unit.edit', $unit->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                        <form action="{{ route('unit.destroy', $unit->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -100,7 +101,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$users->withQueryString()->links()}}
+                                    {{$units->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>
