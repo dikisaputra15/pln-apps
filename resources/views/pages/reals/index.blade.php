@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Rekap Kinerja')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Users</h1>
+                <h1>Rekap Kinerja</h1>
                 <div class="section-header-button">
                     <a href="{{route('target.create')}}"
                         class="btn btn-primary">Add New</a>
@@ -29,15 +29,58 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Realisasi</h2>
+                <h2 class="section-title">Rekap Kinerja</h2>
 
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Realisasi</h4>
+                                <h4>Rekap Kinerja</h4>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                                    <div class="card">
+                                    <form action="{{ url('filter') }}" method="POST">
+                                        @csrf
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <select class="form-control">
+                                                        <option>Unit</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="form-control">
+                                                        <option>KPI</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="form-control">
+                                                        <option>Bulan</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="form-control">
+                                                        <option>Tahun</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div><br>
+
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <input type="submit" class="btn btn-primary" value="Export" name="export">
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="card-body">
                                 <div class="float-left">
                                     <select class="form-control selectric">

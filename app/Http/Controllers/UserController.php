@@ -28,12 +28,13 @@ class UserController extends Controller
         return view('pages.users.create');
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
         \App\Models\User::create($data);
         return redirect()->route('user.index')->with('success', 'User successfully created');
+        dd($data);
     }
 
     public function edit($id)

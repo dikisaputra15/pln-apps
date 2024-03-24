@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Realisasi KPI')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Users</h1>
+                <h1>Ralisasi KPI</h1>
                 <div class="section-header-button">
                     <a href="{{route('target.create')}}"
                         class="btn btn-primary">Add New</a>
@@ -29,15 +29,82 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Target</h2>
+                <h2 class="section-title">Realisasi KPI</h2>
 
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Target</h4>
+                                <h4>Realisasi KPI</h4>
                             </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            @csrf
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <select class="form-control">
+                                            <option>Unit</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-control">
+                                            <option>KPI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-control">
+                                            <option>Bulan</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-control">
+                                            <option>Tahun</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            @csrf
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="card">
+                                            <div id="penjualanbulanan"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card">
+                                            <div id="penjualankumulatif"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card">
+                                            <div id="prognosapenjualan"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><br>
+                        </div>
+                    </div>
+                </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
                             <div class="card-body">
                                 <div class="float-left">
                                     <select class="form-control selectric">
@@ -119,8 +186,143 @@
 
 @push('scripts')
     <!-- JS Libraies -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
+    <script>
+        Highcharts.chart('penjualanbulanan', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Kinerja Penjualan Bulanan',
+                align: 'left'
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+                crosshair: true,
+                accessibility: {
+                    description: 'Month'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'value'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' (1000 MT)'
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'Target',
+                    data: [406292, 260000, 107000, 68300, 27500, 14500]
+                },
+                {
+                    name: 'Realisasi',
+                    data: [51086, 136000, 5500, 141000, 107180, 77000]
+                }
+            ]
+        });
+
+    </script>
+
+<script>
+    Highcharts.chart('penjualankumulatif', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Kinerja Penjualan Kumulatif',
+            align: 'left'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            crosshair: true,
+            accessibility: {
+                description: 'Month'
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'value'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' (1000 MT)'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Target',
+                data: [406292, 260000, 107000, 68300, 27500, 14500]
+            },
+            {
+                name: 'Realisasi',
+                data: [51086, 136000, 5500, 141000, 107180, 77000]
+            }
+        ]
+    });
+
+</script>
+
+<script>
+    Highcharts.chart('prognosapenjualan', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Prognosa Kinerja Penjualan',
+            align: 'left'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            crosshair: true,
+            accessibility: {
+                description: 'Month'
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'value'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' (1000 MT)'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Target',
+                data: [406292, 260000, 107000, 68300, 27500, 14500]
+            },
+            {
+                name: 'Realisasi',
+                data: [51086, 136000, 5500, 141000, 107180, 77000]
+            }
+        ]
+    });
+
+</script>
 @endpush
