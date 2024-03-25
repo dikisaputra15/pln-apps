@@ -1,15 +1,15 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">PLN APPS</a>
+            <a href="{{ Route('home') }}">PLN APPS</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">CT</a>
+            <a href="{{ Route('home') }}">APPS</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="nav-item">
-                <a href="{{ Route('homev1') }}"
+                <a href="{{ Route('home') }}"
                     class="nav-link"><i class="fas fa-map-marker-alt"></i><span>Info Grafis</span></a>
             </li>
 
@@ -34,6 +34,10 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a class="nav-link"
+                            href="{{ url('allperformance') }}">All Performance</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
                             href="{{ Route('target.index') }}">Realisasi KPI</a>
                     </li>
                     <li>
@@ -44,7 +48,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ Route('home') }}"
+                <a href="{{ url('rkm') }}"
                     class="nav-link"><i class="fas fa-plug"></i><span>Mitigasi Risiko (RKM)</span></a>
             </li>
 

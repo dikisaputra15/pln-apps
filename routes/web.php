@@ -25,11 +25,11 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('home', function () {
         return view('pages.dashboard');
-    })->name('home');
-
-    Route::get('homev1', function () {
-        return view('pages.dashboardv1');
     })->name('homev1');
+
+    Route::get('home', function () {
+        return view('pages.dashboardv1');
+    })->name('home');
 
     Route::resource('user', UserController::class);
     Route::resource('unit', UnitController::class);
@@ -38,4 +38,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);
     Route::get('/monitoringbulanan', [App\Http\Controllers\MonitoringController::class, 'index']);
+    Route::get('/rkm', [App\Http\Controllers\MonitoringController::class, 'rkm']);
+    Route::get('/allperformance', [App\Http\Controllers\MonitoringController::class, 'allperformance']);
 });
