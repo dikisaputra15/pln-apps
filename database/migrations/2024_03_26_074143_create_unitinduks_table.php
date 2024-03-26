@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reals', function (Blueprint $table) {
+        Schema::create('unitinduks', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal_laporan');
-            $table->string('up3');
-            $table->string('ulp');
-            $table->string('id_pelanggan');
+            $table->string('nama_unit_induk');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reals');
+        Schema::dropIfExists('unitinduks');
     }
 };

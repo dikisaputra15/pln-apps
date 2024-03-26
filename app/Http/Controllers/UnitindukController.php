@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTargetRequest;
-use App\Http\Requests\UpdateTargetRequest;
-use App\Models\Target;
+use App\Http\Requests\StoreUnitindukRequest;
+use App\Http\Requests\UpdateUnitindukRequest;
+use App\Models\Unitinduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class TargetController extends Controller
+class UnitindukController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $targets = DB::table('targets')
-        ->when($request->input('unit'), function($query, $unit){
-            return $query->where('unit', 'like', '%'.$unit.'%');
-        })
-        ->orderBy('id', 'desc')
-        ->paginate(10);
-        return view('pages.targets.index', compact('targets'));
+        $unitinduks = DB::table('unitinduks')
+            ->when($request->input('name'), function($query, $name){
+                return $query->where('nama_unit_induk', 'like', '%'.$name.'%');
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+        return view('pages.unitinduks.index', compact('unitinduks'));
     }
 
     /**
@@ -68,9 +68,8 @@ class TargetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Target $target)
+    public function destroy(string $id)
     {
-        $target->delete();
-        return redirect()->route('target.index')->with('success', 'User successfully deleted');
+        //
     }
 }

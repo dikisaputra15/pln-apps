@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('targets', function (Blueprint $table) {
+        Schema::create('indikators', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->string('unit');
-            $table->integer('target')->nullable();
-            $table->integer('realisasi')->nullable();
+            $table->integer('id_kategori');
+            $table->integer('id_aspirasi');
+            $table->integer('id_satuan');
+            $table->string('indikator_kinerja');
+            $table->integer('bobot');
+            $table->integer('polaritas');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('targets');
+        Schema::dropIfExists('indikators');
     }
 };

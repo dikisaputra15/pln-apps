@@ -19,7 +19,7 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a class="nav-link"
-                            href="{{ Route('unit.index') }}">Unit</a>
+                            href="{{ Route('unitinduk.index') }}">Unit Induk</a>
                     </li>
                     <li>
                         <a class="nav-link"

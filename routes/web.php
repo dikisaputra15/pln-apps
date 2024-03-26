@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UnitindukController;
 use App\Http\Controllers\TargetController;
 use App\Http\Controllers\RealController;
 use App\Http\Controllers\MonitoringController;
@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
 
     Route::resource('user', UserController::class);
-    Route::resource('unit', UnitController::class);
+    Route::resource('unitinduk', UnitindukController::class);
     Route::resource('target', TargetController::class);
     Route::resource('real', RealController::class);
 
