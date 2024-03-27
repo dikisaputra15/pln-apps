@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUnitindukRequest;
-use App\Http\Requests\UpdateUnitindukRequest;
+use App\Http\Requests\UpdateUnitIndukRequest;
 use App\Models\Unitinduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,15 +30,17 @@ class UnitindukController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.unitinduks.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUnitindukRequest $request)
     {
-        //
+        $data = $request->all();
+        \App\Models\Unitinduk::create($data);
+        return redirect()->route('unitinduk.index')->with('success', 'Data successfully created');
     }
 
     /**
@@ -52,24 +54,28 @@ class UnitindukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $unitinduk = \App\Models\Unitinduk::findOrFail($id);
+        return view('pages.unitinduks.edit', compact('unitinduk'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUnitIndukRequest $request, Unitinduk $unitinduk)
     {
-        //
+        $data = $request->validated();
+        $unitinduk->update($data);
+        return redirect()->route('unitinduk.index')->with('success', 'Data successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Unitinduk $unitinduk)
     {
-        //
+        $unitinduk->delete();
+        return redirect()->route('unitinduk.index')->with('success', 'Data ßsuccessfully deleted');
     }
 }

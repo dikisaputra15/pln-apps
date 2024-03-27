@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnitindukController;
-use App\Http\Controllers\TargetController;
+use App\Http\Controllers\UnitPelaksanaController;
 use App\Http\Controllers\RealController;
 use App\Http\Controllers\MonitoringController;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('user', UserController::class);
     Route::resource('unitinduk', UnitindukController::class);
-    Route::resource('target', TargetController::class);
+    Route::resource('unitpelaksana', UnitPelaksanaController::class);
     Route::resource('real', RealController::class);
 
     Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);

@@ -38,14 +38,6 @@
                                 <h4>All Posts</h4>
                             </div>
                             <div class="card-body">
-                                <div class="float-left">
-                                    <select class="form-control selectric">
-                                        <option>Action For Selected</option>
-                                        <option>Move to Draft</option>
-                                        <option>Move to Pending</option>
-                                        <option>Delete Pemanently</option>
-                                    </select>
-                                </div>
                                 <div class="float-right">
                                     <form method="GET" action="{{route('user.index')}}">
                                         <div class="input-group">
@@ -117,4 +109,13 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
+
+    <script>
+        $('.confirm-delete').on('click', function() {
+        // var question= confirm("Do you really want me delete this?");
+        if (confirm('Are you sure?')) {} else {
+            return false;
+        }
+        });
+    </script>
 @endpush

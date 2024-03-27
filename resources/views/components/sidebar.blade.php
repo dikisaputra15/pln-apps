@@ -23,6 +23,10 @@
                     </li>
                     <li>
                         <a class="nav-link"
+                            href="{{ Route('unitpelaksana.index') }}">Unit Pelaksana</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
                             href="{{ Route('user.index') }}">Users</a>
                     </li>
                 </ul>
@@ -38,11 +42,11 @@
                     </li>
                     <li>
                         <a class="nav-link"
-                            href="{{ Route('target.index') }}">Realisasi KPI</a>
+                            href="">Realisasi KPI</a>
                     </li>
                     <li>
                         <a class="nav-link"
-                            href="{{ Route('real.index') }}">Rekap Kinerja</a>
+                            href="">Rekap Kinerja</a>
                     </li>
                 </ul>
             </li>
