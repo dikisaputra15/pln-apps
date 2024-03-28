@@ -57,17 +57,21 @@ class UnitpelaksanaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $unitinduks = DB::table('unitinduks')->get();
+        $unitpelaksana = \App\Models\Unitpelaksana::findOrFail($id);
+        return view('pages.unitpelaksanas.edit', compact('unitinduks','unitpelaksana'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUnitPelaksanaRequest $request, Unitpelaksana $unitpelaksana)
     {
-        //
+        $data = $request->validated();
+        $unitpelaksana->update($data);
+        return redirect()->route('unitpelaksana.index')->with('success', 'Data successfully updated');
     }
 
     /**

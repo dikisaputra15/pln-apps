@@ -27,6 +27,14 @@
                     </li>
                     <li>
                         <a class="nav-link"
+                            href="{{ Route('satuan.index') }}">Satuan</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="{{ Route('kategori.index') }}">Kategori</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
                             href="{{ Route('user.index') }}">Users</a>
                     </li>
                 </ul>

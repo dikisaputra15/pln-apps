@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Unit Pelaksana')
+@section('title', 'Satuan')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,9 +12,9 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Unit Induk</h1>
+                <h1>Satuan</h1>
                 <div class="section-header-button">
-                    <a href="{{route('unitpelaksana.create')}}"
+                    <a href="{{route('satuan.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
             </div>
@@ -24,18 +24,18 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Unit Pelaksana</h2>
+                <h2 class="section-title">Satuan</h2>
 
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Unit Pelaksana</h4>
+                                <h4>All Satuan</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('unitpelaksana.index')}}">
+                                    <form method="GET" action="{{route('satuan.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -53,26 +53,24 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Unit Induk</th>
-                                            <th>Nama Unit Pelaksana</th>
+                                            <th>Nama Satuan</th>
                                             <th>Action</th>
                                         </tr>
 
                                         @php($i = 1)
-                                        @foreach ($unitpelaksanas as $unitpelaksana)
+                                        @foreach ($satuans as $satuan)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$unitpelaksana->nama_unit_induk}}</td>
-                                                <td>{{$unitpelaksana->nama_unit_pelaksana}}</td>
+                                                <td>{{$satuan->nama_satuan}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('unitpelaksana.edit', $unitpelaksana->id) }}'
+                                                        <a href='{{ route('satuan.edit', $satuan->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('unitpelaksana.destroy', $unitpelaksana->id) }}" method="POST"
+                                                        <form action="{{ route('satuan.destroy', $satuan->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -89,7 +87,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$unitpelaksanas->withQueryString()->links()}}
+                                    {{$satuans->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>
