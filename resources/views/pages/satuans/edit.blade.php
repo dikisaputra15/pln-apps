@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit User')
+@section('title', 'Edit Satuan')
 
 @push('style')
     <!-- CSS Libraries -->

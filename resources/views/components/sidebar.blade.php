@@ -27,11 +27,19 @@
                     </li>
                     <li>
                         <a class="nav-link"
+                            href="{{ Route('unitlayanan.index') }}">Unit Layanan</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
                             href="{{ Route('satuan.index') }}">Satuan</a>
                     </li>
                     <li>
                         <a class="nav-link"
                             href="{{ Route('kategori.index') }}">Kategori</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="{{ Route('aspirasi.index') }}">Aspirasi</a>
                     </li>
                     <li>
                         <a class="nav-link"

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Unit Pelaksana')
+@section('title', 'Edit Kategori')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,51 +16,30 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Unit Pelaksana</h1>
+                <h1>Edit Kategori</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Edit Unit Pelaksana</h2>
+                <h2 class="section-title">Edit Kategori</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('unitpelaksana.update', $unitpelaksana) }}" method="POST">
+                    <form action="{{ route('kategori.update', $kategori) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
                             <h4>Edit Text</h4>
                         </div>
                         <div class="card-body">
-
                             <div class="form-group">
-                                <label>Nama Unit Induk</label>
-                                <select class="form-control" name="id_unit_induk">
-                                    <?php
-                                        foreach ($unitinduks as $unitinduk) {
-
-                                        if ($unitinduk->id==$unitpelaksana->id_unit_induk) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $unitinduk->id;?>"><?php echo $unitinduk->nama_unit_induk; ?></option>
-
-                                     <?php } ?>
-
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nama Unit Pelaksana</label>
+                                <label>Nama Kategori</label>
                                 <input type="text"
-                                    class="form-control @error('nama_unit_pelaksana')
+                                    class="form-control @error('nama_kategori')
                                 is-invalid
                             @enderror"
-                                    name="nama_unit_pelaksana" value="{{ $unitpelaksana->nama_unit_pelaksana }}">
-                                @error('nama_unit_pelaksana')
+                                    name="nama_kategori" value="{{ $kategori->nama_kategori }}">
+                                @error('nama_kategori')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

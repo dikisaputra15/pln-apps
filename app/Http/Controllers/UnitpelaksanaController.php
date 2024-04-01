@@ -18,7 +18,7 @@ class UnitpelaksanaController extends Controller
     {
         $unitpelaksanas = DB::table('unitpelaksanas')
             ->join('unitinduks', 'unitinduks.id', '=', 'unitpelaksanas.id_unit_induk')
-            ->select('unitinduks.*', 'unitpelaksanas.nama_unit_pelaksana')
+            ->select('unitpelaksanas.*', 'unitinduks.nama_unit_induk')
             ->when($request->input('name'), function($query, $name){
                 return $query->where('nama_unit_pelaksana', 'like', '%'.$name.'%');
             })

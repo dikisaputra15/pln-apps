@@ -63,9 +63,11 @@ class KategoriController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateKategoriRequest $request, Kategori $kategori)
     {
-        //
+        $data = $request->validated();
+        $kategori->update($data);
+        return redirect()->route('kategori.index')->with('success', 'Data successfully updated');
     }
 
     /**

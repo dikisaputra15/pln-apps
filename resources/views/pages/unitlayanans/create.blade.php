@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Unit Pelaksana Forms')
+@section('title', 'Unit Layanan Forms')
 
 @push('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
@@ -16,16 +17,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Unit Pelaksana</h1>
+                <h1>Add Unit Layanan / Bagian</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Unit Pelaksana</h2>
+                <h2 class="section-title">Unit Layanan / Bagian</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('unitpelaksana.store') }}" method="POST">
+                    <form action="{{ route('unitlayanan.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
                             <h4>Input Text</h4>
@@ -33,8 +34,8 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
-                                <select class="form-control" name="id_unit_induk">
-                                        <option value="0">-Pilih Unit Induk-</option>
+                                <select class="form-control" name="id_unit_induk" id="unit_induk">
+                                        <option>-Pilih Unit Induk-</option>
                                     @foreach ($unitinduks as $unitinduk)
                                         <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
@@ -42,12 +43,18 @@
                             </div>
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
+                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
+                                    <option>-Pilih Unit Pelaksana-</option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Unit Layanan / Bagian</label>
                                 <input type="text"
-                                    class="form-control @error('nama_unit_pelaksana')
+                                    class="form-control @error('nama_unit_layanan_bagian')
                                 is-invalid
                             @enderror"
-                                    name="nama_unit_pelaksana">
-                                @error('nama_unit_pelaksana')
+                                    name="nama_unit_layanan_bagian">
+                                @error('nama_unit_layanan_bagian')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -66,4 +73,37 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+         $(function () {
+            $('#unit_induk').on('change', function(){
+                let id_unit_induk = $('#unit_induk').val();
+
+                $.ajax({
+                    type : 'POST',
+                    url : "{{url('fetchlayanan')}}",
+                    data : {unit_induk:id_unit_induk},
+                    cache : false,
+
+                    success: function(msg){
+                        $('#unit_pelaksana').html(msg);
+                    },
+                    error: function(data){
+                        console.log('error:',data)
+                    },
+                })
+            })
+         })
+
+    });
+</script>
+
 @endpush

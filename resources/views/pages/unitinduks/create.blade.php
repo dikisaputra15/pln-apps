@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Advanced Forms')
+@section('title', 'Unit Induk Forms')
 
 @push('style')
     <!-- CSS Libraries -->
