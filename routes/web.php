@@ -7,6 +7,7 @@ use App\Http\Controllers\UnitLayananController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\AspirasiController;
+use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
