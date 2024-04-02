@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('satuan', SatuanController::class);
     Route::resource('kategori', KategoriController::class);
     Route::resource('aspirasi', AspirasiController::class);
+    Route::resource('indikator', IndikatorController::class);
     Route::post('/fetchlayanan', [App\Http\Controllers\UnitLayananController::class, 'fetchlayanan']);
 
     Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);

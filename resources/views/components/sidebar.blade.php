@@ -48,7 +48,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <a href="#"
                     class="nav-link has-dropdown"><i class="fas fa-th-large"></i><span>Performance Management</span></a>
                 <ul class="dropdown-menu">
@@ -65,6 +65,10 @@
                             href="">Rekap Kinerja</a>
                     </li>
                 </ul>
+            </li> -->
+
+            <li class="nav-item">
+                <a href="{{ Route('indikator.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Indikator</span></a>
             </li>
 
             <li class="nav-item">
