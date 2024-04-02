@@ -8,6 +8,7 @@ use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\AspirasiController;
 use App\Http\Controllers\IndikatorController;
+use App\Http\Controllers\NkoController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kategori', KategoriController::class);
     Route::resource('aspirasi', AspirasiController::class);
     Route::resource('indikator', IndikatorController::class);
+    Route::resource('nko', NkoController::class);
     Route::post('/fetchlayanan', [App\Http\Controllers\UnitLayananController::class, 'fetchlayanan']);
 
     Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);

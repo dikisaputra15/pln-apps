@@ -54,7 +54,7 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a class="nav-link"
-                            href="{{ url('allperformance') }}">All Performance</a>
+                            href="">All Performance</a>
                     </li>
                     <li>
                         <a class="nav-link"
@@ -72,8 +72,8 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ url('rkm') }}"
-                    class="nav-link"><i class="fas fa-plug"></i><span>Mitigasi Risiko (RKM)</span></a>
+                <a href="{{ Route('nko.index') }}"
+                    class="nav-link"><i class="fas fa-plug"></i><span>NKO</span></a>
             </li>
 
             <li class="nav-item">
