@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreNkoRequest;
-use App\Http\Requests\UpdateNkoRequest;
 use App\Models\Nko;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +24,7 @@ class NkoController extends Controller
         })
         ->orderBy('nkos.id', 'desc')
         ->paginate(10);
-    return view('pages.nkos.index', compact('nkos'));
+        return view('pages.nkos.index', compact('nkos'));
     }
 
     /**
@@ -34,7 +32,8 @@ class NkoController extends Controller
      */
     public function create()
     {
-        //
+        $unitinduks = DB::table('unitinduks')->get();
+        return view('pages.nkos.create', compact('unitinduks'));
     }
 
     /**
@@ -42,7 +41,9 @@ class NkoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        \App\Models\Nko::create($data);
+        return redirect()->route('nko.index')->with('success', 'Data successfully created');
     }
 
     /**
@@ -56,24 +57,31 @@ class NkoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $unitinduks = DB::table('unitinduks')->get();
+        $unitpelaksanas = DB::table('unitpelaksanas')->get();
+        $unitlayanans = DB::table('unitlayanans')->get();
+        $nko = \App\Models\Nko::findOrFail($id);
+        return view('pages.nkos.edit', compact('unitinduks','unitpelaksanas','unitlayanans','nko'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Nko $nko)
     {
-        //
+        $data = $request->validated();
+        $nko->update($data);
+        return redirect()->route('nko.index')->with('success', 'Data successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Nko $nko)
     {
-        //
+        $nko->delete();
+        return redirect()->route('nko.index')->with('success', 'Data ßsuccessfully deleted');
     }
 }

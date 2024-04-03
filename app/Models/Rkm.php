@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Nko extends Model
+class Rkm extends Model
 {
     use HasFactory;
 
@@ -13,10 +13,14 @@ class Nko extends Model
         'id_unit_induk',
         'id_pelaksana',
         'id_layanan',
-        'target_bulan',
-        'realisasi_bulan',
-        'target_tahun',
-        'realisasi_tahun',
-        'tahun',
+        'id_kategori',
+        'id_aspirasi',
+        'id_indikator',
+        'id_satuan',
+        'bobot',
+        'polaritas',
+        'nama_indikator_rkm',
+        'polaritas_rkm',
+        'satuan_rkm',
     ];
 }

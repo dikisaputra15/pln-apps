@@ -17,6 +17,7 @@
                     <a href="{{route('indikator.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
+                
             </div>
             <div class="section-body">
                 <div class="row">
@@ -26,16 +27,15 @@
                 </div>
                 <h2 class="section-title">Indikator</h2>
 
-
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Indikator</h4>
+                                <h4>Indikator</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('indikator.index')}}">
+                                    <form method="GET" action="{{route('nko.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -57,7 +57,7 @@
                                             <th>Aspirasi</th>
                                             <th>Satuan</th>
                                             <th>Indikator Kinerja</th>
-                                            <th>Bobot<th>
+                                            <th>Bobot</th>
                                             <th>Polaritas</th>
                                             <th>Action</th>
                                         </tr>

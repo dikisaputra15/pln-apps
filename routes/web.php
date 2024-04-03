@@ -46,10 +46,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('aspirasi', AspirasiController::class);
     Route::resource('indikator', IndikatorController::class);
     Route::resource('nko', NkoController::class);
+    Route::resource('rkm', RkmController::class);
     Route::post('/fetchlayanan', [App\Http\Controllers\UnitLayananController::class, 'fetchlayanan']);
+    Route::post('/fetchpelaksana', [App\Http\Controllers\UnitLayananController::class, 'fetchpelaksana']);
 
-    Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);
-    Route::get('/monitoringbulanan', [App\Http\Controllers\MonitoringController::class, 'index']);
+    // Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);
+    // Route::get('/monitoringbulanan', [App\Http\Controllers\MonitoringController::class, 'index']);
     Route::post('/editfetchlayanan', [App\Http\Controllers\HomeController::class, 'editfetchlayanan']);
-    Route::get('/allperformance', [App\Http\Controllers\MonitoringController::class, 'allperformance']);
+    // Route::get('/allperformance', [App\Http\Controllers\MonitoringController::class, 'allperformance']);
 });

@@ -77,8 +77,8 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ url('monitoringbulanan') }}"
-                    class="nav-link"><i class="fas fa-columns"></i><span>Monitoring Bulanan</span></a>
+                <a href="{{ Route('rkm.index') }}"
+                    class="nav-link"><i class="fas fa-columns"></i><span>RKM</span></a>
             </li>
         </ul>
     </aside>

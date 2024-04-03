@@ -96,4 +96,15 @@ class UnitLayananController extends Controller
             echo "<option value='$unitlayanan->id'>$unitlayanan->nama_unit_pelaksana</option>";
         }
     }
+
+    public function fetchpelaksana(Request $request)
+    {
+        $unit_layanan = $request->unit_pelaksana;
+
+        $unitpelaksanas = Unitlayanan::where('id_pelaksana', $unit_layanan)->get();
+
+        foreach ($unitpelaksanas as $unitpelaksana) {
+            echo "<option value='$unitpelaksana->id'>$unitpelaksana->nama_unit_layanan_bagian</option>";
+        }
+    }
 }

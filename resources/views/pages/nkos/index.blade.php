@@ -17,6 +17,7 @@
                     <a href="{{route('nko.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
+                
             </div>
             <div class="section-body">
                 <div class="row">
@@ -26,12 +27,11 @@
                 </div>
                 <h2 class="section-title">NKO</h2>
 
-
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Indikator</h4>
+                                <h4>NKO</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
@@ -57,7 +57,7 @@
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan</th>
                                             <th>Target Bulan</th>
-                                            <th>Realisasi Bulan<th>
+                                            <th>Realisasi Bulan</th>
                                             <th>Target Tahun</th>
                                             <th>Realisasi Tahun</th>
                                             <th>Tahun</th>
