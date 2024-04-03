@@ -21,7 +21,7 @@ class RkmController extends Controller
         ->join('kategoris', 'kategoris.id', '=', 'rkms.id_kategori')
         ->join('aspirasis', 'aspirasis.id', '=', 'rkms.id_aspirasi')
         ->join('indikators', 'indikators.id', '=', 'rkms.id_indikator')
-        ->join('satuans', 'satuans.id', '=', 'nkos.id_satuan')
+        ->join('satuans', 'satuans.id', '=', 'rkms.id_satuan')
         ->select('nkos.*', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian', 'kategoris.nama_kategori', 'aspirasis.nama_aspirasi', 'indikators.nama_indikator', 'satuans.nama_satuan')
         ->when($request->input('name'), function($query, $name){
             return $query->where('nama_indikator_rkm', 'like', '%'.$name.'%');
@@ -36,7 +36,9 @@ class RkmController extends Controller
      */
     public function create()
     {
-        //
+        $unitinduks = DB::table('unitinduks')->get();
+        $indikators = DB::table('indikators')->get();
+        return view('pages.rkms.create', compact('unitinduks','indikators'));
     }
 
     /**

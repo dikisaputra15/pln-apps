@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateNkoRequest;
 use App\Models\Nko;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,7 +70,7 @@ class NkoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Nko $nko)
+    public function update(UpdateNkoRequest $request, Nko $nko)
     {
         $data = $request->validated();
         $nko->update($data);

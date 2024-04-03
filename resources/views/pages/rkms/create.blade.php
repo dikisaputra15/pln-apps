@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Nko')
+@section('title', 'RKM')
 
 @push('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
@@ -16,90 +17,58 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit NKO</h1>
+                <h1>RKM</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Edit NKO</h2>
+                <h2 class="section-title">RKM</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('nko.update', $nko) }}" method="POST">
+                    <form action="{{ route('rkm.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="card-header">
-                            <h4>Edit Text</h4>
+                            <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
-
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                    <?php
-                                        foreach ($unitinduks as $unitinduk) {
-
-                                        if ($unitinduk->id==$nko->id_unit_induk) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $unitinduk->id;?>"><?php echo $unitinduk->nama_unit_induk; ?></option>
-
-                                     <?php } ?>
-
+                                        <option>-Pilih Unit Induk-</option>
+                                    @foreach ($unitinduks as $unitinduk)
+                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
+                                    @endforeach
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
-                                <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <?php
-                                        foreach ($unitpelaksanas as $unitpelaksana) {
-
-                                        if ($unitpelaksana->id==$nko->id_pelaksana) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $unitpelaksana->id;?>"><?php echo $unitpelaksana->nama_unit_pelaksana; ?></option>
-
-                                     <?php } ?>
-
-                                </select>
+                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
+                                    <option>-Select Unit Pelaksana-</option>
+                                 </select>
                             </div>
-
                             <div class="form-group">
-                                <label>Nama Unit Layanan Bagian</label>
-                                <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <?php
-                                        foreach ($unitlayanans as $unitlayanan) {
-
-                                        if ($unitlayanan->id==$nko->id_layanan) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $unitlayanan->id;?>"><?php echo $unitlayanan->nama_unit_layanan_bagian; ?></option>
-
-                                     <?php } ?>
-
+                                <label>Nama Unit Layanan / Bagian</label>
+                                 <select class="form-control" name="id_layanan" id="unit_layanan">
+                                    <option>-Select Unit Layanan-</option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Indikator Kinerja</label>
+                                <select class="form-control" name="id_unit_induk" id="unit_induk">
+                                        <option>-Pilih Unit Induk-</option>
+                                    @foreach ($unitinduks as $unitinduk)
+                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
+                                    @endforeach
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label>Target Bulan</label>
                                 <input type="text"
                                     class="form-control @error('target_bulan')
                                 is-invalid
                             @enderror"
-                                    name="target_bulan" value="{{$nko->target_bulan}}" required>
+                                    name="target_bulan" required>
                                 @error('target_bulan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -112,7 +81,7 @@
                                     class="form-control @error('realisasi_bulan')
                                 is-invalid
                             @enderror"
-                                    name="realisasi_bulan" value="{{$nko->realisasi_bulan}}" required>
+                                    name="realisasi_bulan" required>
                                 @error('realisasi_bulan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -125,7 +94,7 @@
                                     class="form-control @error('target_tahun')
                                 is-invalid
                             @enderror"
-                                    name="target_tahun" value="{{$nko->target_tahun}}" required>
+                                    name="target_tahun" required>
                                 @error('target_tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -138,7 +107,7 @@
                                     class="form-control @error('realisasi_tahun')
                                 is-invalid
                             @enderror"
-                                    name="realisasi_tahun" value="{{$nko->realisasi_tahun}}" required>
+                                    name="realisasi_tahun" required>
                                 @error('realisasi_tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -151,7 +120,7 @@
                                     class="form-control @error('tahun')
                                 is-invalid
                             @enderror"
-                                    name="tahun" value="{{$nko->tahun}}" required>
+                                    name="tahun" required>
                                 @error('realisasi_tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -171,6 +140,7 @@
 @endsection
 
 @push('scripts')
+
 <script>
     $(document).ready(function(){
 
@@ -218,4 +188,5 @@
 
     });
 </script>
+
 @endpush
