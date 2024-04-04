@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'RKM')
+@section('title', 'Rekap RKM')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,9 +12,9 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>RKM</h1>
+                <h1>Rekap RKM</h1>
                 <div class="section-header-button">
-                    <a href="{{route('rkm.create')}}"
+                    <a href="{{route('rekaprkm.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
 
@@ -25,17 +25,17 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">RKM</h2>
+                <h2 class="section-title">Rekap RKM</h2>
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>RKM</h4>
+                                <h4>Rekap RKM</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('nko.index')}}">
+                                    <form method="GET" action="{{route('rekaprkm.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -53,46 +53,48 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Unit Induk</th>
-                                            <th>Unit Pelaksana</th>
-                                            <th>Unit Layanan</th>
-                                            <th>Kategori</th>
-                                            <th>Aspirasi</th>
-                                            <th>Indikator</th>
-                                            <th>Satuan</th>
-                                            <th>Bobot</th>
-                                            <th>Polaritas</th>
-                                            <th>Nama Indikator RKM</th>
-                                            <th>Polaritas RKM</th>
-                                            <th>Satuan RKM</th>
+                                            <th>Nama Indiktor RKM</th>
+                                            <th>Penjelasan</th>
+                                            <th>Target Harian</th>
+                                            <th>Realisasi Harian</th>
+                                            <th>Biaya</th>
+                                            <th>Tanggal</th>
+                                            <th>Tahun</th>
+                                            <th>Satuan Hasil</th>
+                                            <th>Target Hasil</th>
+                                            <th>Realisasi Hasil</th>
+                                            <th>Kendala</th>
+                                            <th>Mitigasi</th>
+                                            <th>Photo Evident</th>
                                             <th>Action</th>
                                         </tr>
 
                                         @php($i = 1)
-                                        @foreach ($rkms as $rkm)
+                                        @foreach ($rekaprkms as $rekaprkm)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$rkm->nama_unit_induk}}</td>
-                                                <td>{{$rkm->nama_unit_pelaksana}}</td>
-                                                <td>{{$rkm->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$rkm->nama_kategori}}</td>
-                                                <td>{{$rkm->nama_aspirasi}}</td>
-                                                <td>{{$rkm->indikator_kinerja}}</td>
-                                                <td>{{$rkm->nama_satuan}}</td>
-                                                <td>{{$rkm->bobot}}</td>
-                                                <td>{{$rkm->polaritas}}</td>
-                                                <td>{{$rkm->nama_indikator_rkm}}</td>
-                                                <td>{{$rkm->polaritas_rkm}}</td>
-                                                <td>{{$rkm->satuan_rkm}}</td>
+                                                <td>{{$rekaprkm->nama_indikator_rkm}}</td>
+                                                <td>{{$rekaprkm->penjelasan}}</td>
+                                                <td>{{$rekaprkm->target_harian}}</td>
+                                                <td>{{$rekaprkm->realisasi_harian}}</td>
+                                                <td>{{$rekaprkm->biaya}}</td>
+                                                <td>{{$rekaprkm->tanggal}}</td>
+                                                <td>{{$rekaprkm->tahun}}</td>
+                                                <td>{{$rekaprkm->satuan_hasil}}</td>
+                                                <td>{{$rekaprkm->target_hasil}}</td>
+                                                <td>{{$rekaprkm->realisasi_hasil}}</td>
+                                                <td>{{$rekaprkm->kendala}}</td>
+                                                <td>{{$rekaprkm->mitigasi}}</td>
+                                                <td><img src="/image/evident/{{$rekaprkm->photo_evident}}" style="width:60px; height:60px;"></td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('rkm.edit', $rkm->id) }}'
+                                                        <a href='{{ route('rekaprkm.edit', $rekaprkm->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('rkm.destroy', $rkm->id) }}" method="POST"
+                                                        <form action="{{ route('rekaprkm.destroy', $rekaprkm->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -109,7 +111,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$rkms->withQueryString()->links()}}
+                                    {{$rekaprkms->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>

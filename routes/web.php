@@ -10,6 +10,8 @@ use App\Http\Controllers\AspirasiController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\NkoController;
 use App\Http\Controllers\RkmController;
+use App\Http\Controllers\RekapkinerjaController;
+use App\Http\Controllers\RekaprkmController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('indikator', IndikatorController::class);
     Route::resource('nko', NkoController::class);
     Route::resource('rkm', RkmController::class);
+    Route::resource('rekapkinerja', RekapkinerjaController::class);
+    Route::resource('rekaprkm', RekaprkmController::class);
     Route::post('/fetchlayanan', [App\Http\Controllers\UnitLayananController::class, 'fetchlayanan']);
     Route::post('/fetchpelaksana', [App\Http\Controllers\UnitLayananController::class, 'fetchpelaksana']);
 

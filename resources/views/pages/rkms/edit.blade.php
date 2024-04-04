@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'RKM')
+@section('title', 'Edit RKM')
 
 @push('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,58 +17,109 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>RKM</h1>
+                <h1>Edit RKM</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">RKM</h2>
+                <h2 class="section-title">Edit RKM</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('rkm.store') }}" method="POST">
+                    <form action="{{ route('rkm.update', $rkm->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="card-header">
                             <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
+                        <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                        <option>-Pilih Unit Induk-</option>
-                                    @foreach ($unitinduks as $unitinduk)
-                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
-                                    @endforeach
+                                    <?php
+                                        foreach ($unitinduks as $unitinduk) {
+
+                                        if ($unitinduk->id==$rkm->id_unit_induk) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $unitinduk->id;?>"><?php echo $unitinduk->nama_unit_induk; ?></option>
+
+                                     <?php } ?>
+
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
-                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <option>-Select Unit Pelaksana-</option>
-                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Unit Layanan / Bagian</label>
-                                 <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <option>-Select Unit Layanan-</option>
-                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Indikator Kinerja</label>
-                                <select class="form-control" name="id_indikator" id="id_indikator">
-                                        <option>-Pilih Unit Induk-</option>
-                                    @foreach ($indikators as $indikator)
-                                        <option value="{{$indikator->id}}">{{$indikator->indikator_kinerja}}</option>
-                                    @endforeach
+                                <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
+                                    <?php
+                                        foreach ($unitpelaksanas as $unitpelaksana) {
+
+                                        if ($unitpelaksana->id==$rkm->id_pelaksana) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $unitpelaksana->id;?>"><?php echo $unitpelaksana->nama_unit_pelaksana; ?></option>
+
+                                     <?php } ?>
+
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label>Nama Unit Layanan Bagian</label>
+                                <select class="form-control" name="id_layanan" id="unit_layanan">
+                                    <?php
+                                        foreach ($unitlayanans as $unitlayanan) {
+
+                                        if ($unitlayanan->id==$rkm->id_layanan) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $unitlayanan->id;?>"><?php echo $unitlayanan->nama_unit_layanan_bagian; ?></option>
+
+                                     <?php } ?>
+
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Indikator</label>
+                                <select class="form-control" name="id_indikator" id="unit_indikator">
+                                    <?php
+                                        foreach ($indikators as $indikator) {
+
+                                        if ($indikator->id==$rkm->id_indikator) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $indikator->id;?>"><?php echo $indikator->indikator_kinerja; ?></option>
+
+                                     <?php } ?>
+
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Nama Indikator RKM</label>
                                 <input type="text"
                                     class="form-control @error('nama_indikator_rkm')
                                 is-invalid
                             @enderror"
-                                    name="nama_indikator_rkm" required>
+                                    name="nama_indikator_rkm" value="{{$rkm->nama_indikator_rkm}}" required>
                                 @error('nama_indikator_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -81,7 +132,7 @@
                                     class="form-control @error('polaritas_rkm')
                                 is-invalid
                             @enderror"
-                                    name="polaritas_rkm" required>
+                                    name="polaritas_rkm" value="{{$rkm->polaritas_rkm}}" required>
                                 @error('polaritas_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -94,7 +145,7 @@
                                     class="form-control @error('satuan_rkm')
                                 is-invalid
                             @enderror"
-                                    name="satuan_rkm" required>
+                                    name="satuan_rkm" value="{{$rkm->satuan_rkm}}" required>
                                 @error('satuan_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}

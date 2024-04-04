@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'RKM')
+@section('title', 'Rekap Kinerja')
 
 @push('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,16 +17,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>RKM</h1>
+                <h1>Rekap Kinerja</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">RKM</h2>
+                <h2 class="section-title">Rekap Kinerja</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('rkm.store') }}" method="POST">
+                    <form action="{{ route('rekapkinerja.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
                             <h4>Input Text</h4>
@@ -63,45 +63,114 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Nama Indikator RKM</label>
+                                <label>Tahun</label>
                                 <input type="text"
-                                    class="form-control @error('nama_indikator_rkm')
+                                    class="form-control @error('tahun')
                                 is-invalid
                             @enderror"
-                                    name="nama_indikator_rkm" required>
-                                @error('nama_indikator_rkm')
+                                    name="tahun" required>
+                                @error('tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Polaritas RKM</label>
+                                <label>Bulan</label>
+                                <input type="text"
+                                    class="form-control @error('bulan')
+                                is-invalid
+                            @enderror"
+                                    name="bulan" required>
+                                @error('bulan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Target</label>
                                 <input type="number"
-                                    class="form-control @error('polaritas_rkm')
+                                    class="form-control @error('target')
                                 is-invalid
                             @enderror"
-                                    name="polaritas_rkm" required>
-                                @error('polaritas_rkm')
+                                    name="target" required>
+                                @error('target')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label>Satuan RKM</label>
-                                <input type="text"
-                                    class="form-control @error('satuan_rkm')
+                                <label>Reaslisasi</label>
+                                <input type="number"
+                                    class="form-control @error('realisasi')
                                 is-invalid
                             @enderror"
-                                    name="satuan_rkm" required>
-                                @error('satuan_rkm')
+                                    name="realisasi" required>
+                                @error('target')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Pencapaian</label>
+                                <input type="number"
+                                    class="form-control @error('pencapaian')
+                                is-invalid
+                            @enderror"
+                                    name="pencapaian" required>
+                                @error('pencapaian')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nilai</label>
+                                <input type="number"
+                                    class="form-control @error('nilai')
+                                is-invalid
+                            @enderror"
+                                    name="nilai" required>
+                                @error('nilai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <input type="text"
+                                    class="form-control @error('status')
+                                is-invalid
+                            @enderror"
+                                    name="status" required>
+                                @error('status')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             
+                            <div class="form-group">
+                                <label>Penjelasan</label>
+                                <input type="text"
+                                    class="form-control @error('penjelasan')
+                                is-invalid
+                            @enderror"
+                                    name="penjelasan" required>
+                                @error('penjelasan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

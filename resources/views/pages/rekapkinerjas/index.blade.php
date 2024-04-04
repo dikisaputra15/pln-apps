@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'RKM')
+@section('title', 'Rekap kinerja')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,9 +12,9 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>RKM</h1>
+                <h1>Rekap Kinerja</h1>
                 <div class="section-header-button">
-                    <a href="{{route('rkm.create')}}"
+                    <a href="{{route('rekapkinerja.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
 
@@ -25,17 +25,17 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">RKM</h2>
+                <h2 class="section-title">Rekap Kinerja</h2>
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>RKM</h4>
+                                <h4>Rekap Kinerja</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('nko.index')}}">
+                                    <form method="GET" action="{{route('rekapkinerja.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -56,43 +56,45 @@
                                             <th>Unit Induk</th>
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan</th>
-                                            <th>Kategori</th>
                                             <th>Aspirasi</th>
                                             <th>Indikator</th>
-                                            <th>Satuan</th>
-                                            <th>Bobot</th>
-                                            <th>Polaritas</th>
-                                            <th>Nama Indikator RKM</th>
-                                            <th>Polaritas RKM</th>
-                                            <th>Satuan RKM</th>
+                                            <th>Tahun</th>
+                                            <th>Bulan</th>
+                                            <th>Target</th>
+                                            <th>Realisasi</th>
+                                            <th>Pencapaian</th>
+                                            <th>Nilai</th>
+                                            <th>Status</th>
+                                            <th>Penjelasan</th>
                                             <th>Action</th>
                                         </tr>
 
                                         @php($i = 1)
-                                        @foreach ($rkms as $rkm)
+                                        @foreach ($rekapkinerjas as $rekapkinerja)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$rkm->nama_unit_induk}}</td>
-                                                <td>{{$rkm->nama_unit_pelaksana}}</td>
-                                                <td>{{$rkm->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$rkm->nama_kategori}}</td>
-                                                <td>{{$rkm->nama_aspirasi}}</td>
-                                                <td>{{$rkm->indikator_kinerja}}</td>
-                                                <td>{{$rkm->nama_satuan}}</td>
-                                                <td>{{$rkm->bobot}}</td>
-                                                <td>{{$rkm->polaritas}}</td>
-                                                <td>{{$rkm->nama_indikator_rkm}}</td>
-                                                <td>{{$rkm->polaritas_rkm}}</td>
-                                                <td>{{$rkm->satuan_rkm}}</td>
+                                                <td>{{$rekapkinerja->nama_unit_induk}}</td>
+                                                <td>{{$rekapkinerja->nama_unit_pelaksana}}</td>
+                                                <td>{{$rekapkinerja->nama_unit_layanan_bagian}}</td>
+                                                <td>{{$rekapkinerja->nama_aspirasi}}</td>
+                                                <td>{{$rekapkinerja->indikator_kinerja}}</td>
+                                                <td>{{$rekapkinerja->tahun}}</td>
+                                                <td>{{$rekapkinerja->bulan}}</td>
+                                                <td>{{$rekapkinerja->target}}</td>
+                                                <td>{{$rekapkinerja->realisasi}}</td>
+                                                <td>{{$rekapkinerja->pencapaian}}</td>
+                                                <td>{{$rekapkinerja->nilai}}</td>
+                                                <td>{{$rekapkinerja->status}}</td>
+                                                <td>{{$rekapkinerja->penjelasan}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('rkm.edit', $rkm->id) }}'
+                                                        <a href='{{ route('rekapkinerja.edit', $rekapkinerja->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('rkm.destroy', $rkm->id) }}" method="POST"
+                                                        <form action="{{ route('rekapkinerja.destroy', $rekapkinerja->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -109,7 +111,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$rkms->withQueryString()->links()}}
+                                    {{$rekapkinerjas->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>
