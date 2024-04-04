@@ -87,24 +87,83 @@ class RekaprkmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $rekapkinerjas = DB::table('rekapkinerjas')->get();
+        $indikators = DB::table('indikators')->get();
+        $rekaprkm = \App\Models\Rekaprkm::findOrFail($id);
+        return view('pages.rekaprkms.edit', compact('indikators','rekapkinerjas','rekaprkm'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $cekfile = $request->foto;
+        $old_foto = $request->old_foto;
+
+        if($cekfile != ""){
+            $file = public_path('image/evident/' . $old_foto);
+
+            if(File::exists($file)) {
+                File::delete($file);
+            }
+
+            $nama_foto = $file->getClientOriginalName();
+
+            $nama_file = str_replace(" ", "-", $nama_foto);
+            $num = hexdec(uniqid());
+
+            $filename = $num.'_'.$nama_file;
+
+            $request->file('foto')->move(
+                base_path() . '/public/image/evident/', $filename
+            );
+
+            DB::table('rekaprkms')->where('id',$id)->update([
+                'id_rkm' => $request->id_rkm,
+                'id_rekap_kinerja' => $request->id_rekap_kinerja,
+                'target_harian' => $request->target_harian,
+                'realisasi_harian' => $request->realisasi_harian,
+                'biaya' => $request->biaya,
+                'tanggal' => $request->tanggal,
+                'tahun' => $request->tahun,
+                'satuan_hasil' => $request->satuan_hasil,
+                'target_hasil' => $request->target_hasil,
+                'realisasi_hasil' => $request->realisasi_hasil,
+                'kendala' => $request->kendala,
+                'mitigasi' => $request->mitigasi,
+                'photo_evident' => $filename
+            ]);
+
+        }else{
+            DB::table('rekaprkms')->where('id',$id)->update([
+                'id_rkm' => $request->id_rkm,
+                'id_rekap_kinerja' => $request->id_rekap_kinerja,
+                'target_harian' => $request->target_harian,
+                'realisasi_harian' => $request->realisasi_harian,
+                'biaya' => $request->biaya,
+                'tanggal' => $request->tanggal,
+                'tahun' => $request->tahun,
+                'satuan_hasil' => $request->satuan_hasil,
+                'target_hasil' => $request->target_hasil,
+                'realisasi_hasil' => $request->realisasi_hasil,
+                'kendala' => $request->kendala,
+                'mitigasi' => $request->mitigasi
+            ]);
+
+        }
+
+        return redirect()->route('rekaprkm.index')->with('success', 'Data successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Rekaprkm $rekaprkm)
     {
-        //
+        $rekaprkm->delete();
+        return redirect()->route('rekaprkm.index')->with('success', 'Data ßsuccessfully deleted');
     }
 }

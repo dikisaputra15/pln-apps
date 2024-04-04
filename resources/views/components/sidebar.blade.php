@@ -89,6 +89,10 @@
                 <a href="{{ Route('rekaprkm.index') }}"
                     class="nav-link"><i class="fas fa-columns"></i><span>Rekap RKM</span></a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{ Route('realisasirkm.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Realisasi RKM</span></a>
+            </li>
         </ul>
     </aside>
 </div>
