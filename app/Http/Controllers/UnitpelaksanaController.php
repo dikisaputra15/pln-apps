@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUnitPelaksanaRequest;
 use App\Http\Requests\UpdateUnitPelaksanaRequest;
 use App\Models\Unitpelaksana;
 use Illuminate\Http\Request;
@@ -39,10 +38,12 @@ class UnitpelaksanaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUnitPelaksanaRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-        \App\Models\Unitpelaksana::create($data);
+        Unitpelaksana::create([
+            'id_unit_induk' => $request->id_unit_induk,
+            'nama_unit_pelaksana' => $request->nama_unit_pelaksana
+        ]);
         return redirect()->route('unitpelaksana.index')->with('success', 'Data successfully created');
     }
 

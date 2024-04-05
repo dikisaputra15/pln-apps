@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUnitLayananRequest;
 use App\Http\Requests\UpdateUnitLayananRequest;
 use App\Models\Unitlayanan;
 use App\Models\Unitpelaksana;
@@ -41,10 +40,13 @@ class UnitLayananController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUnitLayananRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-        \App\Models\Unitlayanan::create($data);
+        Unitlayanan::create([
+            'id_unit_induk' => $request->id_unit_induk,
+            'id_pelaksana' => $request->id_pelaksana,
+            'nama_unit_layanan_bagian' => $request->nama_unit_layanan_bagian
+        ]);
         return redirect()->route('unitlayanan.index')->with('success', 'Data successfully created');
     }
 

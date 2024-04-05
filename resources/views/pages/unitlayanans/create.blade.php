@@ -53,7 +53,7 @@
                                     class="form-control @error('nama_unit_layanan_bagian')
                                 is-invalid
                             @enderror"
-                                    name="nama_unit_layanan_bagian">
+                                    name="nama_unit_layanan_bagian" required>
                                 @error('nama_unit_layanan_bagian')
                                     <div class="invalid-feedback">
                                         {{ $message }}
