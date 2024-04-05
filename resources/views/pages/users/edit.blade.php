@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Edit User')
+@section('title', 'Edit Users')
 
 @push('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
@@ -17,26 +18,78 @@
         <section class="section">
             <div class="section-header">
                 <h1>Edit User</h1>
-                <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Users</div>
-                </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Edit Users</h2>
-
-
+                <h2 class="section-title">Edit User</h2>
 
                 <div class="card">
-                    <form action="{{ route('user.update', $user) }}" method="POST">
+                    <form action="{{ route('user.update', $user->id) }}" method="POST">
                         @csrf
                         @method('PUT')
+
                         <div class="card-header">
                             <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
+                            <div class="form-group">
+                                <label>Nama Unit Induk</label>
+                                <select class="form-control" name="id_unit_induk" id="unit_induk">
+                                    <?php
+                                        foreach ($unitinduks as $unitinduk) {
+
+                                        if ($unitinduk->id==$user->id_unit_induk) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $unitinduk->id;?>"><?php echo $unitinduk->nama_unit_induk; ?></option>
+
+                                     <?php } ?>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Unit Pelaksana</label>
+                                <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
+                                    <?php
+                                        foreach ($unitpelaksanas as $unitpelaksana) {
+
+                                        if ($unitpelaksana->id==$user->id_pelaksana) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $unitpelaksana->id;?>"><?php echo $unitpelaksana->nama_unit_pelaksana; ?></option>
+
+                                     <?php } ?>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Unit Layanan / Bagian</label>
+                                <select class="form-control" name="id_layanan" id="unit_layanan">
+                                    <?php
+                                        foreach ($unitlayanans as $unitlayanan) {
+
+                                        if ($unitlayanan->id==$user->id_layanan) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $unitlayanan->id;?>"><?php echo $unitlayanan->nama_unit_layanan_bagian; ?></option>
+
+                                     <?php } ?>
+
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text"
@@ -105,6 +158,9 @@
 
                                 </div>
                             </div>
+
+
+                            
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>
@@ -118,4 +174,53 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+            $('#unit_induk').change(function(){
+                var id_unit_induk = $('#unit_induk').val();
+                if(id_unit_induk != '')
+                {
+                    $.ajax({
+                        type : 'POST',
+                        url : "{{url('fetchlayanan')}}",
+                        data : {unit_induk:id_unit_induk},
+
+                        success: function(data)
+                        {
+                            $('#unit_pelaksana').html(data);
+                        }
+                    });
+                }
+                else
+                {
+                    $('#unit_pelaksana').html('<option value="">Select Unit Pelaksana</option>');
+                }
+            });
+
+            $('#unit_pelaksana').change(function(){
+                let id_unit_pelaksana = $('#unit_pelaksana').val();
+
+                $.ajax({
+                    type : 'POST',
+                    url : "{{url('fetchpelaksana')}}",
+                    data : {unit_pelaksana:id_unit_pelaksana},
+
+                    success: function(data)
+                    {
+                        $('#unit_layanan').html(data);
+                    }
+                });
+            });
+
+    });
+</script>
+
 @endpush

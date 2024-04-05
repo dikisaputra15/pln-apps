@@ -12,9 +12,18 @@ class RealisasirkmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $realisasirkms = DB::table('realisasirkms')
+        ->join('rkms', 'rkms.id', '=', 'realisasirkms.id_rkm')
+        ->join('rekaprkms', 'rekaprkms.id', '=', 'realisasirkms.id_rekap_rkm')
+        ->select('realisasirkms.*', 'rkms.nama_indikator_rkm', 'rekaprkms.id')
+        ->when($request->input('name'), function($query, $name){
+            return $query->where('kendala', 'like', '%'.$name.'%');
+        })
+        ->orderBy('realisasirkms.id', 'desc')
+        ->paginate(10);
+        return view('pages.realisasirkms.index', compact('realisasirkms'));
     }
 
     /**
@@ -22,7 +31,9 @@ class RealisasirkmController extends Controller
      */
     public function create()
     {
-        //
+        $rkms = DB::table('rkms')->get();
+        $rekaprkms = DB::table('rekaprkms')->get();
+        return view('pages.realisasirkms.create', compact('rkms','rekaprkms'));
     }
 
     /**
@@ -30,7 +41,18 @@ class RealisasirkmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Realisasirkm::create([
+            'id_rekap_rkm' => $request->id_rekaprkm,
+            'id_rkm' => $request->id_rkm,
+            'id_p' => $request->id_p,
+            'tanggal' => $request->tanggal,
+            'alamat' => $request->alamat,
+            'daya' => $request->daya,
+            'satuan_hasil' => $request->satuan_hasil,
+            'estimasi_hasil' => $request->estimasi_hasil
+        ]);
+
+        return redirect()->route('realisasirkm.index')->with('success', 'Data successfully created');
     }
 
     /**
@@ -44,9 +66,12 @@ class RealisasirkmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $rekaprkms = DB::table('rekaprkms')->get();
+        $rkms = DB::table('rkms')->get();
+        $realisasirkm = \App\Models\Realisasirkm::findOrFail($id);
+        return view('pages.realisasirkms.edit', compact('rekaprkms','rkms','realisasirkm'));
     }
 
     /**
@@ -60,8 +85,9 @@ class RealisasirkmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Realisasirkm $realisasirkm)
     {
-        //
+        $realisasirkm->delete();
+        return redirect()->route('realisasirkm.index')->with('success', 'Data ßsuccessfully deleted');
     }
 }

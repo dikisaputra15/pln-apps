@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Realisasi RKM')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,16 +12,12 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Users</h1>
+                <h1>Realisasi RKM</h1>
                 <div class="section-header-button">
-                    <a href="{{route('user.create')}}"
+                    <a href="{{route('realisasirkm.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
-                <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Users</a></div>
-                    <div class="breadcrumb-item">All Users</div>
-                </div>
+
             </div>
             <div class="section-body">
                 <div class="row">
@@ -29,17 +25,17 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Users</h2>
+                <h2 class="section-title">Realisasi RKM</h2>
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Users</h4>
+                                <h4>Realisasi RKM</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('user.index')}}">
+                                    <form method="GET" action="{{route('realisasirkm.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -56,30 +52,39 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Unit Induk</th>
-                                            <th>Unit Pelaksana</th>
-                                            <th>Unit Layanan</th>
+                                            <th>No</th>
+                                            <th>Rekap RKM</th>
+                                            <th>RKM</th>
+                                            <th>Id</th>
+                                            <th>Tanggal</th>
+                                            <th>Alamat</th>
+                                            <th>Daya</th>
+                                            <th>Satuan Hasil</th>
+                                            <th>Estimasi Hasil</th>
                                             <th>Action</th>
                                         </tr>
 
-                                        @foreach ($users as $user)
+                                        @php($i = 1)
+                                        @foreach ($realisasirkms as $realisasirkm)
                                             <tr>
-                                                <td>{{$user->name}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->nama_unit_induk}}</td>
-                                                <td>{{$user->nama_unit_pelaksana}}</td>
-                                                <td>{{$user->nama_unit_layanan_bagian}}</td>
+                                                <td>{{ $i++ }}</td>
+                                                <td>{{$realisasirkm->id}}</td>
+                                                <td>{{$realisasirkm->nama_indikator_rkm}}</td>
+                                                <td>{{$realisasirkm->id_p}}</td>
+                                                <td>{{$realisasirkm->tanggal}}</td>
+                                                <td>{{$realisasirkm->alamat}}</td>
+                                                <td>{{$realisasirkm->daya}}</td>
+                                                <td>{{$realisasirkm->satuan_hasil}}</td>
+                                                <td>{{$realisasirkm->estimasi_hasil}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('user.edit', $user->id) }}'
+                                                        <a href='{{ route('realisasirkm.edit', $realisasirkm->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                        <form action="{{ route('realisasirkm.destroy', $realisasirkm->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -96,7 +101,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$users->withQueryString()->links()}}
+                                    {{$realisasirkms->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>
