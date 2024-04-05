@@ -3,6 +3,7 @@
 @section('title', 'Edit Nko')
 
 @push('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
@@ -25,14 +26,14 @@
 
 
                 <div class="card">
-                    <form action="{{ route('nko.update', $nko) }}" method="POST">
+                <form action="{{ route('nko.update', $nko) }}" method="POST">
                         @csrf
                         @method('PUT')
+
                         <div class="card-header">
-                            <h4>Edit Text</h4>
+                            <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
-
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
@@ -51,8 +52,8 @@
                                      <?php } ?>
 
                                 </select>
-                            </div>
 
+                            </div>
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
@@ -71,10 +72,10 @@
                                      <?php } ?>
 
                                 </select>
-                            </div>
 
+                            </div>
                             <div class="form-group">
-                                <label>Nama Unit Layanan Bagian</label>
+                                <label>Nama Unit Layanan / Bagian</label>
                                 <select class="form-control" name="id_layanan" id="unit_layanan">
                                     <?php
                                         foreach ($unitlayanans as $unitlayanan) {
@@ -91,8 +92,8 @@
                                      <?php } ?>
 
                                 </select>
-                            </div>
 
+                            </div>
                             <div class="form-group">
                                 <label>Target Bulan</label>
                                 <input type="text"
@@ -158,6 +159,7 @@
                                     </div>
                                 @enderror
                             </div>
+                         
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>
@@ -171,6 +173,7 @@
 @endsection
 
 @push('scripts')
+
 <script>
     $(document).ready(function(){
 
@@ -218,4 +221,5 @@
 
     });
 </script>
+
 @endpush

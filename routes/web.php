@@ -12,6 +12,7 @@ use App\Http\Controllers\NkoController;
 use App\Http\Controllers\RkmController;
 use App\Http\Controllers\RekapkinerjaController;
 use App\Http\Controllers\RekaprkmController;
+use App\Http\Controllers\RealrkmController;
 use App\Http\Controllers\RealisasirkmController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\HomeController;
@@ -53,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rkm', RkmController::class);
     Route::resource('rekapkinerja', RekapkinerjaController::class);
     Route::resource('rekaprkm', RekaprkmController::class);
+    Route::resource('realrkm', RealrkmController::class);
     Route::resource('realisasirkm', RealisasirkmController::class);
     Route::post('/fetchlayanan', [App\Http\Controllers\UnitLayananController::class, 'fetchlayanan']);
     Route::post('/fetchpelaksana', [App\Http\Controllers\UnitLayananController::class, 'fetchpelaksana']);
@@ -60,5 +62,6 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);
     // Route::get('/monitoringbulanan', [App\Http\Controllers\MonitoringController::class, 'index']);
     Route::post('/editfetchlayanan', [App\Http\Controllers\HomeController::class, 'editfetchlayanan']);
+    Route::get('/realrkm/delrealrkm/{id}', [App\Http\Controllers\RealrkmController::class, 'destroyreal']);
     // Route::get('/allperformance', [App\Http\Controllers\MonitoringController::class, 'allperformance']);
 });

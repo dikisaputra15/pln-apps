@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Realisasirkm;
 use App\Models\Unitpelaksana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,5 +24,13 @@ class HomeController extends Controller
         foreach ($unitlayanans as $unitlayanan) {
             echo "<option value='$unitlayanan->id'>$unitlayanan->nama_unit_pelaksana</option>";
         }
+    }
+
+    public function editrealisasirkm($id)
+    {
+        // $rekaprkms = DB::table('rekaprkms')->get();
+        // $rkms = DB::table('rkms')->get();
+        $realisasirkm = \App\Models\Realisasirkm::findOrFail($id);
+        return view('editrealisasirkm', compact(['realisasirkm']));
     }
 }

@@ -14,7 +14,7 @@
             <div class="section-header">
                 <h1>Realisasi RKM</h1>
                 <div class="section-header-button">
-                    <a href="{{route('realisasirkm.create')}}"
+                    <a href="{{route('realrkm.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
 
@@ -35,7 +35,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('realisasirkm.index')}}">
+                                    <form method="GET" action="{{route('realrkm.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -65,34 +65,30 @@
                                         </tr>
 
                                         @php($i = 1)
-                                        @foreach ($realisasirkms as $realisasirkm)
+                                        @foreach ($realrkms as $realrkm)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$realisasirkm->id}}</td>
-                                                <td>{{$realisasirkm->nama_indikator_rkm}}</td>
-                                                <td>{{$realisasirkm->id_p}}</td>
-                                                <td>{{$realisasirkm->tanggal}}</td>
-                                                <td>{{$realisasirkm->alamat}}</td>
-                                                <td>{{$realisasirkm->daya}}</td>
-                                                <td>{{$realisasirkm->satuan_hasil}}</td>
-                                                <td>{{$realisasirkm->estimasi_hasil}}</td>
+                                                <td>{{$realrkm->id}}</td>
+                                                <td>{{$realrkm->nama_indikator_rkm}}</td>
+                                                <td>{{$realrkm->id_p}}</td>
+                                                <td>{{$realrkm->tanggal}}</td>
+                                                <td>{{$realrkm->alamat}}</td>
+                                                <td>{{$realrkm->daya}}</td>
+                                                <td>{{$realrkm->satuan_hasil}}</td>
+                                                <td>{{$realrkm->estimasi_hasil}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('realisasirkm.edit', $realisasirkm->id) }}'
+                                                        <a href='{{ route('realrkm.edit', $realrkm->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('realisasirkm.destroy', $realisasirkm->id) }}" method="POST"
-                                                            class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE" />
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}" />
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete
-                                                            </button>
-                                                        </form>
+                                                        <a href="/realrkm/delrealrkm/<?php echo $realrkm->id ?>"
+                                                            class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                            <i class="fas fa-times"></i>
+                                                            Hapus
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -101,7 +97,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$realisasirkms->withQueryString()->links()}}
+                                    {{$realrkms->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>

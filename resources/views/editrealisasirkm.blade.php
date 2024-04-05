@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Realisasi RKM')
+@section('title', 'Edit Realisasi RKM')
 
 @push('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,37 +17,58 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Realisasi RKM</h1>
+                <h1>Edit Realisasi RKM</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Realisasi RKM</h2>
+                <h2 class="section-title">Edit Realisasi RKM</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('realrkm.store') }}" method="POST">
+                    <form action="{{ route('realisasirkm.update', $realisasirkm->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="card-header">
                             <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Rekap RKM</label>
-                                <select class="form-control" name="id_rekaprkm">
-                                        <option>-Rekap RKM-</option>
-                                    @foreach ($rekaprkms as $rekaprkm)
-                                        <option value="{{$rekaprkm->id}}">{{$rekaprkm->id}}</option>
-                                    @endforeach
+                                <select class="form-control" name="id_rekap_rkm">
+                                    <?php
+                                        foreach ($rekaprkms as $rekaprkm) {
+
+                                        if ($rekaprkm->id==$realisasirkm->id_rekap_rkm) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $rekaprkm->id;?>"><?php echo $rekaprkm->id; ?></option>
+
+                                     <?php } ?>
+
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>RKM</label>
                                 <select class="form-control" name="id_rkm">
-                                        <option>-Rkm-</option>
-                                    @foreach ($rkms as $rkm)
-                                        <option value="{{$rkm->id}}">{{$rkm->nama_indikator_rkm}}</option>
-                                    @endforeach
+                                    <?php
+                                        foreach ($rkms as $rkm) {
+
+                                        if ($rkm->id==$realisasirkm->id_rkm) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $rkm->id;?>"><?php echo $rkm->nama_indikator_rkm; ?></option>
+
+                                     <?php } ?>
+
                                 </select>
                             </div>
                             <div class="form-group">
@@ -56,7 +77,7 @@
                                     class="form-control @error('id_p')
                                 is-invalid
                             @enderror"
-                                    name="id_p" required>
+                                    name="id_p" value="{{$realisasirkm->id_p}}" required>
                                 @error('id_p')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -69,7 +90,7 @@
                                     class="form-control @error('tanggal')
                                 is-invalid
                             @enderror"
-                                    name="tanggal" required>
+                                    name="tanggal" value="{{$realisasirkm->tanggal}}" required>
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -82,7 +103,7 @@
                                     class="form-control @error('alamat')
                                 is-invalid
                             @enderror"
-                                    name="alamat" required>
+                                    name="alamat" value="{{$realisasirkm->alamat}}" required>
                                 @error('alamat')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -96,7 +117,7 @@
                                     class="form-control @error('daya')
                                 is-invalid
                             @enderror"
-                                    name="daya" required>
+                                    name="daya" value="{{$realisasirkm->daya}}" required>
                                 @error('daya')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -110,7 +131,7 @@
                                     class="form-control @error('satuan_hasil')
                                 is-invalid
                             @enderror"
-                                    name="satuan_hasil" required>
+                                    name="satuan_hasil" value="{{$realisasirkm->satuan_hasil}}" required>
                                 @error('tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -124,7 +145,7 @@
                                     class="form-control @error('estimasi_hasil')
                                 is-invalid
                             @enderror"
-                                    name="estimasi_hasil" required>
+                                    name="estimasi_hasil" value="{{$realisasirkm->estimasi_hasil}}" required>
                                 @error('estimasi_hasil')
                                     <div class="invalid-feedback">
                                         {{ $message }}

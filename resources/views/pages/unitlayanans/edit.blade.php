@@ -3,6 +3,7 @@
 @section('title', 'Edit Unit Layanan')
 
 @push('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
@@ -16,11 +17,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Unit Layanan</h1>
+                <h1>Edit Unit Layanan / Bagian</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Edit Unit Layanan</h2>
+                <h2 class="section-title">Edit Layanan / Bagian</h2>
 
 
 
@@ -28,11 +29,11 @@
                     <form action="{{ route('unitlayanan.update', $unitlayanan) }}" method="POST">
                         @csrf
                         @method('PUT')
+
                         <div class="card-header">
-                            <h4>Edit Text</h4>
+                            <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
-
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
@@ -52,7 +53,6 @@
 
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
@@ -72,9 +72,8 @@
 
                                 </select>
                             </div>
-
                             <div class="form-group">
-                                <label>Nama Unit Layanan Bagian</label>
+                                <label>Nama Unit Layanan / Bagian</label>
                                 <input type="text"
                                     class="form-control @error('nama_unit_layanan_bagian')
                                 is-invalid
@@ -99,4 +98,37 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+         $(function () {
+            $('#unit_induk').on('change', function(){
+                let id_unit_induk = $('#unit_induk').val();
+
+                $.ajax({
+                    type : 'POST',
+                    url : "{{url('fetchlayanan')}}",
+                    data : {unit_induk:id_unit_induk},
+                    cache : false,
+
+                    success: function(msg){
+                        $('#unit_pelaksana').html(msg);
+                    },
+                    error: function(data){
+                        console.log('error:',data)
+                    },
+                })
+            })
+         })
+
+    });
+</script>
+
 @endpush

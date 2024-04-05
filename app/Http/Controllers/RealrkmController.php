@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class RealisasirkmController extends Controller
+class RealrkmController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $realisasirkms = DB::table('realisasirkms')
+        $realrkms = DB::table('realisasirkms')
         ->join('rkms', 'rkms.id', '=', 'realisasirkms.id_rkm')
         ->join('rekaprkms', 'rekaprkms.id', '=', 'realisasirkms.id_rekap_rkm')
         ->select('realisasirkms.*', 'rkms.nama_indikator_rkm', 'rekaprkms.id')
@@ -23,7 +23,7 @@ class RealisasirkmController extends Controller
         })
         ->orderBy('realisasirkms.id', 'desc')
         ->paginate(10);
-        return view('pages.realisasirkms.index', compact('realisasirkms'));
+        return view('pages.realisasirkms.index', compact('realrkms'));
     }
 
     /**
@@ -52,7 +52,7 @@ class RealisasirkmController extends Controller
             'estimasi_hasil' => $request->estimasi_hasil
         ]);
 
-        return redirect()->route('realisasirkm.index')->with('success', 'Data successfully created');
+        return redirect()->route('realrkm.index')->with('success', 'Data successfully created');
     }
 
     /**
@@ -66,17 +66,9 @@ class RealisasirkmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        $rekaprkms = DB::table('rekaprkms')->get();
-        $rkms = DB::table('rkms')->get();
-        $realisasirkm = \App\Models\Realisasirkm::findOrFail($id);
-        return view('pages.realisasirkms.edit', compact('rekaprkms','rkms','realisasirkm'));
-    }
-
-    public function editralisasirkm($id)
-    {
-        echo $id;
+        //
     }
 
     /**
@@ -93,6 +85,12 @@ class RealisasirkmController extends Controller
     public function destroy(Realisasirkm $realisasirkm)
     {
         $realisasirkm->delete();
-        return redirect()->route('realisasirkm.index')->with('success', 'Data ßsuccessfully deleted');
+        return redirect()->route('realrkm.index')->with('success', 'Data ßsuccessfully deleted');
+    }
+
+    public function destroyreal($id)
+    {
+        DB::table('realisasirkms')->where('id', $id)->delete();
+        return redirect()->route('realrkm.index')->with('success', 'Data ßsuccessfully deleted');
     }
 }
