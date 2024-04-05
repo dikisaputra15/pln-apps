@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUnitindukRequest;
 use App\Http\Requests\UpdateUnitIndukRequest;
 use App\Models\Unitinduk;
 use Illuminate\Http\Request;
@@ -36,10 +35,12 @@ class UnitindukController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUnitindukRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-        \App\Models\Unitinduk::create($data);
+        Unitinduk::create([
+            'nama_unit_induk' => $request->nama_unit_induk
+        ]);
+
         return redirect()->route('unitinduk.index')->with('success', 'Data successfully created');
     }
 

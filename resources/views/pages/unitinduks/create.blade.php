@@ -37,7 +37,7 @@
                                     class="form-control @error('nama_unit_induk')
                                 is-invalid
                             @enderror"
-                                    name="nama_unit_induk">
+                                    name="nama_unit_induk" required>
                                 @error('nama_unit_induk')
                                     <div class="invalid-feedback">
                                         {{ $message }}
