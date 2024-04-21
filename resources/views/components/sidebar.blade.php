@@ -91,7 +91,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ Route('realrkm.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Realisasi RKM</span></a>
+                <a href="{{ Route('rkmrealisasi.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Realisasi RKM</span></a>
             </li>
         </ul>
     </aside>

@@ -26,7 +26,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('realisasirkm.update', $realisasirkm->id) }}" method="POST">
+                    <form action="{{ route('rkmrealisasi.update', $rkmrealisasi->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -39,14 +39,14 @@
                                     <?php
                                         foreach ($rekaprkms as $rekaprkm) {
 
-                                        if ($rekaprkm->id==$realisasirkm->id_rekap_rkm) {
+                                        if ($rekaprkm->id==$rkmrealisasi->id_rekap_rkm) {
                                             $select="selected";
                                         }else{
                                             $select="";
                                         }
 
                                      ?>
-                                        <option <?php echo $select; ?> value="<?php echo $rekaprkm->id;?>"><?php echo $rekaprkm->id; ?></option>
+                                        <option <?php echo $select; ?> value="<?php echo $rekaprkm->id;?>"><?php echo $rekaprkm->mitigasi; ?></option>
 
                                      <?php } ?>
 
@@ -58,7 +58,7 @@
                                     <?php
                                         foreach ($rkms as $rkm) {
 
-                                        if ($rkm->id==$realisasirkm->id_rkm) {
+                                        if ($rkm->id==$rkmrealisasi->id_rkm) {
                                             $select="selected";
                                         }else{
                                             $select="";
@@ -77,7 +77,7 @@
                                     class="form-control @error('id_p')
                                 is-invalid
                             @enderror"
-                                    name="id_p" value="{{$realisasirkm->id_p}}" required>
+                                    name="id_p" value="{{$rkmrealisasi->id_p}}" required>
                                 @error('id_p')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -90,7 +90,7 @@
                                     class="form-control @error('tanggal')
                                 is-invalid
                             @enderror"
-                                    name="tanggal" value="{{$realisasirkm->tanggal}}" required>
+                                    name="tanggal" value="{{$rkmrealisasi->tanggal}}" required>
                                 @error('tanggal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -103,7 +103,7 @@
                                     class="form-control @error('alamat')
                                 is-invalid
                             @enderror"
-                                    name="alamat" value="{{$realisasirkm->alamat}}" required>
+                                    name="alamat" value="{{$rkmrealisasi->alamat}}" required>
                                 @error('alamat')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -117,7 +117,7 @@
                                     class="form-control @error('daya')
                                 is-invalid
                             @enderror"
-                                    name="daya" value="{{$realisasirkm->daya}}" required>
+                                    name="daya" value="{{$rkmrealisasi->daya}}" required>
                                 @error('daya')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -131,7 +131,7 @@
                                     class="form-control @error('satuan_hasil')
                                 is-invalid
                             @enderror"
-                                    name="satuan_hasil" value="{{$realisasirkm->satuan_hasil}}" required>
+                                    name="satuan_hasil" value="{{$rkmrealisasi->satuan_hasil}}" required>
                                 @error('tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -145,7 +145,7 @@
                                     class="form-control @error('estimasi_hasil')
                                 is-invalid
                             @enderror"
-                                    name="estimasi_hasil" value="{{$realisasirkm->estimasi_hasil}}" required>
+                                    name="estimasi_hasil" value="{{$rkmrealisasi->estimasi_hasil}}" required>
                                 @error('estimasi_hasil')
                                     <div class="invalid-feedback">
                                         {{ $message }}
