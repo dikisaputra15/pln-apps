@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_satuan');
             $table->string('indikator_kinerja');
             $table->integer('bobot');
-            $table->integer('polaritas');
+            $table->string('polaritas');
             $table->timestamps();
         });
     }

@@ -68,7 +68,7 @@
             </li> -->
 
             <li class="nav-item">
-                <a href="{{ Route('indikator.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Indikator</span></a>
+                <a href="{{ Route('indikator.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Indikator Kinerja</span></a>
             </li>
 
             <li class="nav-item">
