@@ -64,6 +64,10 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('/filter', [App\Http\Controllers\HomeController::class, 'index']);
     // Route::get('/monitoringbulanan', [App\Http\Controllers\MonitoringController::class, 'index']);
     Route::post('/editfetchlayanan', [App\Http\Controllers\HomeController::class, 'editfetchlayanan']);
+    Route::get('/performance', [App\Http\Controllers\IndikatorController::class, 'performance']);
+    Route::post('/cardperformance', [App\Http\Controllers\IndikatorController::class, 'cardperformance']);
+    Route::get('/realisasikpi', [App\Http\Controllers\IndikatorController::class, 'realisasikpi']);
+    Route::post('/viewrealisasi', [App\Http\Controllers\IndikatorController::class, 'viewrealisasi']);
     // Route::get('/realrkm/delrealrkm/{id}', [App\Http\Controllers\RealrkmController::class, 'destroyreal']);
     // Route::get('/realrkm/{id}/editrealrkm', [App\Http\Controllers\RealrkmController::class, 'editrealrkm']);
     // Route::get('/allperformance', [App\Http\Controllers\MonitoringController::class, 'allperformance']);

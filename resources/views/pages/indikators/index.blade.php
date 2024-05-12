@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Indikator')
+@section('title', 'Indikator Kinerja')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -17,7 +17,7 @@
                     <a href="{{route('indikator.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
-                
+
             </div>
             <div class="section-body">
                 <div class="row">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('nko.index')}}">
+                                    <form method="GET" action="{{route('indikator.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -53,12 +53,23 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Kategori</th>
+                                            <th>Unit Induk</th>
+                                            <th>Unit Pelaksana</th>
+                                            <th>Unit Layanan</th>
                                             <th>Aspirasi</th>
-                                            <th>Satuan</th>
                                             <th>Indikator Kinerja</th>
-                                            <th>Bobot</th>
-                                            <th>Polaritas</th>
+                                            <th>kategori</th>
+                                            <th>satuan</th>
+                                            <th>bobot</th>
+                                            <th>polaritas</th>
+                                            <th>tahun</th>
+                                            <th>bulan</th>
+                                            <th>target</th>
+                                            <th>realisasi</th>
+                                            <th>pencapaian</th>
+                                            <th>nilai</th>
+                                            <th>status</th>
+                                            <th>penjelasan</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -66,12 +77,23 @@
                                         @foreach ($indikators as $indikator)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$indikator->nama_kategori}}</td>
+                                                <td>{{$indikator->nama_unit_induk}}</td>
+                                                <td>{{$indikator->nama_unit_pelaksana}}</td>
+                                                <td>{{$indikator->nama_unit_layanan_bagian}}</td>
                                                 <td>{{$indikator->nama_aspirasi}}</td>
-                                                <td>{{$indikator->nama_satuan}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
+                                                <td>{{$indikator->nama_kategori}}</td>
+                                                <td>{{$indikator->nama_satuan}}</td>
                                                 <td>{{$indikator->bobot}}</td>
                                                 <td>{{$indikator->polaritas}}</td>
+                                                <td>{{$indikator->tahun}}</td>
+                                                <td>{{$indikator->bulan}}</td>
+                                                <td>{{$indikator->target}}</td>
+                                                <td>{{$indikator->realisasi}}</td>
+                                                <td>{{$indikator->pencapaian}}</td>
+                                                <td>{{$indikator->nilai}}</td>
+                                                <td>{{$indikator->status}}</td>
+                                                <td>{{$indikator->penjelasan}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('indikator.edit', $indikator->id) }}'

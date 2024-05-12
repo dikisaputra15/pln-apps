@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rkm;
-use App\Models\Indikator;
+use App\Models\Indikatorkinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,11 +19,10 @@ class RkmController extends Controller
         ->join('unitinduks', 'unitinduks.id', '=', 'rkms.id_unit_induk')
         ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'rkms.id_pelaksana')
         ->join('unitlayanans', 'unitlayanans.id', '=', 'rkms.id_layanan')
-        ->join('kategoris', 'kategoris.id', '=', 'rkms.id_kategori')
         ->join('aspirasis', 'aspirasis.id', '=', 'rkms.id_aspirasi')
-        ->join('indikators', 'indikators.id', '=', 'rkms.id_indikator')
+        ->join('indikatorkinerjas', 'indikatorkinerjas.id', '=', 'rkms.id_indikator')
         ->join('satuans', 'satuans.id', '=', 'rkms.id_satuan')
-        ->select('rkms.*', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian', 'kategoris.nama_kategori', 'aspirasis.nama_aspirasi', 'indikators.indikator_kinerja', 'satuans.nama_satuan')
+        ->select('rkms.*', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian', 'kategoris.nama_kategori', 'aspirasis.nama_aspirasi', 'indikatorkinerjas.indikator_kinerja', 'satuans.nama_satuan')
         ->when($request->input('name'), function($query, $name){
             return $query->where('nama_indikator_rkm', 'like', '%'.$name.'%');
         })

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIndikatorRequest;
 use App\Http\Requests\UpdateIndikatorRequest;
-use App\Models\Indikator;
+use App\Models\Indikatorkinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -16,15 +16,18 @@ class IndikatorController extends Controller
      */
     public function index(Request $request)
     {
-        $indikators = DB::table('indikators')
-        ->join('kategoris', 'kategoris.id', '=', 'indikators.id_kategori')
-        ->join('aspirasis', 'aspirasis.id', '=', 'indikators.id_aspirasi')
-        ->join('satuans', 'satuans.id', '=', 'indikators.id_satuan')
-        ->select('indikators.*', 'kategoris.nama_kategori', 'aspirasis.nama_aspirasi', 'satuans.nama_satuan')
+        $indikators = DB::table('indikatorkinerjas')
+        ->join('unitinduks', 'unitinduks.id', '=', 'indikatorkinerjas.id_unit_induk')
+        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'indikatorkinerjas.id_pelaksana')
+        ->join('unitlayanans', 'unitlayanans.id', '=', 'indikatorkinerjas.id_layanan')
+        ->join('kategoris', 'kategoris.id', '=', 'indikatorkinerjas.id_kategori')
+        ->join('aspirasis', 'aspirasis.id', '=', 'indikatorkinerjas.id_aspirasi')
+        ->join('satuans', 'satuans.id', '=', 'indikatorkinerjas.id_satuan')
+        ->select('indikatorkinerjas.*', 'kategoris.nama_kategori', 'aspirasis.nama_aspirasi', 'satuans.nama_satuan', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
         ->when($request->input('name'), function($query, $name){
             return $query->where('indikator_kinerja', 'like', '%'.$name.'%');
         })
-        ->orderBy('indikators.id', 'desc')
+        ->orderBy('indikatorkinerjas.id', 'desc')
         ->paginate(10);
     return view('pages.indikators.index', compact('indikators'));
     }
@@ -34,10 +37,11 @@ class IndikatorController extends Controller
      */
     public function create()
     {
+        $unitinduks = DB::table('unitinduks')->get();
         $kategoris = DB::table('kategoris')->get();
         $aspirasis = DB::table('aspirasis')->get();
         $satuans = DB::table('satuans')->get();
-        return view('pages.indikators.create', compact('kategoris','aspirasis','satuans'));
+        return view('pages.indikators.create', compact('unitinduks','kategoris','aspirasis','satuans'));
     }
 
     /**
@@ -45,8 +49,39 @@ class IndikatorController extends Controller
      */
     public function store(StoreIndikatorRequest $request)
     {
-        $data = $request->all();
-        \App\Models\Indikator::create($data);
+        $pencapaian = ($request->realisasi/$request->target)*100;
+        $nilai = ($pencapaian*$request->bobot)/100;
+
+        if($request->realisasi == 0){
+            $status = 'belum';
+        }else if($pencapaian >= 100){
+            $status = 'baik';
+        }else if($pencapaian >= 95){
+            $status = 'hati-hati';
+        }else{
+            $status = 'masalah';
+        }
+
+        Indikatorkinerja::create([
+            'id_unit_induk' => $request->id_unit_induk,
+            'id_pelaksana' => $request->id_pelaksana,
+            'id_layanan' => $request->id_layanan,
+            'id_aspirasi' => $request->id_aspirasi,
+            'indikator_kinerja' => $request->indikator_kinerja,
+            'id_kategori' => $request->id_kategori,
+            'id_satuan' => $request->id_satuan,
+            'bobot' => $request->bobot,
+            'polaritas' => $request->polaritas,
+            'tahun' => $request->tahun,
+            'bulan' => $request->bulan,
+            'target' => $request->target,
+            'realisasi' => $request->realisasi,
+            'pencapaian' => $pencapaian,
+            'nilai' => $nilai,
+            'status' => $status,
+            'penjelasan' => $request->penjelasan
+        ]);
+
         return redirect()->route('indikator.index')->with('success', 'Data successfully created');
     }
 
@@ -63,11 +98,14 @@ class IndikatorController extends Controller
      */
     public function edit($id)
     {
+        $unitinduks = DB::table('unitinduks')->get();
+        $unitpelaksanas = DB::table('unitpelaksanas')->get();
+        $unitlayanans = DB::table('unitlayanans')->get();
         $kategoris = DB::table('kategoris')->get();
         $aspirasis = DB::table('aspirasis')->get();
         $satuans = DB::table('satuans')->get();
         $indikator = \App\Models\Indikator::findOrFail($id);
-        return view('pages.indikators.edit', compact('kategoris','aspirasis','satuans', 'indikator'));
+        return view('pages.indikators.edit', compact('unitinduks','unitpelaksanas','unitlayanans','kategoris','aspirasis','satuans', 'indikator'));
     }
 
     /**
@@ -87,5 +125,62 @@ class IndikatorController extends Controller
     {
         $indikator->delete();
         return redirect()->route('indikator.index')->with('success', 'Data ßsuccessfully deleted');
+    }
+
+    public function performance()
+    {
+        $unitinduks = DB::table('unitinduks')->get();
+        return view('pages.indikators.form_performance', compact('unitinduks'));
+    }
+
+    public function cardperformance(Request $request)
+    {
+        $uinduk = $request->id_unit_induk;
+        $upelaksana = $request->id_pelaksana;
+        $ulayanan = $request->id_layanan;
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
+        $cards = DB::table('indikatorkinerjas')
+                ->where('id_unit_induk', $uinduk)
+                ->where('id_pelaksana', $upelaksana)
+                ->where('id_layanan', $ulayanan)
+                ->where('bulan', $bulan)
+                ->where('tahun', $tahun)
+                ->get();
+        $unitinduks = DB::table('unitinduks')->get();
+        return view('pages.indikators.card_performance', compact('unitinduks','cards'));
+    }
+
+    public function realisasikpi()
+    {
+        $unitinduks = DB::table('unitinduks')->get();
+        return view('pages.indikators.form_realisasikpi', compact('unitinduks'));
+    }
+
+    public function viewrealisasi(Request $request)
+    {
+        $uinduk = $request->id_unit_induk;
+        $upelaksana = $request->id_pelaksana;
+        $ulayanan = $request->id_layanan;
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $unitinduks = DB::table('unitinduks')->get();
+        $indikators = DB::table('indikatorkinerjas')
+        ->join('unitinduks', 'unitinduks.id', '=', 'indikatorkinerjas.id_unit_induk')
+        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'indikatorkinerjas.id_pelaksana')
+        ->join('unitlayanans', 'unitlayanans.id', '=', 'indikatorkinerjas.id_layanan')
+        ->join('kategoris', 'kategoris.id', '=', 'indikatorkinerjas.id_kategori')
+        ->join('aspirasis', 'aspirasis.id', '=', 'indikatorkinerjas.id_aspirasi')
+        ->join('satuans', 'satuans.id', '=', 'indikatorkinerjas.id_satuan')
+        ->select('indikatorkinerjas.*', 'kategoris.nama_kategori', 'aspirasis.nama_aspirasi', 'satuans.nama_satuan', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
+        ->where('indikatorkinerjas.id_unit_induk', $uinduk)
+        ->where('indikatorkinerjas.id_pelaksana', $upelaksana)
+        ->where('indikatorkinerjas.id_layanan', $ulayanan)
+        ->where('indikatorkinerjas.bulan', $bulan)
+        ->where('indikatorkinerjas.tahun', $tahun)
+        ->get();
+
+        return view('pages.indikators.view_realisasi', compact('unitinduks','indikators'));
     }
 }

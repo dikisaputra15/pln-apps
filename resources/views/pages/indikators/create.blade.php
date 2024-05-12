@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Indikator')
+@section('title', 'Indikator Kinerja')
 
 @push('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,11 +17,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Indikator</h1>
+                <h1>Indikator Kinerja</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Indikator</h2>
+                <h2 class="section-title">Indikator Kinerja</h2>
 
 
 
@@ -32,14 +32,27 @@
                             <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
+
                             <div class="form-group">
-                                <label>Kategori</label>
-                                <select class="form-control" name="id_kategori">
-                                        <option>-Pilih Kategori-</option>
-                                    @foreach ($kategoris as $kategori)
-                                        <option value="{{$kategori->id}}">{{$kategori->nama_kategori}}</option>
+                                <label>Nama Unit Induk</label>
+                                <select class="form-control" name="id_unit_induk" id="unit_induk">
+                                        <option>-Pilih Unit Induk-</option>
+                                    @foreach ($unitinduks as $unitinduk)
+                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Unit Pelaksana</label>
+                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
+                                    <option>-Select Unit Pelaksana-</option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Unit Layanan / Bagian</label>
+                                 <select class="form-control" name="id_layanan" id="unit_layanan">
+                                    <option>-Select Unit Layanan-</option>
+                                 </select>
                             </div>
 
                             <div class="form-group">
@@ -52,16 +65,6 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label>Satuan</label>
-                                <select class="form-control" name="id_satuan">
-                                        <option>-Pilih Satuan-</option>
-                                    @foreach ($satuans as $satuan)
-                                        <option value="{{$satuan->id}}">{{$satuan->nama_satuan}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            
                             <div class="form-group">
                                 <label>Indikator Kinerja</label>
                                 <input type="text"
@@ -77,8 +80,28 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Kategori</label>
+                                <select class="form-control" name="id_kategori">
+                                        <option>-Pilih Kategori-</option>
+                                    @foreach ($kategoris as $kategori)
+                                        <option value="{{$kategori->id}}">{{$kategori->nama_kategori}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Satuan</label>
+                                <select class="form-control" name="id_satuan">
+                                        <option>-Pilih Satuan-</option>
+                                    @foreach ($satuans as $satuan)
+                                        <option value="{{$satuan->id}}">{{$satuan->nama_satuan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Bobot</label>
-                                <input type="text"
+                                <input type="number"
                                     class="form-control @error('bobot')
                                 is-invalid
                             @enderror"
@@ -92,12 +115,86 @@
 
                             <div class="form-group">
                                 <label>Polaritas</label>
-                                <input type="text"
+                                <input type="number"
                                     class="form-control @error('polaritas')
                                 is-invalid
                             @enderror"
                                     name="polaritas">
                                 @error('polaritas')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tahun</label>
+                                <input type="text"
+                                    class="form-control @error('tahun')
+                                is-invalid
+                            @enderror"
+                                    name="tahun">
+                                @error('tahun')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Bulan</label>
+                                <select class="form-control" name="bulan">
+                                    <option value="JAN">JAN</option>
+                                    <option value="FEB">FEB</option>
+                                    <option value="MAR">MAR</option>
+                                    <option value="APR">APR</option>
+                                    <option value="MEI">MEI</option>
+                                    <option value="JUN">JUN</option>
+                                    <option value="JUL">JUL</option>
+                                    <option value="AGU">AGU</option>
+                                    <option value="SEP">SEP</option>
+                                    <option value="OKT">OKT</option>
+                                    <option value="NOV">NOV</option>
+                                    <option value="DES">DES</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Target</label>
+                                <input type="text"
+                                    class="form-control @error('target')
+                                is-invalid
+                            @enderror"
+                                    name="target">
+                                @error('target')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Realisasi</label>
+                                <input type="text"
+                                    class="form-control @error('realisasi')
+                                is-invalid
+                            @enderror"
+                                    name="realisasi">
+                                @error('realisasi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Penjelasan</label>
+                                <input type="text"
+                                    class="form-control @error('penjelasan')
+                                is-invalid
+                            @enderror"
+                                    name="penjelasan">
+                                @error('penjelasan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -116,5 +213,53 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+            $('#unit_induk').change(function(){
+                var id_unit_induk = $('#unit_induk').val();
+                if(id_unit_induk != '')
+                {
+                    $.ajax({
+                        type : 'POST',
+                        url : "{{url('fetchlayanan')}}",
+                        data : {unit_induk:id_unit_induk},
+
+                        success: function(data)
+                        {
+                            $('#unit_pelaksana').html(data);
+                        }
+                    });
+                }
+                else
+                {
+                    $('#unit_pelaksana').html('<option value="">Select Unit Pelaksana</option>');
+                }
+            });
+
+            $('#unit_pelaksana').change(function(){
+                let id_unit_pelaksana = $('#unit_pelaksana').val();
+
+                $.ajax({
+                    type : 'POST',
+                    url : "{{url('fetchpelaksana')}}",
+                    data : {unit_pelaksana:id_unit_pelaksana},
+
+                    success: function(data)
+                    {
+                        $('#unit_layanan').html(data);
+                    }
+                });
+            });
+
+    });
+</script>
 
 @endpush

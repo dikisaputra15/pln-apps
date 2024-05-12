@@ -25,6 +25,9 @@ class UpdateIndikatorRequest extends FormRequest
             'indikator_kinerja' => 'required',
             'bobot' => 'required',
             'polaritas' => 'required',
+            'tahun' => 'required',
+            'target' => 'required',
+            'realisasi' => 'required',
         ];
     }
 }

@@ -56,15 +56,15 @@
                                             <th>Unit Induk</th>
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan</th>
-                                            <th>Kategori</th>
                                             <th>Aspirasi</th>
-                                            <th>Indikator</th>
-                                            <th>Satuan</th>
+                                            <th>Indikator KPI</th>
+                                            <th>Satuan KPI</th>
                                             <th>Bobot</th>
                                             <th>Polaritas</th>
-                                            <th>Nama Indikator RKM</th>
-                                            <th>Polaritas RKM</th>
+                                            <th>Indikator RKM</th>
                                             <th>Satuan RKM</th>
+                                            <th>Biaya</th>
+                                            <th>Tahun</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -75,17 +75,23 @@
                                                 <td>{{$rkm->nama_unit_induk}}</td>
                                                 <td>{{$rkm->nama_unit_pelaksana}}</td>
                                                 <td>{{$rkm->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$rkm->nama_kategori}}</td>
                                                 <td>{{$rkm->nama_aspirasi}}</td>
                                                 <td>{{$rkm->indikator_kinerja}}</td>
                                                 <td>{{$rkm->nama_satuan}}</td>
                                                 <td>{{$rkm->bobot}}</td>
                                                 <td>{{$rkm->polaritas}}</td>
-                                                <td>{{$rkm->nama_indikator_rkm}}</td>
-                                                <td>{{$rkm->polaritas_rkm}}</td>
+                                                <td>{{$rkm->indikator_rkm}}</td>
                                                 <td>{{$rkm->satuan_rkm}}</td>
+                                                <td>{{$rkm->biaya}}</td>
+                                                <td>{{$rkm->tahun}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
+                                                        <a href="/rkm/<?php echo $rkm->id ?>/viewrkm"
+                                                            class="btn btn-sm btn-info btn-icon">
+                                                            <i class="fas fa-eye"></i>
+                                                            View
+                                                        </a>
+
                                                         <a href='{{ route('rkm.edit', $rkm->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
