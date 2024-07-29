@@ -14,7 +14,7 @@
             <div class="section-header">
                 <h1>Unit Pelaksana</h1>
                 <div class="section-header-button">
-                    <a href="{{route('unitpelaksana.create')}}"
+                    <a href="/upel/create"
                         class="btn btn-primary">Add New</a>
                 </div>
             </div>

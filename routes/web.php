@@ -57,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rekapkinerja', RekapkinerjaController::class);
     Route::resource('rekaprkm', RekaprkmController::class);
     Route::get('/upel', [App\Http\Controllers\UpelController::class, 'index']);
+    Route::get('/upel/create', [App\Http\Controllers\UpelController::class, 'create']);
+    Route::post('/upel/store', [App\Http\Controllers\UpelController::class, 'store']);
     // Route::resource('realrkm', RealrkmController::class);
     // Route::resource('realisasirkm', RealisasirkmController::class);
     Route::resource('rkmrealisasi', RkmrealisasiController::class);

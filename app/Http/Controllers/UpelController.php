@@ -2,16 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUnitPelaksanaRequest;
+use App\Models\Unitpelaksana;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UpelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        echo "oke oce";
+        $unitpelaksanas = DB::table('unitpelaksanas')
+            ->join('unitinduks', 'unitinduks.id', '=', 'unitpelaksanas.id_unit_induk')
+            ->select('unitpelaksanas.*', 'unitinduks.nama_unit_induk')
+            ->when($request->input('name'), function($query, $name){
+                return $query->where('nama_unit_pelaksana', 'like', '%'.$name.'%');
+            })
+            ->orderBy('unitpelaksanas.id', 'desc')
+            ->paginate(10);
+        return view('pages.unitpelaksanas.index', compact('unitpelaksanas'));
     }
 
     /**
@@ -19,7 +31,8 @@ class UpelController extends Controller
      */
     public function create()
     {
-        //
+        $unitinduks = DB::table('unitinduks')->get();
+        return view('pages.unitpelaksanas.create', compact('unitinduks'));
     }
 
     /**
@@ -27,7 +40,11 @@ class UpelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Unitpelaksana::create([
+            'id_unit_induk' => $request->id_unit_induk,
+            'nama_unit_pelaksana' => $request->nama_unit_pelaksana
+        ]);
+        return redirect()->route('unitpelaksana.index')->with('success', 'Data successfully created');
     }
 
     /**

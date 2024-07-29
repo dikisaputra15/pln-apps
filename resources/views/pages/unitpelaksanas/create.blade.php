@@ -25,7 +25,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('unitpelaksana.store') }}" method="POST">
+                    <form action="/upel/store" method="POST">
                         @csrf
                         <div class="card-header">
                             <h4>Input Text</h4>
