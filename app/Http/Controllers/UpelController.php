@@ -44,7 +44,7 @@ class UpelController extends Controller
             'id_unit_induk' => $request->id_unit_induk,
             'nama_unit_pelaksana' => $request->nama_unit_pelaksana
         ]);
-        return redirect()->route('unitpelaksana.index')->with('success', 'Data successfully created');
+        return redirect("/upel")->with('success', 'Data successfully created');
     }
 
     /**
@@ -58,24 +58,32 @@ class UpelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $unitinduks = DB::table('unitinduks')->get();
+        $unitpelaksana = \App\Models\Unitpelaksana::findOrFail($id);
+        return view('pages.unitpelaksanas.edit', compact('unitinduks','unitpelaksana'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        DB::table('unitpelaksanas')->where('id',$request->id_unit_pelaksana)->update([
+            'id_unit_induk' => $request->id_unit_induk,
+            'nama_unit_pelaksana' => $request->nama_unit_pelaksana
+        ]);
+
+        return redirect("/upel")->with('success', 'Data successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        DB::table('unitpelaksanas')->where('id', $id)->delete();
+        return redirect("/upel")->with('success', 'Data successfully deleted');
     }
 }

@@ -25,14 +25,14 @@
 
 
                 <div class="card">
-                    <form action="{{ route('unitpelaksana.update', $unitpelaksana) }}" method="POST">
+                    <form action="/upel/updateupel" method="POST">
                         @csrf
-                        @method('PUT')
+
                         <div class="card-header">
                             <h4>Edit Text</h4>
                         </div>
                         <div class="card-body">
-
+                            <input type="text" class="form-control" name="id_unit_pelaksana" value="{{ $unitpelaksana->id }}" hidden>
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk">

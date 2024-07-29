@@ -59,6 +59,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/upel', [App\Http\Controllers\UpelController::class, 'index']);
     Route::get('/upel/create', [App\Http\Controllers\UpelController::class, 'create']);
     Route::post('/upel/store', [App\Http\Controllers\UpelController::class, 'store']);
+    Route::get('/upel/delupel/{id}', [App\Http\Controllers\UpelController::class, 'destroy']);
+    Route::get('/upel/{id}/editupel', [App\Http\Controllers\UpelController::class, 'edit']);
+    Route::post('/upel/updateupel', [App\Http\Controllers\UpelController::class, 'update']);
     // Route::resource('realrkm', RealrkmController::class);
     // Route::resource('realisasirkm', RealisasirkmController::class);
     Route::resource('rkmrealisasi', RkmrealisasiController::class);
