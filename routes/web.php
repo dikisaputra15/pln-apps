@@ -47,7 +47,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('unitinduk', UnitindukController::class);
     Route::resource('unitpelaksana', UnitPelaksanaController::class);
-    Route::resource('upel', UpelController::class);
     Route::resource('unitlayanan', UnitLayananController::class);
     Route::resource('satuan', SatuanController::class);
     Route::resource('kategori', KategoriController::class);
@@ -57,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rkm', RkmController::class);
     Route::resource('rekapkinerja', RekapkinerjaController::class);
     Route::resource('rekaprkm', RekaprkmController::class);
+    Route::get('/upel', [App\Http\Controllers\UpelController::class, 'index']);
     // Route::resource('realrkm', RealrkmController::class);
     // Route::resource('realisasirkm', RealisasirkmController::class);
     Route::resource('rkmrealisasi', RkmrealisasiController::class);

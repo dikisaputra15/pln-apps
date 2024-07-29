@@ -11,7 +11,7 @@ class UpelController extends Controller
      */
     public function index()
     {
-        echo "tes";
+        echo "oke oce";
     }
 
     /**

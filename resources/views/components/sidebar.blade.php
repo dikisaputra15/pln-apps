@@ -23,7 +23,7 @@
                     </li>
                     <li>
                         <a class="nav-link"
-                            href="{{ Route('upel.index') }}">Unit Pelaksana</a>
+                            href="/upel">Unit Pelaksana</a>
                     </li>
                     <li>
                         <a class="nav-link"
