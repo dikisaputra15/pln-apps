@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class UnitpelaksanaController extends Controller
+class UnitPelaksanaController extends Controller
 {
     /**
      * Display a listing of the resource.
