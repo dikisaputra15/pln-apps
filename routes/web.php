@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnitindukController;
 use App\Http\Controllers\UnitPelaksanaController;
+use App\Http\Controllers\UpelController;
 use App\Http\Controllers\UnitLayananController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\KategoriController;
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('unitinduk', UnitindukController::class);
     Route::resource('unitpelaksana', UnitPelaksanaController::class);
+    Route::resource('upel', UpelController::class);
     Route::resource('unitlayanan', UnitLayananController::class);
     Route::resource('satuan', SatuanController::class);
     Route::resource('kategori', KategoriController::class);
