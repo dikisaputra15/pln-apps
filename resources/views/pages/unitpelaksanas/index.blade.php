@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Unit Induk</h1>
+                <h1>Unit Pelaksana</h1>
                 <div class="section-header-button">
                     <a href="{{route('unitpelaksana.create')}}"
                         class="btn btn-primary">Add New</a>
