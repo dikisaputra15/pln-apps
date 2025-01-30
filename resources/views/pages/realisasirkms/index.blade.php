@@ -53,14 +53,43 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Rekap RKM</th>
-                                            <th>RKM</th>
-                                            <th>Id</th>
+                                            <th>Unit Induk</th>
+                                            <th>Unit Pelaksana</th>
+                                            <th>Unit Layanan / Bagian</th>
+                                            <th>Aspirasi</th>
+                                            <th>Indikator Kinerja KPI</th>
+                                            <th>Satuan KPI</th>
+                                            <th>Bobot</th>
+                                            <th>Polaritas</th>
+                                            <th>Indikator RKM</th>
+                                            <th>Satuan RKM</th>
+                                            <th>Biaya</th>
                                             <th>Tanggal</th>
-                                            <th>Alamat</th>
-                                            <th>Daya</th>
+                                            <th>Tahun</th>
+                                            <th>Bulan</th>
+                                            <th>Minggu</th>
+                                            <th>Minggu Bulan</th>
+                                            <th>Target Tahun</th>
+                                            <th>Target Bulan</th>
+                                            <th>Target Mingguan</th>
+                                            <th>Target Harian</th>
+                                            <th>Realisasi Tahunan</th>
+                                            <th>Realisasi Bulanan</th>
+                                            <th>Realisasi Mingguan</th>
+                                            <th>Realisasi Harian</th>
+                                            <th>% Tahun</th>
+                                            <th>% Bulan</th>
+                                            <th>% Minggu</th>
+                                            <th>Tipe Target Hasil</th>
                                             <th>Satuan Hasil</th>
-                                            <th>Estimasi Hasil</th>
+                                            <th>Target Hasil Tahunan</th>
+                                            <th>Target Hasil Bulanan</th>
+                                            <th>Target Hasil Mingguan</th>
+                                            <th>Target Hasil Harian</th>
+                                            <th>Realisasi Hasil Tahunan</th>
+                                            <th>Realisasi Hasil Bulanan</th>
+                                            <th>Realisasi Hasil Mingguan</th>
+                                            <th>Realisasi Hasil Harian</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -68,14 +97,43 @@
                                         @foreach ($rkmrealisasis as $rkmrealisasi)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$rkmrealisasi->mitigasi}}</td>
-                                                <td>{{$rkmrealisasi->nama_indikator_rkm}}</td>
-                                                <td>{{$rkmrealisasi->id_p}}</td>
+                                                <td>{{$rkmrealisasi->nama_unit_induk}}</td>
+                                                <td>{{$rkmrealisasi->nama_unit_pelaksana}}</td>
+                                                <td>{{$rkmrealisasi->nama_unit_layanan_bagian}}</td>
+                                                <td>{{$rkmrealisasi->aspirasi}}</td>
+                                                <td>{{$rkmrealisasi->indikator_kinerja}}</td>
+                                                <td>{{$rkmrealisasi->nama_satuan_kpi}}</td>
+                                                <td>{{$rkmrealisasi->bobot}}</td>
+                                                <td>{{$rkmrealisasi->polaritas}}</td>
+                                                <td>{{$rkmrealisasi->indikator_rkm}}</td>
+                                                <td>{{$rkmrealisasi->nama_satuan_rkm}}</td>
+                                                <td>{{$rkmrealisasi->biaya}}</td>
                                                 <td>{{$rkmrealisasi->tanggal}}</td>
-                                                <td>{{$rkmrealisasi->alamat}}</td>
-                                                <td>{{$rkmrealisasi->daya}}</td>
+                                                <td>{{$rkmrealisasi->tahun}}</td>
+                                                <td>{{$rkmrealisasi->bulan}}</td>
+                                                <td>{{$rkmrealisasi->minggu}}</td>
+                                                <td>{{$rkmrealisasi->minggu_bulan}}</td>
+                                                <td>{{$rkmrealisasi->target_tahun}}</td>
+                                                <td>{{$rkmrealisasi->target_bulan}}</td>
+                                                <td>{{$rkmrealisasi->target_mingguan}}</td>
+                                                <td>{{$rkmrealisasi->target_harian}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_tahunan}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_bulanan}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_mingguan}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_harian}}</td>
+                                                <td>{{$rkmrealisasi->persen_tahun}}</td>
+                                                <td>{{$rkmrealisasi->persen_bulan}}</td>
+                                                <td>{{$rkmrealisasi->persen_minggu}}</td>
+                                                <td>{{$rkmrealisasi->tipe_target_hasil}}</td>
                                                 <td>{{$rkmrealisasi->satuan_hasil}}</td>
-                                                <td>{{$rkmrealisasi->estimasi_hasil}}</td>
+                                                <td>{{$rkmrealisasi->target_hasil_tahunan}}</td>
+                                                <td>{{$rkmrealisasi->target_hasil_bulanan}}</td>
+                                                <td>{{$rkmrealisasi->target_hasil_mingguan}}</td>
+                                                <td>{{$rkmrealisasi->target_hasil_harian}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_hasil_tahunan}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_hasil_bulanan}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_hasil_mingguan}}</td>
+                                                <td>{{$rkmrealisasi->realisasi_hasil_harian}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('rkmrealisasi.edit', $rkmrealisasi->id) }}'

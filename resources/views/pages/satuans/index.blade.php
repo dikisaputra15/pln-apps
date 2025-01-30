@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Satuan KPI</h1>
+                <h1>Satuan</h1>
                 <div class="section-header-button">
                     <a href="{{route('satuan.create')}}"
                         class="btn btn-primary">Add New</a>
@@ -24,7 +24,7 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Satuan KPI</h2>
+                <h2 class="section-title">Satuan</h2>
 
 
                 <div class="row mt-4">

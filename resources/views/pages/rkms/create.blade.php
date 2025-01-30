@@ -17,11 +17,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>RKM</h1>
+                <h1>Input RKM</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">RKM</h2>
+                <h2 class="section-title">Input RKM</h2>
 
 
 
@@ -29,9 +29,10 @@
                     <form action="{{ route('rkm.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
-                            <h4>Input Text</h4>
+                            <h4>Input RKM</h4>
                         </div>
                         <div class="card-body">
+
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
@@ -53,55 +54,84 @@
                                     <option>-Select Unit Layanan-</option>
                                  </select>
                             </div>
+
                             <div class="form-group">
-                                <label>Indikator Kinerja</label>
-                                <select class="form-control" name="id_indikator" id="id_indikator">
-                                        <option>-Pilih Unit Induk-</option>
-                                    @foreach ($indikators as $indikator)
-                                        <option value="{{$indikator->id}}">{{$indikator->indikator_kinerja}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Indikator RKM</label>
+                                <label>Aspirasi RKM</label>
                                 <input type="text"
-                                    class="form-control @error('nama_indikator_rkm')
+                                    class="form-control @error('aspirasi_rkm')
                                 is-invalid
                             @enderror"
-                                    name="nama_indikator_rkm" required>
-                                @error('nama_indikator_rkm')
+                                    name="aspirasi_rkm">
+                                @error('aspirasi_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
+
+                            <div class="form-group">
+                                <label>Indikator Kinerja KPI</label>
+                                <select class="form-control" name="id_indikator_kpi" id="id_indikator_kpi">
+                                        <option>-Pilih Indikator KPI-</option>
+                                    @foreach ($indikators as $indikator)
+                                        <option value="{{$indikator->id}}">{{$indikator->indikator_kinerja}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Bobot RKM</label>
+                                <input type="text"
+                                    class="form-control @error('bobot_rkm')
+                                is-invalid
+                            @enderror"
+                                    name="bobot_rkm">
+                                @error('bobot_rkm')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
                             <div class="form-group">
                                 <label>Polaritas RKM</label>
-                                <input type="number"
+                                <input type="text"
                                     class="form-control @error('polaritas_rkm')
                                 is-invalid
                             @enderror"
-                                    name="polaritas_rkm" required>
+                                    name="polaritas_rkm">
                                 @error('polaritas_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label>Satuan RKM</label>
+                                <label>Indikator RKM</label>
                                 <input type="text"
-                                    class="form-control @error('satuan_rkm')
+                                    class="form-control @error('indikator_rkm')
                                 is-invalid
                             @enderror"
-                                    name="satuan_rkm" required>
-                                @error('satuan_rkm')
+                                    name="indikator_rkm">
+                                @error('indikator_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                            
+
+
+                            <div class="form-group">
+                                <label>Satuan RKM</label>
+                                <select class="form-control" name="id_satuan_rkm">
+                                        <option>-Pilih Satuan RKM-</option>
+                                    @foreach ($satuans as $satuan)
+                                        <option value="{{$satuan->id}}">{{$satuan->nama_satuan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

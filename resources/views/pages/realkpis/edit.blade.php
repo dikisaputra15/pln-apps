@@ -26,10 +26,10 @@
 
 
                 <div class="card">
-                    <form action="{{ route('realkpi.store') }}" method="POST">
+                    <form action="{{ route('realkpi.update', $realkpi->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class="card-header">
                             <h4>Edit Realisasi KPI</h4>
                         </div>
@@ -38,10 +38,20 @@
                             <div class="form-group">
                                 <label>Indikator Kinerja KPI</label>
                                 <select class="form-control" name="id_indikator_kpi" id="id_indikator_kpi">
-                                        <option>-Pilih Indikator-</option>
-                                    @foreach ($indikators as $indikator)
-                                        <option value="{{$indikator->id}}">{{$indikator->indikator_kinerja}}</option>
-                                    @endforeach
+                                    <?php
+                                        foreach ($indikators as $indikator) {
+
+                                        if ($realkpi->id_indikator_kpi==$indikator->id) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $indikator->id;?>"><?php echo $indikator->indikator_kinerja; ?></option>
+
+                                     <?php } ?>
+
                                 </select>
                             </div>
 
@@ -51,7 +61,7 @@
                                     class="form-control @error('bobot')
                                 is-invalid
                             @enderror"
-                                    name="bobot">
+                                    name="bobot" value="{{ $realkpi->bobot }}">
                                 @error('bobot')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -65,7 +75,7 @@
                                     class="form-control @error('polaritas')
                                 is-invalid
                             @enderror"
-                                    name="polaritas">
+                                    name="polaritas" value="{{ $realkpi->polaritas }}">
                                 @error('polaritas')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -79,7 +89,7 @@
                                     class="form-control @error('tahun')
                                 is-invalid
                             @enderror"
-                                    name="tahun">
+                                    name="tahun" value="{{ $realkpi->tahun }}">
                                 @error('tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -93,7 +103,7 @@
                                     class="form-control @error('bulan')
                                 is-invalid
                             @enderror"
-                                    name="bulan">
+                                    name="bulan" value="{{ $realkpi->bulan }}">
                                 @error('bulan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -107,7 +117,7 @@
                                     class="form-control @error('target')
                                 is-invalid
                             @enderror"
-                                    name="target">
+                                    name="target" value="{{ $realkpi->target }}">
                                 @error('target')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -121,7 +131,7 @@
                                     class="form-control @error('realisasi')
                                 is-invalid
                             @enderror"
-                                    name="realisasi">
+                                    name="realisasi" value="{{ $realkpi->realisasi }}">
                                 @error('realisasi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -135,7 +145,7 @@
                                     class="form-control @error('penjelasan')
                                 is-invalid
                             @enderror"
-                                    name="penjelasan">
+                                    name="penjelasan" value="{{ $realkpi->penjelasan }}">
                                 @error('penjelasan')
                                     <div class="invalid-feedback">
                                         {{ $message }}

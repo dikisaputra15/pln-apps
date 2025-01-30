@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'RKM')
+@section('title', 'Satuan RKM')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,12 +12,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>RKM</h1>
+                <h1>Satuan RKM</h1>
                 <div class="section-header-button">
-                    <a href="{{route('rkm.create')}}"
+                    <a href="{{route('satrkm.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
-
             </div>
             <div class="section-body">
                 <div class="row">
@@ -25,17 +24,18 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">RKM</h2>
+                <h2 class="section-title">Satuan RKM</h2>
+
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>RKM</h4>
+                                <h4>All Satuan RKM</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('rkm.index')}}">
+                                    <form method="GET" action="{{route('satrkm.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -53,42 +53,24 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Unit Induk</th>
-                                            <th>Unit Pelaksana</th>
-                                            <th>Unit Layanan / Bagian</th>
-                                            <th>Aspirasi RKM</th>
-                                            <th>Indikator Kinerja KPI</th>
-                                            <th>satuan KPI</th>
-                                            <th>bobot RKM</th>
-                                            <th>polaritas RKM</th>
-                                            <th>Indikator RKM</th>
-                                            <th>Satuan RKM</th>
+                                            <th>Nama Satuan RKM</th>
                                             <th>Action</th>
                                         </tr>
 
                                         @php($i = 1)
-                                        @foreach ($indikators as $indikator)
+                                        @foreach ($satuans as $satuanrkm)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$indikator->nama_unit_induk}}</td>
-                                                <td>{{$indikator->nama_unit_pelaksana}}</td>
-                                                <td>{{$indikator->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$indikator->aspirasi_rkm}}</td>
-                                                <td>{{$indikator->indikator_kinerja}}</td>
-                                                <td>{{$indikator->nama_satuan_kpi}}</td>
-                                                <td>{{$indikator->bobot_rkm}}</td>
-                                                <td>{{$indikator->polaritas_rkm}}</td>
-                                                <td>{{$indikator->indikator_rkm}}</td>
-                                                <td>{{$indikator->nama_satuan_rkm}}</td>
+                                                <td>{{$satuanrkm->nama_satuan_rkm}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('rkm.edit', $indikator->id) }}'
+                                                        <a href='{{ route('satrkm.edit', $satuanrkm->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('rkm.destroy', $indikator->id) }}" method="POST"
+                                                        <form action="{{ route('satrkm.destroy', $satuanrkm->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -105,7 +87,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{$indikators->withQueryString()->links()}}
+                                    {{$satuans->withQueryString()->links()}}
                                 </div>
                             </div>
                         </div>

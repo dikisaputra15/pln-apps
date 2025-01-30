@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Satuan Forms')
+@section('title', 'Edit Satuan RKM')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,29 +16,30 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Satuan</h1>
+                <h1>Edit Satuan RKM</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Satuan</h2>
+                <h2 class="section-title">Edit Satuan RKM</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('satuan.store') }}" method="POST">
+                    <form action="{{ route('satrkm.update', $satuanrkm->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="card-header">
-                            <h4>Input Satuan</h4>
+                            <h4>Edit Satuan RKM</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Nama Satuan</label>
+                                <label>Nama Satuan RKM</label>
                                 <input type="text"
-                                    class="form-control @error('nama_satuan')
+                                    class="form-control @error('nama_satuan_rkm')
                                 is-invalid
                             @enderror"
-                                    name="nama_satuan">
-                                @error('nama_satuan')
+                                    name="nama_satuan_rkm" value="{{ $satuanrkm->nama_satuan_rkm }}">
+                                @error('nama_satuan_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

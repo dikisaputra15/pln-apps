@@ -29,7 +29,7 @@
                         @csrf
                         @method('PUT')
                         <div class="card-header">
-                            <h4>Edit Text</h4>
+                            <h4>Edit Satuan</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">

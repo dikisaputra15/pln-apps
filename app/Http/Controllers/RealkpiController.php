@@ -83,24 +83,53 @@ class RealkpiController extends Controller
      */
     public function edit($id)
     {
-        $indikator = DB::table('kpis')->get();
+        $indikators = DB::table('kpis')->get();
         $realkpi = \App\Models\Realkpi::findOrFail($id);
-        return view('pages.realkpis.edit', compact('indikator','realkpi'));
+        return view('pages.realkpis.edit', compact('indikators','realkpi'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+
+        $pencapaian = ($request->realisasi/$request->target)*100;
+        $nilai = ($pencapaian*$request->bobot)/100;
+
+        if($request->realisasi == 0){
+            $status = 'belum';
+        }else if($pencapaian >= 100){
+            $status = 'baik';
+        }else if($pencapaian >= 95){
+            $status = 'hati-hati';
+        }else{
+            $status = 'masalah';
+        }
+
+        DB::table('realkpis')->where('id',$id)->update([
+            'id_indikator_kpi' => $request->id_indikator_kpi,
+            'bobot' => $request->bobot,
+            'polaritas' => $request->polaritas,
+            'tahun' => $request->tahun,
+            'bulan' => $request->bulan,
+            'target' => $request->target,
+            'realisasi' => $request->realisasi,
+            'pencapaian' => $pencapaian,
+            'nilai' => $nilai,
+            'status' => $status,
+            'penjelasan' => $request->penjelasan
+		]);
+
+        return redirect()->route('realkpi.index')->with('success', 'Data successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Realkpi $realkpi)
     {
-        //
+        $realkpi->delete();
+        return redirect()->route('realkpi.index')->with('success', 'Data ßsuccessfully deleted');
     }
 }

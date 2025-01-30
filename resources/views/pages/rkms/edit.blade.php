@@ -3,7 +3,6 @@
 @section('title', 'Edit RKM')
 
 @push('style')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
@@ -29,11 +28,10 @@
                     <form action="{{ route('rkm.update', $rkm->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="card-header">
-                            <h4>Input Text</h4>
-                        </div>
+
                         <div class="card-body">
-                        <div class="form-group">
+
+                            <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
                                     <?php
@@ -51,8 +49,8 @@
                                      <?php } ?>
 
                                 </select>
-                            </div>
 
+                            </div>
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
@@ -71,10 +69,10 @@
                                      <?php } ?>
 
                                 </select>
-                            </div>
 
+                            </div>
                             <div class="form-group">
-                                <label>Nama Unit Layanan Bagian</label>
+                                <label>Nama Unit Layanan / Bagian</label>
                                 <select class="form-control" name="id_layanan" id="unit_layanan">
                                     <?php
                                         foreach ($unitlayanans as $unitlayanan) {
@@ -91,15 +89,30 @@
                                      <?php } ?>
 
                                 </select>
+
                             </div>
 
                             <div class="form-group">
-                                <label>Indikator</label>
-                                <select class="form-control" name="id_indikator" id="unit_indikator">
+                                <label>Aspirasi RKM</label>
+                                <input type="text"
+                                    class="form-control @error('aspirasi_rkm')
+                                is-invalid
+                            @enderror"
+                                    name="aspirasi_rkm" value="{{ $rkm->aspirasi_rkm }}">
+                                @error('aspirasi_rkm')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Indikator Kinerja KPI</label>
+                                <select class="form-control" name="id_indikator_kpi">
                                     <?php
                                         foreach ($indikators as $indikator) {
 
-                                        if ($indikator->id==$rkm->id_indikator) {
+                                        if ($indikator->id==$rkm->indikator_kinerja_kpi) {
                                             $select="selected";
                                         }else{
                                             $select="";
@@ -114,45 +127,70 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Nama Indikator RKM</label>
+                                <label>Bobot RKM</label>
                                 <input type="text"
-                                    class="form-control @error('nama_indikator_rkm')
+                                    class="form-control @error('bobot_rkm')
                                 is-invalid
                             @enderror"
-                                    name="nama_indikator_rkm" value="{{$rkm->nama_indikator_rkm}}" required>
-                                @error('nama_indikator_rkm')
+                                    name="bobot_rkm" value="{{ $rkm->bobot_rkm }}">
+                                @error('bobot_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
                                 <label>Polaritas RKM</label>
-                                <input type="number"
+                                <input type="text"
                                     class="form-control @error('polaritas_rkm')
                                 is-invalid
                             @enderror"
-                                    name="polaritas_rkm" value="{{$rkm->polaritas_rkm}}" required>
+                                    name="polaritas_rkm" value="{{ $rkm->polaritas_rkm }}">
                                 @error('polaritas_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label>Satuan RKM</label>
+                                <label>Indikator RKM</label>
                                 <input type="text"
-                                    class="form-control @error('satuan_rkm')
+                                    class="form-control @error('indikator_rkm')
                                 is-invalid
                             @enderror"
-                                    name="satuan_rkm" value="{{$rkm->satuan_rkm}}" required>
-                                @error('satuan_rkm')
+                                    name="indikator_rkm" value="{{ $rkm->indikator_rkm }}">
+                                @error('indikator_rkm')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                            
+
+
+                            <div class="form-group">
+                                <label>Satuan RKM</label>
+                                <select class="form-control" name="id_satuan_rkm">
+                                    <?php
+                                        foreach ($satuans as $satuan) {
+
+                                        if ($satuan->id==$rkm->id_satuan_rkm) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $satuan->id;?>"><?php echo $satuan->nama_satuan; ?></option>
+
+                                     <?php } ?>
+
+                                </select>
+                            </div>
+
+
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

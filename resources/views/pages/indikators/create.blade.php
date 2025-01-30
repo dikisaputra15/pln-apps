@@ -105,7 +105,7 @@
 
                             <div class="form-group">
                                 <label>Bobot</label>
-                                <input type="number"
+                                <input type="text"
                                     class="form-control @error('bobot')
                                 is-invalid
                             @enderror"
@@ -119,7 +119,7 @@
 
                             <div class="form-group">
                                 <label>Polaritas</label>
-                                <input type="number"
+                                <input type="text"
                                     class="form-control @error('polaritas')
                                 is-invalid
                             @enderror"

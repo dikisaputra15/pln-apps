@@ -31,8 +31,12 @@
                     </li>
                     <li>
                         <a class="nav-link"
-                            href="{{ Route('satuan.index') }}">Satuann KPI</a>
+                            href="{{ Route('satuan.index') }}">Satuan</a>
                     </li>
+                    {{-- <li>
+                        <a class="nav-link"
+                            href="{{ Route('satrkm.index') }}">Satuan RKM</a>
+                    </li> --}}
                     <li>
                         <a class="nav-link"
                             href="{{ Route('kategori.index') }}">Kategori</a>
