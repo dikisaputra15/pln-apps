@@ -31,16 +31,16 @@
                     </li>
                     <li>
                         <a class="nav-link"
-                            href="{{ Route('satuan.index') }}">Satuan</a>
+                            href="{{ Route('satuan.index') }}">Satuann KPI</a>
                     </li>
                     <li>
                         <a class="nav-link"
                             href="{{ Route('kategori.index') }}">Kategori</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="nav-link"
                             href="{{ Route('aspirasi.index') }}">Aspirasi</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="nav-link"
                             href="{{ Route('user.index') }}">Users</a>
@@ -68,15 +68,15 @@
             </li> -->
 
             <li class="nav-item">
-                <a href="{{ Route('indikator.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Indikator Kinerja</span></a>
+                <a href="{{ Route('indikator.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>KPI</span></a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="/performance" class="nav-link"><i class="fas fa-th-large"></i><span>Performance Management</span></a>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
-                <a href="/realisasikpi"
+                <a href="{{ Route('realkpi.index') }}"
                     class="nav-link"><i class="fas fa-plug"></i><span>Realisasi KPI</span></a>
             </li>
 
@@ -99,9 +99,9 @@
                     class="nav-link"><i class="fas fa-columns"></i><span>Rekap RKM</span></a>
             </li> --}}
 
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{ Route('rkmrealisasi.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Realisasi RKM</span></a>
-            </li> --}}
+            </li>
         </ul>
     </aside>
 </div>

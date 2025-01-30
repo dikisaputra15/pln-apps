@@ -22,12 +22,10 @@ class UpdateIndikatorRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'aspirasi' => 'required',
             'indikator_kinerja' => 'required',
             'bobot' => 'required',
             'polaritas' => 'required',
-            'tahun' => 'required',
-            'target' => 'required',
-            'realisasi' => 'required',
         ];
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Indikator Kinerja')
+@section('title', 'Edit KPI')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,11 +16,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Indikator</h1>
+                <h1>Edit KPI</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Edit Indikator</h2>
+                <h2 class="section-title">Edit KPI</h2>
 
 
 
@@ -37,7 +37,7 @@
                                     <?php
                                         foreach ($unitinduks as $unitinduk) {
 
-                                        if ($unitinduk->id==$nko->id_unit_induk) {
+                                        if ($unitinduk->id==$indikator->id_unit_induk) {
                                             $select="selected";
                                         }else{
                                             $select="";
@@ -57,7 +57,7 @@
                                     <?php
                                         foreach ($unitpelaksanas as $unitpelaksana) {
 
-                                        if ($unitpelaksana->id==$nko->id_pelaksana) {
+                                        if ($unitpelaksana->id==$indikator->id_pelaksana) {
                                             $select="selected";
                                         }else{
                                             $select="";
@@ -77,7 +77,7 @@
                                     <?php
                                         foreach ($unitlayanans as $unitlayanan) {
 
-                                        if ($unitlayanan->id==$nko->id_layanan) {
+                                        if ($unitlayanan->id==$indikator->id_layanan) {
                                             $select="selected";
                                         }else{
                                             $select="";
@@ -94,22 +94,16 @@
 
                             <div class="form-group">
                                 <label>Aspirasi</label>
-                                <select class="form-control" name="id_aspirasi">
-                                    <?php
-                                        foreach ($aspirasis as $aspirasi) {
-
-                                        if ($aspirasi->id==$indikator->id_aspirasi) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $aspirasi->id;?>"><?php echo $aspirasi->nama_aspirasi; ?></option>
-
-                                     <?php } ?>
-
-                                </select>
+                                <input type="text"
+                                    class="form-control @error('aspirasi')
+                                is-invalid
+                            @enderror"
+                                    name="aspirasi" value="{{ $indikator->aspirasi }}">
+                                @error('indikator_kinerja')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -147,7 +141,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Satuan</label>
+                                <label>Satuan KPI</label>
                                 <select class="form-control" name="id_satuan">
                                     <?php
                                         foreach ($satuans as $satuan) {
@@ -194,75 +188,6 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label>Tahun</label>
-                                <input type="text"
-                                    class="form-control @error('tahun')
-                                is-invalid
-                            @enderror"
-                                    name="tahun" value="{{ $indikator->tahun }}">
-                                @error('tahun')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Bulan</label>
-                                <input type="text"
-                                    class="form-control @error('bulan')
-                                is-invalid
-                            @enderror"
-                                    name="bulan" value="{{ $indikator->bulan }}">
-                                @error('bulan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Target</label>
-                                <input type="text"
-                                    class="form-control @error('target')
-                                is-invalid
-                            @enderror"
-                                    name="target" value="{{ $indikator->target }}">
-                                @error('target')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Realisasi</label>
-                                <input type="text"
-                                    class="form-control @error('realisasi')
-                                is-invalid
-                            @enderror"
-                                    name="realisasi" value="{{ $indikator->realisasi }}">
-                                @error('realisasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Penjelasan</label>
-                                <input type="text"
-                                    class="form-control @error('penjelasan')
-                                is-invalid
-                            @enderror"
-                                    name="penjelasan" value="{{ $indikator->penjelasan }}">
-                                @error('penjelasan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

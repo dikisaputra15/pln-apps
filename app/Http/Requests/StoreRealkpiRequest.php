@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreIndikatorRequest extends FormRequest
+class StoreRealkpiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,12 @@ class StoreIndikatorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'aspirasi' => 'required',
-            'indikator_kinerja' => 'required',
             'bobot' => 'required',
             'polaritas' => 'required',
+            'tahun' => 'required',
+            'bulan' => 'required',
+            'target' => 'required',
+            'realisasi' => 'required',
         ];
     }
 }

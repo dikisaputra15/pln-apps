@@ -13,7 +13,7 @@ use App\Http\Controllers\NkoController;
 use App\Http\Controllers\RkmController;
 use App\Http\Controllers\RekapkinerjaController;
 use App\Http\Controllers\RekaprkmController;
-// use App\Http\Controllers\RealrkmController;
+use App\Http\Controllers\RealkpiController;
 // use App\Http\Controllers\RealisasirkmController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\RkmrealisasiController;
@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rkm', RkmController::class);
     Route::resource('rekapkinerja', RekapkinerjaController::class);
     Route::resource('rekaprkm', RekaprkmController::class);
+    Route::resource('realkpi', RealkpiController::class);
     Route::get('/upel', [App\Http\Controllers\UpelController::class, 'index']);
     Route::get('/upel/create', [App\Http\Controllers\UpelController::class, 'create']);
     Route::post('/upel/store', [App\Http\Controllers\UpelController::class, 'store']);

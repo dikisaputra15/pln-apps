@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIndikatorRequest;
 use App\Http\Requests\UpdateIndikatorRequest;
-use App\Models\Indikatorkinerja;
+use App\Models\Kpi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -16,20 +16,19 @@ class IndikatorController extends Controller
      */
     public function index(Request $request)
     {
-        $indikators = DB::table('indikatorkinerjas')
-        ->join('unitinduks', 'unitinduks.id', '=', 'indikatorkinerjas.id_unit_induk')
-        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'indikatorkinerjas.id_pelaksana')
-        ->join('unitlayanans', 'unitlayanans.id', '=', 'indikatorkinerjas.id_layanan')
-        ->join('kategoris', 'kategoris.id', '=', 'indikatorkinerjas.id_kategori')
-        ->join('aspirasis', 'aspirasis.id', '=', 'indikatorkinerjas.id_aspirasi')
-        ->join('satuans', 'satuans.id', '=', 'indikatorkinerjas.id_satuan')
-        ->select('indikatorkinerjas.*', 'kategoris.nama_kategori', 'aspirasis.nama_aspirasi', 'satuans.nama_satuan', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
+        $indikators = DB::table('kpis')
+        ->join('unitinduks', 'unitinduks.id', '=', 'kpis.id_unit_induk')
+        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'kpis.id_pelaksana')
+        ->join('unitlayanans', 'unitlayanans.id', '=', 'kpis.id_layanan')
+        ->join('kategoris', 'kategoris.id', '=', 'kpis.id_kategori')
+        ->join('satuans', 'satuans.id', '=', 'kpis.id_satuan')
+        ->select('kpis.*', 'kategoris.nama_kategori', 'satuans.nama_satuan', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
         ->when($request->input('name'), function($query, $name){
             return $query->where('indikator_kinerja', 'like', '%'.$name.'%');
         })
-        ->orderBy('indikatorkinerjas.id', 'desc')
+        ->orderBy('kpis.id', 'desc')
         ->paginate(10);
-    return view('pages.indikators.index', compact('indikators'));
+        return view('pages.indikators.index', compact('indikators'));
     }
 
     /**
@@ -39,9 +38,8 @@ class IndikatorController extends Controller
     {
         $unitinduks = DB::table('unitinduks')->get();
         $kategoris = DB::table('kategoris')->get();
-        $aspirasis = DB::table('aspirasis')->get();
         $satuans = DB::table('satuans')->get();
-        return view('pages.indikators.create', compact('unitinduks','kategoris','aspirasis','satuans'));
+        return view('pages.indikators.create', compact('unitinduks','kategoris','satuans'));
     }
 
     /**
@@ -49,37 +47,29 @@ class IndikatorController extends Controller
      */
     public function store(StoreIndikatorRequest $request)
     {
-        $pencapaian = ($request->realisasi/$request->target)*100;
-        $nilai = ($pencapaian*$request->bobot)/100;
+        // $pencapaian = ($request->realisasi/$request->target)*100;
+        // $nilai = ($pencapaian*$request->bobot)/100;
 
-        if($request->realisasi == 0){
-            $status = 'belum';
-        }else if($pencapaian >= 100){
-            $status = 'baik';
-        }else if($pencapaian >= 95){
-            $status = 'hati-hati';
-        }else{
-            $status = 'masalah';
-        }
+        // if($request->realisasi == 0){
+        //     $status = 'belum';
+        // }else if($pencapaian >= 100){
+        //     $status = 'baik';
+        // }else if($pencapaian >= 95){
+        //     $status = 'hati-hati';
+        // }else{
+        //     $status = 'masalah';
+        // }
 
-        Indikatorkinerja::create([
+        Kpi::create([
             'id_unit_induk' => $request->id_unit_induk,
             'id_pelaksana' => $request->id_pelaksana,
             'id_layanan' => $request->id_layanan,
-            'id_aspirasi' => $request->id_aspirasi,
+            'aspirasi' => $request->aspirasi,
             'indikator_kinerja' => $request->indikator_kinerja,
             'id_kategori' => $request->id_kategori,
             'id_satuan' => $request->id_satuan,
             'bobot' => $request->bobot,
-            'polaritas' => $request->polaritas,
-            'tahun' => $request->tahun,
-            'bulan' => $request->bulan,
-            'target' => $request->target,
-            'realisasi' => $request->realisasi,
-            'pencapaian' => $pencapaian,
-            'nilai' => $nilai,
-            'status' => $status,
-            'penjelasan' => $request->penjelasan
+            'polaritas' => $request->polaritas
         ]);
 
         return redirect()->route('indikator.index')->with('success', 'Data successfully created');
@@ -102,16 +92,15 @@ class IndikatorController extends Controller
         $unitpelaksanas = DB::table('unitpelaksanas')->get();
         $unitlayanans = DB::table('unitlayanans')->get();
         $kategoris = DB::table('kategoris')->get();
-        $aspirasis = DB::table('aspirasis')->get();
         $satuans = DB::table('satuans')->get();
-        $indikator = \App\Models\Indikator::findOrFail($id);
-        return view('pages.indikators.edit', compact('unitinduks','unitpelaksanas','unitlayanans','kategoris','aspirasis','satuans', 'indikator'));
+        $indikator = \App\Models\Kpi::findOrFail($id);
+        return view('pages.indikators.edit', compact('unitinduks','unitpelaksanas','unitlayanans','kategoris','satuans', 'indikator'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateIndikatorRequest $request, Indikator $indikator)
+    public function update(UpdateIndikatorRequest $request, Kpi $indikator)
     {
         $data = $request->validated();
         $indikator->update($data);
@@ -121,7 +110,7 @@ class IndikatorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Indikator $indikator)
+    public function destroy(Kpi $indikator)
     {
         $indikator->delete();
         return redirect()->route('indikator.index')->with('success', 'Data ßsuccessfully deleted');

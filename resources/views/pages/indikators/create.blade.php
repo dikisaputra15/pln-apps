@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Indikator Kinerja')
+@section('title', 'Indikator Kinerja KPI')
 
 @push('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,11 +17,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Indikator Kinerja</h1>
+                <h1>Input KPI</h1>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Indikator Kinerja</h2>
+                <h2 class="section-title">Input KPI</h2>
 
 
 
@@ -29,7 +29,7 @@
                     <form action="{{ route('indikator.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
-                            <h4>Input Text</h4>
+                            <h4>Input KPI</h4>
                         </div>
                         <div class="card-body">
 
@@ -57,12 +57,16 @@
 
                             <div class="form-group">
                                 <label>Aspirasi</label>
-                                <select class="form-control" name="id_aspirasi">
-                                        <option>-Pilih Aspirasi-</option>
-                                    @foreach ($aspirasis as $aspirasi)
-                                        <option value="{{$aspirasi->id}}">{{$aspirasi->nama_aspirasi}}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text"
+                                    class="form-control @error('aspirasi')
+                                is-invalid
+                            @enderror"
+                                    name="aspirasi">
+                                @error('aspirasi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -90,7 +94,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Satuan</label>
+                                <label>Satuan KPI</label>
                                 <select class="form-control" name="id_satuan">
                                         <option>-Pilih Satuan-</option>
                                     @foreach ($satuans as $satuan)
@@ -127,79 +131,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label>Tahun</label>
-                                <input type="text"
-                                    class="form-control @error('tahun')
-                                is-invalid
-                            @enderror"
-                                    name="tahun">
-                                @error('tahun')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
 
-                            <div class="form-group">
-                                <label>Bulan</label>
-                                <select class="form-control" name="bulan">
-                                    <option value="JAN">JAN</option>
-                                    <option value="FEB">FEB</option>
-                                    <option value="MAR">MAR</option>
-                                    <option value="APR">APR</option>
-                                    <option value="MEI">MEI</option>
-                                    <option value="JUN">JUN</option>
-                                    <option value="JUL">JUL</option>
-                                    <option value="AGU">AGU</option>
-                                    <option value="SEP">SEP</option>
-                                    <option value="OKT">OKT</option>
-                                    <option value="NOV">NOV</option>
-                                    <option value="DES">DES</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Target</label>
-                                <input type="text"
-                                    class="form-control @error('target')
-                                is-invalid
-                            @enderror"
-                                    name="target">
-                                @error('target')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Realisasi</label>
-                                <input type="text"
-                                    class="form-control @error('realisasi')
-                                is-invalid
-                            @enderror"
-                                    name="realisasi">
-                                @error('realisasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Penjelasan</label>
-                                <input type="text"
-                                    class="form-control @error('penjelasan')
-                                is-invalid
-                            @enderror"
-                                    name="penjelasan">
-                                @error('penjelasan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

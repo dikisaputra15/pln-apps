@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'KPI')
+@section('title', 'Realisasi KPI')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,9 +12,9 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>KPI</h1>
+                <h1>Realisasi KPI</h1>
                 <div class="section-header-button">
-                    <a href="{{route('indikator.create')}}"
+                    <a href="{{route('realkpi.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
 
@@ -25,17 +25,17 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">KPI</h2>
+                <h2 class="section-title">Realisasi KPI</h2>
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>KPI</h4>
+                                <h4>Realisasi KPI</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{route('indikator.index')}}">
+                                    <form method="GET" action="{{route('realkpi.index')}}">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -53,15 +53,17 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Unit Induk</th>
-                                            <th>Unit Pelaksana</th>
-                                            <th>Unit Layanan / Bagian</th>
-                                            <th>Aspirasi</th>
-                                            <th>Indikator Kinerja</th>
-                                            <th>kategori</th>
-                                            <th>satuan KPI</th>
-                                            <th>bobot</th>
-                                            <th>polaritas</th>
+                                            <th>Indikator Kinerja KPI</th>
+                                            <th>Bobot</th>
+                                            <th>Polaritas</th>
+                                            <th>Tahun</th>
+                                            <th>Bulan</th>
+                                            <th>Target</th>
+                                            <th>Realisasi</th>
+                                            <th>Pencapaian</th>
+                                            <th>Nilai</th>
+                                            <th>Status</th>
+                                            <th>Penjelasan</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -69,24 +71,26 @@
                                         @foreach ($indikators as $indikator)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$indikator->nama_unit_induk}}</td>
-                                                <td>{{$indikator->nama_unit_pelaksana}}</td>
-                                                <td>{{$indikator->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$indikator->aspirasi}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
-                                                <td>{{$indikator->nama_kategori}}</td>
-                                                <td>{{$indikator->nama_satuan}}</td>
                                                 <td>{{$indikator->bobot}}</td>
                                                 <td>{{$indikator->polaritas}}</td>
+                                                <td>{{$indikator->tahun}}</td>
+                                                <td>{{$indikator->bulan}}</td>
+                                                <td>{{$indikator->target}}</td>
+                                                <td>{{$indikator->realisasi}}</td>
+                                                <td>{{$indikator->pencapaian}}</td>
+                                                <td>{{$indikator->nilai}}</td>
+                                                <td>{{$indikator->status}}</td>
+                                                <td>{{$indikator->penjelasan}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('indikator.edit', $indikator->id) }}'
+                                                        <a href='{{ route('realkpi.edit', $indikator->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('indikator.destroy', $indikator->id) }}" method="POST"
+                                                        <form action="{{ route('realkpi.destroy', $indikator->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
