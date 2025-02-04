@@ -61,6 +61,7 @@
                                             <th>Unit Induk</th>
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan</th>
+                                            <th>Roles</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -71,6 +72,7 @@
                                                 <td>{{$user->nama_unit_induk}}</td>
                                                 <td>{{$user->nama_unit_pelaksana}}</td>
                                                 <td>{{$user->nama_unit_layanan_bagian}}</td>
+                                                <td>{{$user->roles}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('user.edit', $user->id) }}'

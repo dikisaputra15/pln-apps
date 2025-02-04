@@ -56,20 +56,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Aspirasi</label>
-                                <input type="text"
-                                    class="form-control @error('aspirasi')
-                                is-invalid
-                            @enderror"
-                                    name="aspirasi">
-                                @error('aspirasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
                                 <label>Indikator Kinerja</label>
                                 <input type="text"
                                     class="form-control @error('indikator_kinerja')

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('id_unit_induk');
             $table->integer('id_pelaksana');
             $table->integer('id_layanan');
-            $table->string('aspirasi');
             $table->string('indikator_kinerja');
             $table->integer('id_kategori');
             $table->integer('id_satuan');

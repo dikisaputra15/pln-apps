@@ -49,6 +49,14 @@
                         <a class="nav-link"
                             href="{{ Route('user.index') }}">Users</a>
                     </li>
+                    <li>
+                        <a class="nav-link"
+                            href="{{ Route('indikator.index') }}">KPI</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="{{ Route('rkm.index') }}">RKM</a>
+                    </li>
                 </ul>
             </li>
 
@@ -71,10 +79,6 @@
                 </ul>
             </li> -->
 
-            <li class="nav-item">
-                <a href="{{ Route('indikator.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>KPI</span></a>
-            </li>
-
             {{-- <li class="nav-item">
                 <a href="/performance" class="nav-link"><i class="fas fa-th-large"></i><span>Performance Management</span></a>
             </li> --}}
@@ -88,11 +92,6 @@
                 <a href="{{ Route('nko.index') }}"
                     class="nav-link"><i class="fas fa-plug"></i><span>NKO</span></a>
             </li> --}}
-
-            <li class="nav-item">
-                <a href="{{ Route('rkm.index') }}"
-                    class="nav-link"><i class="fas fa-columns"></i><span>RKM</span></a>
-            </li>
 
             {{-- <li class="nav-item">
                 <a href="{{ Route('rekapkinerja.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Rekap Kinerja</span></a>

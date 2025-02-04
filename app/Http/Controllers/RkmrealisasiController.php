@@ -22,7 +22,8 @@ class RkmrealisasiController extends Controller
         ->join('rkms', 'rkms.id', '=', 'rkmrealisasis.indikator_rkm')
         ->join('satuans as satuan_rkm', 'satuan_rkm.id', '=', 'rkms.id_satuan_rkm')
         ->join('satuans as satuan_kpi', 'satuan_kpi.id', '=', 'kpis.id_satuan')
-        ->select('rkmrealisasis.*', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian', 'kpis.aspirasi', 'kpis.indikator_kinerja', 'kpis.bobot', 'kpis.polaritas', 'satuan_kpi.nama_satuan as nama_satuan_kpi', 'satuan_rkm.nama_satuan as nama_satuan_rkm', 'rkms.indikator_rkm')
+        ->join('satuans as satuan_hasil', 'satuan_hasil.id', '=', 'rkmrealisasis.satuan_hasil')
+        ->select('rkmrealisasis.*', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian', 'kpis.indikator_kinerja', 'kpis.bobot', 'kpis.polaritas', 'satuan_kpi.nama_satuan as nama_satuan_kpi', 'satuan_rkm.nama_satuan as nama_satuan_rkm', 'satuan_hasil.nama_satuan as nama_satuan_hasil', 'rkms.indikator_rkm')
         ->when($request->input('name'), function($query, $name){
             return $query->where('tahun', 'like', '%'.$name.'%');
         })
@@ -104,8 +105,9 @@ class RkmrealisasiController extends Controller
         $unitlayanans = DB::table('unitlayanans')->get();
         $indikators = DB::table('kpis')->get();
         $rkms = DB::table('rkms')->get();
+        $satuans = DB::table('satuans')->get();
         $rkmrealisasi = \App\Models\Rkmrealisasi::findOrFail($id);
-        return view('pages.realisasirkms.edit', compact('unitinduks','unitpelaksanas','unitlayanans','indikators','rkms','rkmrealisasi'));
+        return view('pages.realisasirkms.edit', compact('unitinduks','unitpelaksanas','unitlayanans','indikators','rkms','rkmrealisasi', 'satuans'));
     }
 
     /**

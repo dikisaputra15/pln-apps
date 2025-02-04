@@ -22,7 +22,6 @@ class StoreRkmRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'aspirasi_rkm' => 'required',
             'indikator_rkm' => 'required',
             'bobot_rkm' => 'required',
             'polaritas_rkm' => 'required',

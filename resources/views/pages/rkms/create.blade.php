@@ -56,20 +56,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Aspirasi RKM</label>
-                                <input type="text"
-                                    class="form-control @error('aspirasi_rkm')
-                                is-invalid
-                            @enderror"
-                                    name="aspirasi_rkm">
-                                @error('aspirasi_rkm')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
                                 <label>Indikator Kinerja KPI</label>
                                 <select class="form-control" name="id_indikator_kpi" id="id_indikator_kpi">
                                         <option>-Pilih Indikator KPI-</option>

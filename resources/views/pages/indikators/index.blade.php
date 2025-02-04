@@ -56,7 +56,6 @@
                                             <th>Unit Induk</th>
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan / Bagian</th>
-                                            <th>Aspirasi</th>
                                             <th>Indikator Kinerja</th>
                                             <th>kategori</th>
                                             <th>satuan KPI</th>
@@ -72,7 +71,6 @@
                                                 <td>{{$indikator->nama_unit_induk}}</td>
                                                 <td>{{$indikator->nama_unit_pelaksana}}</td>
                                                 <td>{{$indikator->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$indikator->aspirasi}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
                                                 <td>{{$indikator->nama_kategori}}</td>
                                                 <td>{{$indikator->nama_satuan}}</td>

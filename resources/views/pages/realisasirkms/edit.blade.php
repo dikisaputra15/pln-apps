@@ -387,16 +387,22 @@
 
                             <div class="form-group">
                                 <label>Satuan Hasil</label>
-                                <input type="text"
-                                    class="form-control @error('satuan_hasil')
-                                is-invalid
-                            @enderror"
-                                    name="satuan_hasil" value="{{ $rkmrealisasi->satuan_hasil }}" required>
-                                @error('satuan_hasil')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <select class="form-control" name="satuan_hasil">
+                                    <?php
+                                        foreach ($satuans as $satuan) {
+
+                                        if ($satuan->id==$rkmrealisasi->satuan_hasil) {
+                                            $select="selected";
+                                        }else{
+                                            $select="";
+                                        }
+
+                                     ?>
+                                        <option <?php echo $select; ?> value="<?php echo $satuan->id;?>"><?php echo $satuan->nama_satuan; ?></option>
+
+                                     <?php } ?>
+
+                                </select>
                             </div>
 
                             <div class="form-group">

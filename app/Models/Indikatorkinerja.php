@@ -13,7 +13,6 @@ class Indikatorkinerja extends Model
         'id_unit_induk',
         'id_pelaksana',
         'id_layanan',
-        'aspirasi',
         'indikator_kinerja',
         'id_kategori',
         'id_satuan',

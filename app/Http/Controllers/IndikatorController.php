@@ -64,7 +64,6 @@ class IndikatorController extends Controller
             'id_unit_induk' => $request->id_unit_induk,
             'id_pelaksana' => $request->id_pelaksana,
             'id_layanan' => $request->id_layanan,
-            'aspirasi' => $request->aspirasi,
             'indikator_kinerja' => $request->indikator_kinerja,
             'id_kategori' => $request->id_kategori,
             'id_satuan' => $request->id_satuan,

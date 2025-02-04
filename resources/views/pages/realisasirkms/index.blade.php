@@ -56,7 +56,6 @@
                                             <th>Unit Induk</th>
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan / Bagian</th>
-                                            <th>Aspirasi</th>
                                             <th>Indikator Kinerja KPI</th>
                                             <th>Satuan KPI</th>
                                             <th>Bobot</th>
@@ -100,7 +99,6 @@
                                                 <td>{{$rkmrealisasi->nama_unit_induk}}</td>
                                                 <td>{{$rkmrealisasi->nama_unit_pelaksana}}</td>
                                                 <td>{{$rkmrealisasi->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$rkmrealisasi->aspirasi}}</td>
                                                 <td>{{$rkmrealisasi->indikator_kinerja}}</td>
                                                 <td>{{$rkmrealisasi->nama_satuan_kpi}}</td>
                                                 <td>{{$rkmrealisasi->bobot}}</td>
@@ -125,7 +123,7 @@
                                                 <td>{{$rkmrealisasi->persen_bulan}}</td>
                                                 <td>{{$rkmrealisasi->persen_minggu}}</td>
                                                 <td>{{$rkmrealisasi->tipe_target_hasil}}</td>
-                                                <td>{{$rkmrealisasi->satuan_hasil}}</td>
+                                                <td>{{$rkmrealisasi->nama_satuan_hasil}}</td>
                                                 <td>{{$rkmrealisasi->target_hasil_tahunan}}</td>
                                                 <td>{{$rkmrealisasi->target_hasil_bulanan}}</td>
                                                 <td>{{$rkmrealisasi->target_hasil_mingguan}}</td>

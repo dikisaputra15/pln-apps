@@ -56,7 +56,6 @@
                                             <th>Unit Induk</th>
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan / Bagian</th>
-                                            <th>Aspirasi RKM</th>
                                             <th>Indikator Kinerja KPI</th>
                                             <th>satuan KPI</th>
                                             <th>bobot RKM</th>
@@ -73,7 +72,6 @@
                                                 <td>{{$indikator->nama_unit_induk}}</td>
                                                 <td>{{$indikator->nama_unit_pelaksana}}</td>
                                                 <td>{{$indikator->nama_unit_layanan_bagian}}</td>
-                                                <td>{{$indikator->aspirasi_rkm}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
                                                 <td>{{$indikator->nama_satuan_kpi}}</td>
                                                 <td>{{$indikator->bobot_rkm}}</td>

@@ -327,17 +327,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Satuan Hasil</label>
-                                <input type="text"
-                                    class="form-control @error('satuan_hasil')
-                                is-invalid
-                            @enderror"
-                                    name="satuan_hasil" required>
-                                @error('satuan_hasil')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <label>Satuan hasil</label>
+                                <select class="form-control" name="satuan_hasil">
+                                        <option>-Pilih Satuan RKM-</option>
+                                    @foreach ($satuans as $satuan)
+                                        <option value="{{$satuan->id}}">{{$satuan->nama_satuan}}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group">

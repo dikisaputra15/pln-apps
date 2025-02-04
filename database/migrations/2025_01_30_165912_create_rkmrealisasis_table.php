@@ -36,7 +36,7 @@ return new class extends Migration
             $table->double('persen_bulan');
             $table->double('persen_minggu');
             $table->string('tipe_target_hasil');
-            $table->string('satuan_hasil');
+            $table->integer('satuan_hasil');
             $table->double('target_hasil_tahunan');
             $table->double('target_hasil_bulanan');
             $table->double('target_hasil_mingguan');
