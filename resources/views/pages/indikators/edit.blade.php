@@ -162,17 +162,14 @@
 
                             <div class="form-group">
                                 <label>Polaritas</label>
-                                <input type="text"
-                                    class="form-control @error('polaritas')
-                                is-invalid
-                            @enderror"
-                                    name="polaritas" value="{{ $indikator->polaritas }}">
-                                @error('polaritas')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <select class="form-control" name="polaritas">
+                                    <option value="0" {{ isset($indikator) && $indikator->polaritas == 0 ? 'selected' : '' }}>-Pilih Polaritas-</option>
+                                    <option value="1" {{ isset($indikator) && $indikator->polaritas == 1 ? 'selected' : '' }}>Positif</option>
+                                    <option value="2" {{ isset($indikator) && $indikator->polaritas == 2 ? 'selected' : '' }}>Negatif</option>
+                                    <option value="3" {{ isset($indikator) && $indikator->polaritas == 3 ? 'selected' : '' }}>Range</option>
+                                </select>
                             </div>
+
 
                         </div>
                         <div class="card-footer text-right">

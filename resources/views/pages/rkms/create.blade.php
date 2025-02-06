@@ -81,16 +81,12 @@
 
                             <div class="form-group">
                                 <label>Polaritas RKM</label>
-                                <input type="text"
-                                    class="form-control @error('polaritas_rkm')
-                                is-invalid
-                            @enderror"
-                                    name="polaritas_rkm">
-                                @error('polaritas_rkm')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <select class="form-control" name="polaritas_rkm">
+                                    <option value="0">-Pilih Polaritas-</option>
+                                    <option value="1">Positif</option>
+                                    <option value="2">Negatif</option>
+                                    <option value="3">Range</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
