@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('realkpis', function (Blueprint $table) {
             $table->id();
             $table->integer('id_indikator_kpi');
-            $table->integer('bobot');
+            $table->double('bobot');
             $table->integer('polaritas');
             $table->string('tahun');
             $table->string('bulan');

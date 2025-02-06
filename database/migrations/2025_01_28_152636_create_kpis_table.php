@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('indikator_kinerja');
             $table->integer('id_kategori');
             $table->integer('id_satuan');
-            $table->integer('bobot');
+            $table->double('bobot');
             $table->integer('polaritas');
             $table->timestamps();
         });

@@ -3,9 +3,16 @@
 @section('title', 'Realisasi KPI')
 
 @push('style')
+@push('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Libraries -->
-    <link rel="stylesheet"
-        href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+@endpush
 @endpush
 
 @section('main')
@@ -25,11 +32,63 @@
                         @include('layouts.alert')
                     </div>
                 </div>
-                <h2 class="section-title">Realisasi KPI</h2>
+
+            <form method="GET" action="{{ route('realkpi.index') }}">
+                <div class="row">
+                    <div class="col-md-2">
+                                <label>Nama Unit Induk</label>
+                                <select class="form-control" name="id_unit_induk" id="unit_induk">
+                                        <option value="">Semua</option>
+                                    @foreach ($unitinduks as $unitinduk)
+                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Nama Unit Pelaksana</label>
+                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
+                                    <option value="">Semua</option>
+                                 </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Nama Unit Layanan</label>
+                                 <select class="form-control" name="id_layanan" id="unit_layanan">
+                                    <option value="">Semua</option>
+                                 </select>
+                            </div>
+
+                            <div class="col-md-2">
+                        <label>Bulan</label>
+                        <select id="bulan" name="bulan" class="form-control">
+                            <option value="">Semua</option>
+                            <option value="JAN">JAN</option>
+                            <option value="FEB">FEB</option>
+                            <option value="MAR">MAR</option>
+                            <option value="APR">APR</option>
+                            <option value="MEI">MEI</option>
+                            <option value="JUN">JUN</option>
+                            <option value="JUL">JUL</option>
+                            <option value="AGU">AGU</option>
+                            <option value="SEP">SEP</option>
+                            <option value="OKT">OKT</option>
+                            <option value="NOV">NOV</option>
+                            <option value="DES">DES</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Tahun</label>
+                        <input type="text" class="form-control" name="tahun" id="tahun">
+                    </div>
+
+                    <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <a href="{{ route('realkpi.index') }}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </div>
+                </form>
 
                 <div class="row mt-4">
-
-
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -50,64 +109,77 @@
                                 </div>
 
                                 <div class="clearfix mb-3"></div>
-
                                 <div class="table-responsive">
-                                    <table class="table-striped table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Indikator Kinerja KPI</th>
-                                            <th>Bobot</th>
-                                            <th>Polaritas</th>
-                                            <th>Tahun</th>
-                                            <th>Bulan</th>
-                                            <th>Target</th>
-                                            <th>Realisasi</th>
-                                            <th>Pencapaian</th>
-                                            <th>Nilai</th>
-                                            <th>Status</th>
-                                            <th>Penjelasan</th>
-                                            <th>Action</th>
-                                        </tr>
+                    <table class="table-striped table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Indikator Kinerja KPI</th>
+                                <th>Bobot</th>
+                                <th>Polaritas</th>
+                                <th>Tahun</th>
+                                <th>Bulan</th>
+                                <th>Target</th>
+                                <th>Realisasi</th>
+                                <th>Pencapaian</th>
+                                <th>Nilai</th>
+                                <th>Status</th>
+                                <th>Penjelasan</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($indikators->count() > 0)
+                                @php($i = 1)
+                                @foreach ($indikators as $indikator)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $indikator->indikator_kinerja }}</td>
+                                        <td>{{ $indikator->bobot }}</td>
+                                        <td>{{ $indikator->polaritas }}</td>
+                                        <td>{{ $indikator->tahun }}</td>
+                                        <td>{{ $indikator->bulan }}</td>
+                                        <td>{{ $indikator->target }}</td>
+                                        <td>{{ $indikator->realisasi }}</td>
+                                        <td>{{ $indikator->pencapaian }}</td>
+                                        <td>{{ $indikator->nilai }}</td>
+                                        <td>{{ $indikator->status }}</td>
+                                        <td>{{ $indikator->penjelasan }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <a href='{{ route('realkpi.edit', $indikator->id) }}'
+                                                    class="btn btn-sm btn-info btn-icon">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
 
-                                        @php($i = 1)
-                                        @foreach ($indikators as $indikator)
-                                            <tr>
-                                                <td>{{ $i++ }}</td>
-                                                <td>{{$indikator->indikator_kinerja}}</td>
-                                                <td>{{$indikator->bobot}}</td>
-                                                <td>{{$indikator->polaritas}}</td>
-                                                <td>{{$indikator->tahun}}</td>
-                                                <td>{{$indikator->bulan}}</td>
-                                                <td>{{$indikator->target}}</td>
-                                                <td>{{$indikator->realisasi}}</td>
-                                                <td>{{$indikator->pencapaian}}</td>
-                                                <td>{{$indikator->nilai}}</td>
-                                                <td>{{$indikator->status}}</td>
-                                                <td>{{$indikator->penjelasan}}</td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('realkpi.edit', $indikator->id) }}'
-                                                            class="btn btn-sm btn-info btn-icon">
-                                                            <i class="fas fa-edit"></i>
-                                                            Edit
-                                                        </a>
+                                                <form action="{{ route('realkpi.destroy', $indikator->id) }}" method="POST" class="ml-2">
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                        <i class="fas fa-times"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="13" class="text-center">Tidak ada data yang ditemukan</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="9" class="text-right"><b>Total Nilai</b></td>
+                                <td colspan="4">
+                                    <b>{{ $indikators->sum('nilai') }}</b>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
 
-                                                        <form action="{{ route('realkpi.destroy', $indikator->id) }}" method="POST"
-                                                            class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE" />
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}" />
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                    </table>
-                                </div>
                                 <div class="float-right">
                                     {{$indikators->withQueryString()->links()}}
                                 </div>
@@ -121,11 +193,66 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/features-posts.js') }}"></script>
+<script>
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+            $('#unit_induk').change(function(){
+                let id_unit_induk = $('#unit_induk').val();
+
+                 // Set default "Semua" di Unit Pelaksana dan Unit Layanan
+                $('#unit_pelaksana').html('<option value="">Semua</option>');
+                $('#unit_layanan').html('<option value="">Semua</option>');
+
+                if(id_unit_induk != '')
+                {
+                    $.ajax({
+                        type : 'POST',
+                        url : "{{url('fetchlayanan')}}",
+                        data : {unit_induk:id_unit_induk},
+
+                        success: function(data)
+                        {
+                            $('#unit_pelaksana').append(data);
+                        },
+                        error: function(xhr) {
+                            console.log("Error:", xhr);
+                        }
+                    });
+                }
+            });
+
+            $('#unit_pelaksana').change(function(){
+                let id_unit_pelaksana = $('#unit_pelaksana').val();
+
+                 // Set default "Semua" di Unit Layanan
+                 $('#unit_layanan').html('<option value="">Semua</option>');
+
+                 if (id_unit_pelaksana !== '') {
+                    $.ajax({
+                        type : 'POST',
+                        url : "{{url('fetchpelaksana')}}",
+                        data : {unit_pelaksana:id_unit_pelaksana},
+
+                        success: function(data)
+                        {
+                            $('#unit_layanan').append(data);
+                        },
+                        error: function(xhr) {
+                            console.log("Error:", xhr);
+                         }
+                    });
+                }
+            });
+
+    });
+</script>
 
     <script>
         $('.confirm-delete').on('click', function() {
@@ -135,4 +262,5 @@
         }
         });
     </script>
+
 @endpush

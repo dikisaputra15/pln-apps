@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rekapkinerja', RekapkinerjaController::class);
     Route::resource('rekaprkm', RekaprkmController::class);
     Route::resource('realkpi', RealkpiController::class);
+    Route::get('/realkpi/filter', [App\Http\Controllers\RealkpiController::class, 'filter'])->name('realkpi.filter');
     Route::get('/upel', [App\Http\Controllers\UpelController::class, 'index']);
     Route::get('/upel/create', [App\Http\Controllers\UpelController::class, 'create']);
     Route::post('/upel/store', [App\Http\Controllers\UpelController::class, 'store']);

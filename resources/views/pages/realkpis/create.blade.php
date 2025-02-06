@@ -45,7 +45,7 @@
 
                             <div class="form-group">
                                 <label>Bobot</label>
-                                <input type="number"
+                                <input type="text"
                                     class="form-control @error('bobot')
                                 is-invalid
                             @enderror"

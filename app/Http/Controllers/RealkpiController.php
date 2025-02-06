@@ -15,15 +15,46 @@ class RealkpiController extends Controller
      */
     public function index(Request $request)
     {
-        $indikators = DB::table('realkpis')
+        $unitinduks = DB::table('unitinduks')->get();
+
+        $query = DB::table('realkpis')
         ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
-        ->select('realkpis.*', 'kpis.indikator_kinerja')
-        ->when($request->input('name'), function($query, $name){
-            return $query->where('kpis.indikator_kinerja', 'like', '%'.$name.'%');
-        })
-        ->orderBy('realkpis.id', 'desc')
-        ->paginate(10);
-        return view('pages.realkpis.index', compact('indikators'));
+        ->select('realkpis.*', 'kpis.indikator_kinerja');
+
+         // Filter berdasarkan nama indikator kinerja (search)
+        if ($request->filled('name')) {
+            $query->where('kpis.indikator_kinerja', 'like', '%' . $request->name . '%');
+        }
+
+        // Filter berdasarkan unit induk
+        if ($request->filled('id_unit_induk')) {
+            $query->where('kpis.id_unit_induk', $request->unit_induk);
+        }
+
+        // Filter berdasarkan unit pelaksana
+        if ($request->filled('id_pelaksana')) {
+            $query->where('kpis.id_pelaksana', $request->unit_pelaksana);
+        }
+
+        // Filter berdasarkan unit layanan
+        if ($request->filled('id_layanan')) {
+            $query->where('kpis.id_layanan', $request->unit_layanan);
+        }
+
+        // Filter berdasarkan tahun
+        if ($request->filled('tahun')) {
+            $query->where('realkpis.tahun', $request->tahun);
+        }
+
+        // Filter berdasarkan bulan
+        if ($request->filled('bulan')) {
+            $query->where('realkpis.bulan', $request->bulan);
+        }
+
+        // Ambil data dengan pagination
+        $indikators = $query->orderBy('realkpis.id', 'desc')->paginate(10);
+
+        return view('pages.realkpis.index', compact('indikators','unitinduks'));
     }
 
     /**
@@ -40,8 +71,11 @@ class RealkpiController extends Controller
      */
     public function store(StoreRealkpiRequest $request)
     {
-         $pencapaian = ($request->realisasi/$request->target)*100;
-        $nilai = ($pencapaian*$request->bobot)/100;
+         $fpencapaian = ($request->realisasi/$request->target)*100;
+        $fnilai = ($fpencapaian*$request->bobot)/100;
+
+        $pencapaian = number_format($fpencapaian, 2, '.', '');
+        $nilai = number_format($fnilai, 2, '.', '');
 
         if($request->realisasi == 0){
             $status = 'belum';
@@ -94,8 +128,11 @@ class RealkpiController extends Controller
     public function update(Request $request, $id)
     {
 
-        $pencapaian = ($request->realisasi/$request->target)*100;
-        $nilai = ($pencapaian*$request->bobot)/100;
+        $fpencapaian = ($request->realisasi/$request->target)*100;
+        $fnilai = ($fpencapaian*$request->bobot)/100;
+
+        $pencapaian = number_format($fpencapaian, 2, '.', '');
+        $nilai = number_format($fnilai, 2, '.', '');
 
         if($request->realisasi == 0){
             $status = 'belum';
@@ -132,4 +169,7 @@ class RealkpiController extends Controller
         $realkpi->delete();
         return redirect()->route('realkpi.index')->with('success', 'Data ßsuccessfully deleted');
     }
+
+
+
 }
