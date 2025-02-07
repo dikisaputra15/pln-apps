@@ -95,6 +95,11 @@
                                                                 <i class="fas fa-times"></i> Delete
                                                             </button>
                                                         </form>
+
+                                                        <button class="btn btn-sm btn-warning btn-icon upload-btn ml-2"
+                                                            data-id="{{$indikator->id}}">
+                                                            <i class="fas fa-upload"></i> Upload
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -112,9 +117,56 @@
             </div>
         </section>
     </div>
+
+    <!-- Modal Upload -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Import File Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <form action="{{ route('rkm.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="indikator_id" id="indikator_id">
+                        <div class="mb-3" hidden>
+                            <label for="display_id" class="form-label">RKM ID</label>
+                            <input type="text" class="form-control" id="display_id" name="rkm_id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Pilih File</label>
+                            <input type="file" class="form-control" name="file" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".upload-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    let indikatorId = this.getAttribute("data-id");
+                    document.getElementById("indikator_id").value = indikatorId;
+                    document.getElementById("display_id").value = indikatorId;
+                    let uploadModal = new bootstrap.Modal(document.getElementById("uploadModal"));
+                    uploadModal.show();
+                });
+            });
+        });
+    </script>
+
     <!-- JS Libraies -->
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 

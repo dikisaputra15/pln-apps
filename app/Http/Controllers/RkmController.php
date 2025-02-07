@@ -8,6 +8,8 @@ use App\Models\Rkm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Imports\RkmdetailImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RkmController extends Controller
 {
@@ -112,5 +114,18 @@ class RkmController extends Controller
         ->where('id', $id)
         ->delete();
         return redirect()->route('rkm.index')->with('success', 'Data ßsuccessfully deleted');
+    }
+
+    public function importExcel(Request $request)
+    {
+        // $request->validate([
+        //     'file' => 'required|mimes:xlsx,csv,xls',
+        //     'unit_induk_id' => 'required|exists:tabel_kpi,unit_induk_id',
+        // ]);
+
+        $rkm_id = $request->rkm_id;
+        Excel::import(new RkmdetailImport($rkm_id), $request->file('file'));
+
+        return redirect()->route('rkmdetail.index')->with('success', 'Data berhasil diimpor.');
     }
 }

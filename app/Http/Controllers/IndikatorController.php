@@ -117,8 +117,7 @@ class IndikatorController extends Controller
 
     public function performance()
     {
-        $unitinduks = DB::table('unitinduks')->get();
-        return view('pages.indikators.form_performance', compact('unitinduks'));
+        return view('pages.indikators.kpioverview');
     }
 
     public function cardperformance(Request $request)

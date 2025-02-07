@@ -17,42 +17,14 @@ class RealkpiController extends Controller
     {
         $unitinduks = DB::table('unitinduks')->get();
 
-        $query = DB::table('realkpis')
+        $indikators = DB::table('realkpis')
         ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
-        ->select('realkpis.*', 'kpis.indikator_kinerja');
-
-         // Filter berdasarkan nama indikator kinerja (search)
-        if ($request->filled('name')) {
-            $query->where('kpis.indikator_kinerja', 'like', '%' . $request->name . '%');
-        }
-
-        // Filter berdasarkan unit induk
-        if ($request->filled('id_unit_induk')) {
-            $query->where('kpis.id_unit_induk', $request->unit_induk);
-        }
-
-        // Filter berdasarkan unit pelaksana
-        if ($request->filled('id_pelaksana')) {
-            $query->where('kpis.id_pelaksana', $request->unit_pelaksana);
-        }
-
-        // Filter berdasarkan unit layanan
-        if ($request->filled('id_layanan')) {
-            $query->where('kpis.id_layanan', $request->unit_layanan);
-        }
-
-        // Filter berdasarkan tahun
-        if ($request->filled('tahun')) {
-            $query->where('realkpis.tahun', $request->tahun);
-        }
-
-        // Filter berdasarkan bulan
-        if ($request->filled('bulan')) {
-            $query->where('realkpis.bulan', $request->bulan);
-        }
-
-        // Ambil data dengan pagination
-        $indikators = $query->orderBy('realkpis.id', 'desc')->paginate(10);
+        ->select('realkpis.*', 'kpis.indikator_kinerja')
+        ->when($request->input('name'), function($query, $name){
+            return $query->where('kpis.indikator_kinerja', 'like', '%'.$name.'%');
+        })
+        ->orderBy('realkpis.id', 'desc')
+        ->paginate(10);
 
         return view('pages.realkpis.index', compact('indikators','unitinduks'));
     }
@@ -170,6 +142,43 @@ class RealkpiController extends Controller
         return redirect()->route('realkpi.index')->with('success', 'Data ßsuccessfully deleted');
     }
 
+    public function filter(Request $request)
+    {
+        $unitinduks = DB::table('unitinduks')->get();
+        $query = DB::table('realkpis')
+        ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
+        ->select('realkpis.*', 'kpis.indikator_kinerja');
 
+        // Filter berdasarkan Unit Induk
+        if ($request->filled('id_unit_induk')) {
+            $query->where('kpis.id_unit_induk', $request->id_unit_induk);
+        }
+
+        // Filter berdasarkan Unit Pelaksana
+        if ($request->filled('id_pelaksana')) {
+            $query->where('kpis.id_pelaksana', $request->id_pelaksana);
+        }
+
+        // Filter berdasarkan Unit Layanan
+        if ($request->filled('id_layanan')) {
+            $query->where('kpis.id_layanan', $request->id_layanan);
+        }
+
+        // Filter berdasarkan Bulan
+        if ($request->filled('bulan')) {
+            $query->where('realkpis.bulan', $request->bulan);
+        }
+
+        // Filter berdasarkan Tahun
+        if ($request->filled('tahun')) {
+            $query->where('realkpis.tahun', $request->tahun);
+        }
+
+        // Eksekusi query
+        $indikators = $query->get();
+
+        return view('pages.realkpis.filter', compact('indikators','unitinduks'));
+
+    }
 
 }

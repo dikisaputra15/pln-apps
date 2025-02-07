@@ -79,10 +79,6 @@
                 </ul>
             </li> -->
 
-            {{-- <li class="nav-item">
-                <a href="/performance" class="nav-link"><i class="fas fa-th-large"></i><span>Performance Management</span></a>
-            </li> --}}
-
             <li class="nav-item">
                 <a href="{{ Route('realkpi.index') }}"
                     class="nav-link"><i class="fas fa-plug"></i><span>Realisasi KPI</span></a>
@@ -104,6 +100,12 @@
 
             <li class="nav-item">
                 <a href="{{ Route('rkmrealisasi.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Realisasi RKM</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ Route('rkmdetail.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>RKM Detail</span></a>
+            </li>
+             <li class="nav-item">
+                <a href="/performance" class="nav-link"><i class="fas fa-th-large"></i><span>KPI Overview</span></a>
             </li>
         </ul>
     </aside>

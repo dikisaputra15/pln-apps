@@ -12,6 +12,7 @@ use App\Http\Controllers\AspirasiController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\NkoController;
 use App\Http\Controllers\RkmController;
+use App\Http\Controllers\RkmdetailController;
 use App\Http\Controllers\RekapkinerjaController;
 use App\Http\Controllers\RekaprkmController;
 use App\Http\Controllers\RealkpiController;
@@ -60,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rekapkinerja', RekapkinerjaController::class);
     Route::resource('rekaprkm', RekaprkmController::class);
     Route::resource('realkpi', RealkpiController::class);
-    Route::get('/realkpi/filter', [App\Http\Controllers\RealkpiController::class, 'filter'])->name('realkpi.filter');
+    Route::post('/filter', [App\Http\Controllers\RealkpiController::class, 'filter']);
     Route::get('/upel', [App\Http\Controllers\UpelController::class, 'index']);
     Route::get('/upel/create', [App\Http\Controllers\UpelController::class, 'create']);
     Route::post('/upel/store', [App\Http\Controllers\UpelController::class, 'store']);
@@ -69,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/upel/updateupel', [App\Http\Controllers\UpelController::class, 'update']);
     // Route::resource('realrkm', RealrkmController::class);
     // Route::resource('realisasirkm', RealisasirkmController::class);
-    Route::resource('rkmrealisasi', RkmrealisasiController::class);
+    // Route::resource('rkmrealisasi', RkmrealisasiController::class);
     Route::post('/fetchlayanan', [App\Http\Controllers\UnitLayananController::class, 'fetchlayanan']);
     Route::post('/fetchpelaksana', [App\Http\Controllers\UnitLayananController::class, 'fetchpelaksana']);
 
@@ -83,4 +84,6 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/realrkm/delrealrkm/{id}', [App\Http\Controllers\RealrkmController::class, 'destroyreal']);
     // Route::get('/realrkm/{id}/editrealrkm', [App\Http\Controllers\RealrkmController::class, 'editrealrkm']);
     // Route::get('/allperformance', [App\Http\Controllers\MonitoringController::class, 'allperformance']);
+    Route::post('/import-rkm', [RkmController::class, 'importExcel'])->name('rkm.import');
+    Route::resource('rkmdetail', RkmdetailController::class);
 });

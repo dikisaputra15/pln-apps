@@ -97,18 +97,6 @@
                                 <h4>Realisasi KPI</h4>
                             </div>
                             <div class="card-body">
-                                <div class="float-right">
-                                    <form method="GET" action="{{route('realkpi.index')}}">
-                                        <div class="input-group">
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="Search" name="name">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
 
                                 <div class="clearfix mb-3"></div>
                                 <div class="table-responsive">
@@ -127,7 +115,6 @@
                                 <th>Nilai</th>
                                 <th>Status</th>
                                 <th>Penjelasan</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,33 +133,23 @@
                                         <td>{{ $indikator->nilai }}</td>
                                         <td>{{ $indikator->status }}</td>
                                         <td>{{ $indikator->penjelasan }}</td>
-                                        <td>
-                                            <div class="d-flex justify-content-center">
-                                                <a href='{{ route('realkpi.edit', $indikator->id) }}'
-                                                    class="btn btn-sm btn-info btn-icon">
-                                                    <i class="fas fa-edit"></i> Edit
-                                                </a>
-
-                                                <form action="{{ route('realkpi.destroy', $indikator->id) }}" method="POST" class="ml-2">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="DELETE" />
-                                                    <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                        <i class="fas fa-times"></i> Delete
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
                                     </tr>
                                 @endforeach
 
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="9" class="text-right"><b>NKO</b></td>
+                                <td colspan="4">
+                                    <b>{{ $indikators->sum('nilai') }}</b>
+                                </td>
+                            </tr>
+                        </tfoot>
 
                     </table>
                 </div>
 
-                                <div class="float-right">
-                                    {{$indikators->withQueryString()->links()}}
-                                </div>
+
                             </div>
                         </div>
                     </div>
