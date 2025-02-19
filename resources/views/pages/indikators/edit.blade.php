@@ -107,6 +107,15 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Jenis Indikator</label>
+                                <select class="form-control" name="polaritas">
+                                    <option value="0" {{ isset($indikator) && $indikator->polaritas == 0 ? 'selected' : '' }}>-Pilih Jenis Indikator-</option>
+                                    <option value="Key Performance Indicator" {{ isset($indikator) && $indikator->polaritas == 'Key Performance Indicator' ? 'selected' : '' }}>Key Performance Indicator</option>
+                                    <option value="Performance Indikator" {{ isset($indikator) && $indikator->polaritas == 'Performance Indikator' ? 'selected' : '' }}>Performance Indikator</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Nama Kategori</label>
                                 <select class="form-control" name="id_kategori">
                                     <?php
@@ -164,9 +173,9 @@
                                 <label>Polaritas</label>
                                 <select class="form-control" name="polaritas">
                                     <option value="0" {{ isset($indikator) && $indikator->polaritas == 0 ? 'selected' : '' }}>-Pilih Polaritas-</option>
-                                    <option value="1" {{ isset($indikator) && $indikator->polaritas == 1 ? 'selected' : '' }}>Positif</option>
-                                    <option value="2" {{ isset($indikator) && $indikator->polaritas == 2 ? 'selected' : '' }}>Negatif</option>
-                                    <option value="3" {{ isset($indikator) && $indikator->polaritas == 3 ? 'selected' : '' }}>Range</option>
+                                    <option value="3" {{ isset($indikator) && $indikator->polaritas == 3 ? 'selected' : '' }}>Positif</option>
+                                    <option value="1" {{ isset($indikator) && $indikator->polaritas == 1 ? 'selected' : '' }}>Negatif</option>
+                                    <option value="Range" {{ isset($indikator) && $indikator->polaritas == 'Range' ? 'selected' : '' }}>Range</option>
                                 </select>
                             </div>
 

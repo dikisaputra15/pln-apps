@@ -113,26 +113,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Bobot RKM</label>
-                                <input type="text"
-                                    class="form-control @error('bobot_rkm')
-                                is-invalid
-                            @enderror"
-                                    name="bobot_rkm" value="{{ $rkm->bobot_rkm }}">
-                                @error('bobot_rkm')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
                                 <label>Polaritas RKM</label>
                                 <select class="form-control" name="polaritas_rkm">
                                     <option value="0" {{ isset($rkm) && $rkm->polaritas_rkm == 0 ? 'selected' : '' }}>-Pilih Polaritas-</option>
-                                    <option value="1" {{ isset($rkm) && $rkm->polaritas_rkm == 1 ? 'selected' : '' }}>Positif</option>
-                                    <option value="2" {{ isset($rkm) && $rkm->polaritas_rkm == 2 ? 'selected' : '' }}>Negatif</option>
-                                    <option value="3" {{ isset($rkm) && $rkm->polaritas_rkm == 3 ? 'selected' : '' }}>Range</option>
+                                    <option value="3" {{ isset($rkm) && $rkm->polaritas_rkm == 3 ? 'selected' : '' }}>Positif</option>
+                                    <option value="1" {{ isset($rkm) && $rkm->polaritas_rkm == 1 ? 'selected' : '' }}>Negatif</option>
+                                    <option value="Range" {{ isset($rkm) && $rkm->polaritas_rkm == 'Range' ? 'selected' : '' }}>Range</option>
                                 </select>
                             </div>
 

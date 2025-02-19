@@ -57,6 +57,7 @@
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan / Bagian</th>
                                             <th>Indikator Kinerja</th>
+                                            <th>Jenis Indikator</th>
                                             <th>kategori</th>
                                             <th>satuan KPI</th>
                                             <th>bobot</th>
@@ -72,6 +73,7 @@
                                                 <td>{{$indikator->nama_unit_pelaksana}}</td>
                                                 <td>{{$indikator->nama_unit_layanan_bagian}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
+                                                <td>{{$indikator->jenis_indikator}}</td>
                                                 <td>{{$indikator->nama_kategori}}</td>
                                                 <td>{{$indikator->nama_satuan}}</td>
                                                 <td>{{$indikator->bobot}}</td>

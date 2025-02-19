@@ -58,7 +58,6 @@
                                             <th>Unit Layanan / Bagian</th>
                                             <th>Indikator Kinerja KPI</th>
                                             <th>satuan KPI</th>
-                                            <th>bobot RKM</th>
                                             <th>polaritas RKM</th>
                                             <th>Indikator RKM</th>
                                             <th>Satuan RKM</th>
@@ -74,7 +73,6 @@
                                                 <td>{{$indikator->nama_unit_layanan_bagian}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
                                                 <td>{{$indikator->nama_satuan_kpi}}</td>
-                                                <td>{{$indikator->bobot_rkm}}</td>
                                                 <td>{{$indikator->polaritas_rkm}}</td>
                                                 <td>{{$indikator->indikator_rkm}}</td>
                                                 <td>{{$indikator->nama_satuan_rkm}}</td>
@@ -96,10 +94,6 @@
                                                             </button>
                                                         </form>
 
-                                                        <button class="btn btn-sm btn-warning btn-icon upload-btn ml-2"
-                                                            data-id="{{$indikator->id}}">
-                                                            <i class="fas fa-upload"></i> Upload
-                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -150,22 +144,6 @@
 @endsection
 
 @push('scripts')
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".upload-btn").forEach(button => {
-                button.addEventListener("click", function() {
-                    let indikatorId = this.getAttribute("data-id");
-                    document.getElementById("indikator_id").value = indikatorId;
-                    document.getElementById("display_id").value = indikatorId;
-                    let uploadModal = new bootstrap.Modal(document.getElementById("uploadModal"));
-                    uploadModal.show();
-                });
-            });
-        });
-    </script>
 
     <!-- JS Libraies -->
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>

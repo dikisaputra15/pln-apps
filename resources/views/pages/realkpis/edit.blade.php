@@ -73,9 +73,9 @@
                                 <label>Polaritas</label>
                                 <select class="form-control" name="polaritas">
                                     <option value="0" {{ isset($realkpi) && $realkpi->polaritas == 0 ? 'selected' : '' }}>-Pilih Polaritas-</option>
-                                    <option value="1" {{ isset($realkpi) && $realkpi->polaritas == 1 ? 'selected' : '' }}>Positif</option>
-                                    <option value="2" {{ isset($realkpi) && $realkpi->polaritas == 2 ? 'selected' : '' }}>Negatif</option>
-                                    <option value="3" {{ isset($realkpi) && $realkpi->polaritas == 3 ? 'selected' : '' }}>Range</option>
+                                    <option value="3" {{ isset($realkpi) && $realkpi->polaritas == 3 ? 'selected' : '' }}>Positif</option>
+                                    <option value="1" {{ isset($realkpi) && $realkpi->polaritas == 1 ? 'selected' : '' }}>Negatif</option>
+                                    <option value="Range" {{ isset($realkpi) && $realkpi->polaritas == 'Range' ? 'selected' : '' }}>Range</option>
                                 </select>
                             </div>
 

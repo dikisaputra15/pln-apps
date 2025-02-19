@@ -9,9 +9,10 @@ class Rkmdetail extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_rkm', // Tambahkan kolom ini
+        'id_rkm_realisasi', // Tambahkan kolom ini
         'id_pel',
         'uraian_nama',
+        'kontribusi',
         'tanggal',
     ];
 }

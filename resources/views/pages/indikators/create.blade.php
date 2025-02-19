@@ -70,6 +70,15 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Jenis Indikator</label>
+                                <select class="form-control" name="jenis_indikator" id="jenis_indikator">
+                                        <option value="0">-Pilih Jenis Indikator-</option>
+                                        <option value="Key Performance Indicator">Key Performance Indicator</option>
+                                        <option value="Performance Indikator">Performance Indikator</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Kategori</label>
                                 <select class="form-control" name="id_kategori">
                                         <option>-Pilih Kategori-</option>
@@ -107,9 +116,9 @@
                                 <label>Polaritas</label>
                                 <select class="form-control" name="polaritas">
                                     <option value="0">-Pilih Polaritas-</option>
-                                    <option value="1">Positif</option>
-                                    <option value="2">Negatif</option>
-                                    <option value="3">Range</option>
+                                    <option value="3">Positif</option>
+                                    <option value="1">Negatif</option>
+                                    <option value="Range">Range</option>
                                 </select>
                             </div>
 

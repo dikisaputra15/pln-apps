@@ -41,12 +41,12 @@
                                             <th>Unit Layanan / Bagian</th>
                                             <th>Indikator Kinerja KPI</th>
                                             <th>satuan KPI</th>
-                                            <th>bobot RKM</th>
                                             <th>polaritas RKM</th>
                                             <th>Indikator RKM</th>
                                             <th>Satuan RKM</th>
                                             <th>Id Pelanggan</th>
                                             <th>Uraian Nama</th>
+                                            <th>Kontribusi</th>
                                             <th>Tanggal</th>
                                         </tr>
 
@@ -59,12 +59,12 @@
                                                 <td>{{$indikator->nama_unit_layanan_bagian}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
                                                 <td>{{$indikator->nama_satuan_kpi}}</td>
-                                                <td>{{$indikator->bobot_rkm}}</td>
                                                 <td>{{$indikator->polaritas_rkm}}</td>
                                                 <td>{{$indikator->indikator_rkm}}</td>
                                                 <td>{{$indikator->nama_satuan_rkm}}</td>
                                                 <td>{{$indikator->id_pel}}</td>
                                                 <td>{{$indikator->uraian_nama}}</td>
+                                                <td>{{$indikator->kontribusi}}</td>
                                                 <td>{{$indikator->tanggal}}</td>
                                             </tr>
                                         @endforeach

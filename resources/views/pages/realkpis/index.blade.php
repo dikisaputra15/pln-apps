@@ -142,7 +142,15 @@
                                         <td>{{ $indikator->bulan }}</td>
                                         <td>{{ $indikator->target }}</td>
                                         <td>{{ $indikator->realisasi }}</td>
-                                        <td>{{ $indikator->pencapaian }}</td>
+                                        <td style="
+                                            @if($indikator->pencapaian < 95) background-color: red; color: white;
+                                            @elseif($indikator->pencapaian >= 95 && $indikator->pencapaian < 100) background-color: yellow; color: black;
+                                            @elseif($indikator->pencapaian >= 100 && $indikator->pencapaian < 109) background-color: lightgreen; color: black;
+                                            @elseif($indikator->pencapaian >= 110) background-color: darkgreen; color: white;
+                                            @endif">
+                                            {{ $indikator->pencapaian }}%
+                                        </td>
+
                                         <td>{{ $indikator->nilai }}</td>
                                         <td>{{ $indikator->status }}</td>
                                         <td>{{ $indikator->penjelasan }}</td>

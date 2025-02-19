@@ -55,7 +55,6 @@ class RkmController extends Controller
             'id_pelaksana' => $request->id_pelaksana,
             'id_layanan' => $request->id_layanan,
             'indikator_kinerja_kpi' => $request->id_indikator_kpi,
-            'bobot_rkm' => $request->bobot_rkm,
             'polaritas_rkm' => $request->polaritas_rkm,
             'indikator_rkm' => $request->indikator_rkm,
             'id_satuan_rkm' => $request->id_satuan_rkm
@@ -97,7 +96,6 @@ class RkmController extends Controller
             'id_pelaksana' => $request->id_pelaksana,
             'id_layanan' => $request->id_layanan,
             'indikator_kinerja_kpi' => $request->id_indikator_kpi,
-            'bobot_rkm' => $request->bobot_rkm,
             'polaritas_rkm' => $request->polaritas_rkm,
             'indikator_rkm' => $request->indikator_rkm,
             'id_satuan_rkm' => $request->id_satuan_rkm
@@ -126,6 +124,6 @@ class RkmController extends Controller
         $rkm_id = $request->rkm_id;
         Excel::import(new RkmdetailImport($rkm_id), $request->file('file'));
 
-        return redirect()->route('rkmdetail.index')->with('success', 'Data berhasil diimpor.');
+        return redirect()->route('rkmrealisasi.index')->with('success', 'Data berhasil diimpor.');
     }
 }

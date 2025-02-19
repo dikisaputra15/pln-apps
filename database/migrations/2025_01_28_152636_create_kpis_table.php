@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('id_pelaksana');
             $table->integer('id_layanan');
             $table->string('indikator_kinerja');
+            $table->string('jenis_indikator');
             $table->integer('id_kategori');
             $table->integer('id_satuan');
             $table->double('bobot');

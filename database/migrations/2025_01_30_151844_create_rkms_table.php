@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('id_pelaksana');
             $table->integer('id_layanan');
             $table->integer('indikator_kinerja_kpi');
-            $table->integer('bobot_rkm');
             $table->integer('polaritas_rkm');
             $table->string('indikator_rkm');
             $table->integer('id_satuan_rkm');

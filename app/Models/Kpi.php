@@ -14,6 +14,7 @@ class Kpi extends Model
         'id_pelaksana',
         'id_layanan',
         'indikator_kinerja',
+        'jenis_indikator',
         'id_kategori',
         'id_satuan',
         'bobot',

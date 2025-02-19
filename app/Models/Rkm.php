@@ -14,7 +14,6 @@ class Rkm extends Model
         'id_pelaksana',
         'id_layanan',
         'indikator_kinerja_kpi',
-        'bobot_rkm',
         'polaritas_rkm',
         'indikator_rkm',
         'id_satuan_rkm',

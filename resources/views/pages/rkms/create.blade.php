@@ -66,26 +66,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Bobot RKM</label>
-                                <input type="text"
-                                    class="form-control @error('bobot_rkm')
-                                is-invalid
-                            @enderror"
-                                    name="bobot_rkm">
-                                @error('bobot_rkm')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
                                 <label>Polaritas RKM</label>
                                 <select class="form-control" name="polaritas_rkm">
                                     <option value="0">-Pilih Polaritas-</option>
-                                    <option value="1">Positif</option>
-                                    <option value="2">Negatif</option>
-                                    <option value="3">Range</option>
+                                    <option value="3">Positif</option>
+                                    <option value="1">Negatif</option>
+                                    <option value="Range">Range</option>
                                 </select>
                             </div>
 

@@ -61,9 +61,9 @@
                                 <label>Polaritas</label>
                                 <select class="form-control" name="polaritas">
                                     <option value="0">-Pilih Polaritas-</option>
-                                    <option value="1">Positif</option>
-                                    <option value="2">Negatif</option>
-                                    <option value="3">Range</option>
+                                    <option value="3">Positif</option>
+                                    <option value="3">Negatif</option>
+                                    <option value="Range">Range</option>
                                 </select>
                             </div>
 

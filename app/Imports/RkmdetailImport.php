@@ -25,9 +25,10 @@ class RkmdetailImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Rkmdetail([
-            'id_rkm'     => $this->selectedId, // ID yang dipilih
+            'id_rkm_realisasi'     => $this->selectedId, // ID yang dipilih
             'id_pel'   => $row['id_pel'],
             'uraian_nama' => $row['uraian_nama'],
+            'kontribusi' => $row['kontribusi'],
             'tanggal'          => $this->convertDate($row['tanggal']),
 
         ]);
