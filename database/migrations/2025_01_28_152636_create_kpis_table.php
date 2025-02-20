@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('kpis', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_unit_induk');
-            $table->integer('id_pelaksana');
-            $table->integer('id_layanan');
             $table->string('indikator_kinerja');
             $table->string('jenis_indikator');
             $table->integer('id_kategori');
             $table->integer('id_satuan');
             $table->double('bobot');
             $table->integer('polaritas');
+            $table->string('tahun');
             $table->timestamps();
         });
     }

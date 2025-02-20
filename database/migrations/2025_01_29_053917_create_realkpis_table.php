@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('realkpis', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_unit_induk');
+            $table->integer('id_pelaksana');
+            $table->integer('id_layanan');
             $table->integer('id_indikator_kpi');
-            $table->double('bobot');
-            $table->integer('polaritas');
-            $table->string('tahun');
             $table->string('bulan');
             $table->double('target');
             $table->double('realisasi');
             $table->double('pencapaian');
             $table->double('nilai');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->text('penjelasan')->nullable();
             $table->timestamps();
         });

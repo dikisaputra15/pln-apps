@@ -36,22 +36,22 @@
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                        <option>-Pilih Unit Induk-</option>
+                                    <option value="0">Semua</option>
                                     @foreach ($unitinduks as $unitinduk)
                                         <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
-                                </select>
+                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
-                                 <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <option>-Select Unit Pelaksana-</option>
+                                <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
+                                    <option value="0">Semua</option>
                                  </select>
                             </div>
                             <div class="form-group">
                                 <label>Nama Unit Layanan / Bagian</label>
-                                 <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <option>-Select Unit Layanan-</option>
+                                <select class="form-control" name="id_layanan" id="unit_layanan">
+                                    <option value="0">Semua</option>
                                  </select>
                             </div>
 
@@ -147,7 +147,12 @@
          });
 
             $('#unit_induk').change(function(){
-                var id_unit_induk = $('#unit_induk').val();
+                let id_unit_induk = $('#unit_induk').val();
+
+                 // Set default "Semua" di Unit Pelaksana dan Unit Layanan
+                $('#unit_pelaksana').html('<option value="">Semua</option>');
+                $('#unit_layanan').html('<option value="">Semua</option>');
+
                 if(id_unit_induk != '')
                 {
                     $.ajax({
@@ -157,29 +162,36 @@
 
                         success: function(data)
                         {
-                            $('#unit_pelaksana').html(data);
+                            $('#unit_pelaksana').append(data);
+                        },
+                        error: function(xhr) {
+                            console.log("Error:", xhr);
                         }
                     });
-                }
-                else
-                {
-                    $('#unit_pelaksana').html('<option value="">Select Unit Pelaksana</option>');
                 }
             });
 
             $('#unit_pelaksana').change(function(){
                 let id_unit_pelaksana = $('#unit_pelaksana').val();
 
-                $.ajax({
-                    type : 'POST',
-                    url : "{{url('fetchpelaksana')}}",
-                    data : {unit_pelaksana:id_unit_pelaksana},
+                 // Set default "Semua" di Unit Layanan
+                 $('#unit_layanan').html('<option value="">Semua</option>');
 
-                    success: function(data)
-                    {
-                        $('#unit_layanan').html(data);
-                    }
-                });
+                 if (id_unit_pelaksana !== '') {
+                    $.ajax({
+                        type : 'POST',
+                        url : "{{url('fetchpelaksana')}}",
+                        data : {unit_pelaksana:id_unit_pelaksana},
+
+                        success: function(data)
+                        {
+                            $('#unit_layanan').append(data);
+                        },
+                        error: function(xhr) {
+                            console.log("Error:", xhr);
+                         }
+                    });
+                }
             });
 
     });

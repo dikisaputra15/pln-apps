@@ -37,7 +37,7 @@
                     <div class="col-md-2">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                        <option value="">Semua</option>
+                                        <option value="0">Semua</option>
                                     @foreach ($unitinduks as $unitinduk)
                                         <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
@@ -46,13 +46,13 @@
                             <div class="col-md-2">
                                 <label>Nama Unit Pelaksana</label>
                                  <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <option value="">Semua</option>
+                                    <option value="0">Semua</option>
                                  </select>
                             </div>
                             <div class="col-md-2">
                                 <label>Nama Unit Layanan</label>
                                  <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <option value="">Semua</option>
+                                    <option value="0">Semua</option>
                                  </select>
                             </div>
 
