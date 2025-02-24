@@ -53,9 +53,6 @@
                                     <table class="table-striped table">
                                         <tr>
                                             <th>No</th>
-                                            <th>Unit Induk</th>
-                                            <th>Unit Pelaksana</th>
-                                            <th>Unit Layanan / Bagian</th>
                                             <th>Indikator Kinerja</th>
                                             <th>Jenis Indikator</th>
                                             <th>kategori</th>
@@ -69,9 +66,6 @@
                                         @foreach ($indikators as $indikator)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{$indikator->nama_unit_induk}}</td>
-                                                <td>{{$indikator->nama_unit_pelaksana}}</td>
-                                                <td>{{$indikator->nama_unit_layanan_bagian}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
                                                 <td>{{$indikator->jenis_indikator}}</td>
                                                 <td>{{$indikator->nama_kategori}}</td>

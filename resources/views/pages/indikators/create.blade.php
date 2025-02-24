@@ -23,8 +23,6 @@
             <div class="section-body">
                 <h2 class="section-title">Input KPI</h2>
 
-
-
                 <div class="card">
                     <form action="{{ route('indikator.store') }}" method="POST">
                         @csrf
@@ -32,28 +30,6 @@
                             <h4>Input KPI</h4>
                         </div>
                         <div class="card-body">
-
-                            <div class="form-group">
-                                <label>Nama Unit Induk</label>
-                                <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                    <option value="0">Semua</option>
-                                    @foreach ($unitinduks as $unitinduk)
-                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
-                                    @endforeach
-                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Unit Pelaksana</label>
-                                <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <option value="0">Semua</option>
-                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Unit Layanan / Bagian</label>
-                                <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <option value="0">Semua</option>
-                                 </select>
-                            </div>
 
                             <div class="form-group">
                                 <label>Indikator Kinerja</label>
@@ -122,6 +98,19 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label>Tahun</label>
+                                <input type="text"
+                                    class="form-control @error('tahun')
+                                is-invalid
+                            @enderror"
+                                    name="tahun">
+                                @error('tahun')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                         </div>
                         <div class="card-footer text-right">

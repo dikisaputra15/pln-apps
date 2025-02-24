@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                        <option>-Pilih Unit Induk-</option>
+                                        <option value="0">Semua</option>
                                     @foreach ($unitinduks as $unitinduk)
                                         <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label>Nama Unit Pelaksana</label>
                                  <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <option>-Pilih Unit Pelaksana-</option>
+                                    <option value="0">Semua</option>
                                  </select>
                             </div>
                             <div class="form-group">
@@ -83,25 +83,30 @@
             }
          });
 
-         $(function () {
-            $('#unit_induk').on('change', function(){
+         $('#unit_induk').change(function(){
                 let id_unit_induk = $('#unit_induk').val();
 
-                $.ajax({
-                    type : 'POST',
-                    url : "{{url('fetchlayanan')}}",
-                    data : {unit_induk:id_unit_induk},
-                    cache : false,
+                 // Set default "Semua" di Unit Pelaksana dan Unit Layanan
+                $('#unit_pelaksana').html('<option value="">Semua</option>');
+                $('#unit_layanan').html('<option value="">Semua</option>');
 
-                    success: function(msg){
-                        $('#unit_pelaksana').html(msg);
-                    },
-                    error: function(data){
-                        console.log('error:',data)
-                    },
-                })
-            })
-         })
+                if(id_unit_induk != '')
+                {
+                    $.ajax({
+                        type : 'POST',
+                        url : "{{url('fetchlayanan')}}",
+                        data : {unit_induk:id_unit_induk},
+
+                        success: function(data)
+                        {
+                            $('#unit_pelaksana').append(data);
+                        },
+                        error: function(xhr) {
+                            console.log("Error:", xhr);
+                        }
+                    });
+                }
+            });
 
     });
 </script>

@@ -17,12 +17,9 @@ class IndikatorController extends Controller
     public function index(Request $request)
     {
         $indikators = DB::table('kpis')
-        ->join('unitinduks', 'unitinduks.id', '=', 'kpis.id_unit_induk')
-        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'kpis.id_pelaksana')
-        ->join('unitlayanans', 'unitlayanans.id', '=', 'kpis.id_layanan')
         ->join('kategoris', 'kategoris.id', '=', 'kpis.id_kategori')
         ->join('satuans', 'satuans.id', '=', 'kpis.id_satuan')
-        ->select('kpis.*', 'kategoris.nama_kategori', 'satuans.nama_satuan', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
+        ->select('kpis.*', 'kategoris.nama_kategori', 'satuans.nama_satuan')
         ->when($request->input('name'), function($query, $name){
             return $query->where('indikator_kinerja', 'like', '%'.$name.'%');
         })
@@ -36,10 +33,9 @@ class IndikatorController extends Controller
      */
     public function create()
     {
-        $unitinduks = DB::table('unitinduks')->get();
         $kategoris = DB::table('kategoris')->get();
         $satuans = DB::table('satuans')->get();
-        return view('pages.indikators.create', compact('unitinduks','kategoris','satuans'));
+        return view('pages.indikators.create', compact('kategoris','satuans'));
     }
 
     /**
@@ -60,17 +56,55 @@ class IndikatorController extends Controller
         //     $status = 'masalah';
         // }
 
-        Kpi::create([
-            'id_unit_induk' => $request->id_unit_induk,
-            'id_pelaksana' => $request->id_pelaksana,
-            'id_layanan' => $request->id_layanan,
+       $kpi = Kpi::create([
             'indikator_kinerja' => $request->indikator_kinerja,
             'jenis_indikator' => $request->jenis_indikator,
             'id_kategori' => $request->id_kategori,
             'id_satuan' => $request->id_satuan,
             'bobot' => $request->bobot,
-            'polaritas' => $request->polaritas
+            'polaritas' => $request->polaritas,
+            'tahun' => $request->tahun
         ]);
+
+        if($kpi){
+            $lastInsertedId = $kpi->id;
+            $units = DB::table('unitlayanans')->get();
+
+            $bulan_array = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGS', 'SEP', 'OKT', 'NOV', 'DES'];
+            $data_insert = [];
+
+            $realisasi = 0;
+
+            if($realisasi == 0){
+                $status = 'belum';
+            }else if($pencapaian >= 100){
+                $status = 'baik';
+            }else if($pencapaian >= 95){
+                $status = 'hati-hati';
+            }else{
+                $status = 'masalah';
+            }
+
+            foreach ($units as $unit) {
+                foreach ($bulan_array as $bulan) {
+                    $data_insert[] = [
+                        'id_unit_induk' => $unit->id_unit_induk,
+                        'id_pelaksana' => $unit->id_pelaksana,
+                        'id_layanan' => $unit->id,
+                        'id_indikator_kpi' => $lastInsertedId,
+                        'bulan' => $bulan,
+                        'target' => 0,
+                        'realisasi' => $realisasi,
+                        'pencapaian' => 0,
+                        'nilai' => 0,
+                        'status' => $status,
+                        'penjelasan' => ''
+                    ];
+                }
+            }
+
+            DB::table('realkpis')->insert($data_insert);
+        }
 
         return redirect()->route('indikator.index')->with('success', 'Data successfully created');
     }
