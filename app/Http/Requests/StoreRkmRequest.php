@@ -23,7 +23,6 @@ class StoreRkmRequest extends FormRequest
     {
         return [
             'indikator_rkm' => 'required',
-            'bobot_rkm' => 'required',
             'polaritas_rkm' => 'required',
         ];
     }

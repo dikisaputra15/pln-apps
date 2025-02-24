@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRealkpiRequest;
 use Illuminate\Http\Request;
 use App\Models\Realkpi;
+use App\Exports\RealisasiKPIExport;
+use App\Imports\RealisasiKPIImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RealkpiController extends Controller
 {
@@ -19,7 +22,10 @@ class RealkpiController extends Controller
 
         $indikators = DB::table('realkpis')
         ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
-        ->select('realkpis.*', 'kpis.indikator_kinerja')
+        ->join('unitinduks', 'unitinduks.id', '=', 'realkpis.id_unit_induk')
+        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'realkpis.id_pelaksana')
+        ->join('unitlayanans', 'unitlayanans.id', '=', 'realkpis.id_layanan')
+        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.jenis_indikator', 'kpis.bobot', 'kpis.polaritas', 'kpis.tahun', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
         ->when($request->input('name'), function($query, $name){
             return $query->where('kpis.indikator_kinerja', 'like', '%'.$name.'%');
         })
@@ -147,21 +153,21 @@ class RealkpiController extends Controller
         $unitinduks = DB::table('unitinduks')->get();
         $query = DB::table('realkpis')
         ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
-        ->select('realkpis.*', 'kpis.indikator_kinerja');
+        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas');
 
         // Filter berdasarkan Unit Induk
         if ($request->filled('id_unit_induk')) {
-            $query->where('kpis.id_unit_induk', $request->id_unit_induk);
+            $query->where('realkpis.id_unit_induk', $request->id_unit_induk);
         }
 
         // Filter berdasarkan Unit Pelaksana
         if ($request->filled('id_pelaksana')) {
-            $query->where('kpis.id_pelaksana', $request->id_pelaksana);
+            $query->where('realkpis.id_pelaksana', $request->id_pelaksana);
         }
 
         // Filter berdasarkan Unit Layanan
         if ($request->filled('id_layanan')) {
-            $query->where('kpis.id_layanan', $request->id_layanan);
+            $query->where('realkpis.id_layanan', $request->id_layanan);
         }
 
         // Filter berdasarkan Bulan
@@ -171,7 +177,7 @@ class RealkpiController extends Controller
 
         // Filter berdasarkan Tahun
         if ($request->filled('tahun')) {
-            $query->where('realkpis.tahun', $request->tahun);
+            $query->where('kpis.tahun', $request->tahun);
         }
 
         // Eksekusi query
@@ -179,6 +185,18 @@ class RealkpiController extends Controller
 
         return view('pages.realkpis.filter', compact('indikators','unitinduks'));
 
+    }
+
+    public function export()
+    {
+        return Excel::download(new RealisasiKPIExport, 'realisasi_kpi.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new RealisasiKPIImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Data berhasil diimport dan diperbarui!');
     }
 
 }

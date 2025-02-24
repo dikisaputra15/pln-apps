@@ -59,6 +59,7 @@
                                             <th>satuan KPI</th>
                                             <th>bobot</th>
                                             <th>polaritas</th>
+                                            <th>Tahun</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -72,6 +73,7 @@
                                                 <td>{{$indikator->nama_satuan}}</td>
                                                 <td>{{$indikator->bobot}}</td>
                                                 <td>{{$indikator->polaritas}}</td>
+                                                <td>{{$indikator->tahun}}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('indikator.edit', $indikator->id) }}'

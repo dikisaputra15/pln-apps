@@ -32,67 +32,6 @@
                         <div class="card-body">
 
                             <div class="form-group">
-                                <label>Nama Unit Induk</label>
-                                <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                    <?php
-                                        foreach ($unitinduks as $unitinduk) {
-
-                                        if ($unitinduk->id==$indikator->id_unit_induk) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $unitinduk->id;?>"><?php echo $unitinduk->nama_unit_induk; ?></option>
-
-                                     <?php } ?>
-
-                                </select>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Unit Pelaksana</label>
-                                <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <?php
-                                        foreach ($unitpelaksanas as $unitpelaksana) {
-
-                                        if ($unitpelaksana->id==$indikator->id_pelaksana) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $unitpelaksana->id;?>"><?php echo $unitpelaksana->nama_unit_pelaksana; ?></option>
-
-                                     <?php } ?>
-
-                                </select>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Unit Layanan / Bagian</label>
-                                <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <?php
-                                        foreach ($unitlayanans as $unitlayanan) {
-
-                                        if ($unitlayanan->id==$indikator->id_layanan) {
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-
-                                     ?>
-                                        <option <?php echo $select; ?> value="<?php echo $unitlayanan->id;?>"><?php echo $unitlayanan->nama_unit_layanan_bagian; ?></option>
-
-                                     <?php } ?>
-
-                                </select>
-
-                            </div>
-
-                            <div class="form-group">
                                 <label>Indikator Kinerja</label>
                                 <input type="text"
                                     class="form-control @error('indikator_kinerja')
@@ -110,8 +49,8 @@
                                 <label>Jenis Indikator</label>
                                 <select class="form-control" name="polaritas">
                                     <option value="0" {{ isset($indikator) && $indikator->polaritas == 0 ? 'selected' : '' }}>-Pilih Jenis Indikator-</option>
-                                    <option value="Key Performance Indicator" {{ isset($indikator) && $indikator->polaritas == 'Key Performance Indicator' ? 'selected' : '' }}>Key Performance Indicator</option>
-                                    <option value="Performance Indikator" {{ isset($indikator) && $indikator->polaritas == 'Performance Indikator' ? 'selected' : '' }}>Performance Indikator</option>
+                                    <option value="Key Performance Indicator" {{ isset($indikator) && $indikator->jenis_indikator == 'Key Performance Indicator' ? 'selected' : '' }}>Key Performance Indicator</option>
+                                    <option value="Performance Indikator" {{ isset($indikator) && $indikator->jenis_indikator == 'Performance Indikator' ? 'selected' : '' }}>Performance Indikator</option>
                                 </select>
                             </div>
 
@@ -177,6 +116,20 @@
                                     <option value="1" {{ isset($indikator) && $indikator->polaritas == 1 ? 'selected' : '' }}>Negatif</option>
                                     <option value="Range" {{ isset($indikator) && $indikator->polaritas == 'Range' ? 'selected' : '' }}>Range</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tahun</label>
+                                <input type="text"
+                                    class="form-control @error('tahun')
+                                is-invalid
+                            @enderror"
+                                    name="tahun" value="{{ $indikator->tahun }}">
+                                @error('tahun')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
 

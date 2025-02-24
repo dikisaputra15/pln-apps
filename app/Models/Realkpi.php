@@ -10,15 +10,16 @@ class Realkpi extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_unit_induk',
+        'id_pelaksana',
+        'id_layanan',
         'id_indikator_kpi',
-        'bobot',
-        'polaritas',
-        'tahun',
         'bulan',
         'target',
         'realisasi',
         'pencapaian',
         'nilai',
         'status',
+        'penjelasan',
     ];
 }

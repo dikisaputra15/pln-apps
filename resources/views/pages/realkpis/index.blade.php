@@ -18,11 +18,10 @@
         <section class="section">
             <div class="section-header">
                 <h1>Realisasi KPI</h1>
-                <div class="section-header-button">
+                <!-- <div class="section-header-button">
                     <a href="{{route('realkpi.create')}}"
                         class="btn btn-primary">Add New</a>
-                </div>
-
+                </div> -->
             </div>
             <div class="section-body">
                 <div class="row">
@@ -37,7 +36,7 @@
                     <div class="col-md-2">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                        <option value="">Semua</option>
+                                        <option value="0">Semua</option>
                                     @foreach ($unitinduks as $unitinduk)
                                         <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
@@ -46,13 +45,13 @@
                             <div class="col-md-2">
                                 <label>Nama Unit Pelaksana</label>
                                  <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <option value="">Semua</option>
+                                    <option value="0">Semua</option>
                                  </select>
                             </div>
                             <div class="col-md-2">
                                 <label>Nama Unit Layanan</label>
                                  <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <option value="">Semua</option>
+                                    <option value="0">Semua</option>
                                  </select>
                             </div>
 
@@ -96,7 +95,25 @@
                             <div class="card-header">
                                 <h4>Realisasi KPI</h4>
                             </div>
+
                             <div class="card-body">
+
+                            <div class="mb-3">
+                                <a href="{{ route('realkpi.export') }}" class="btn btn-success"><i class="fas fa-download"></i> Export Excel</a>
+
+                                <!-- <form action="{{ route('realkpi.import') }}" method="POST" enctype="multipart/form-data" class="d-inline">
+                                    @csrf
+                                    <input type="file" name="file" required>
+                                    <button type="submit" class="btn btn-primary">Import Excel</button>
+                                </form> -->
+
+                                <button class="btn btn-warning btn-icon upload-btn d-inline ml-2">
+                                    <i class="fas fa-upload"></i> Import Excel
+                                </button>
+                            </div>
+
+
+                            <p>Realisasi dibuat otomatis ketika KPI di buat dan bisa diupdate dengan cara export excel dan akan update ketika data excel diimport</p>
                                 <div class="float-right">
                                     <form method="GET" action="{{route('realkpi.index')}}">
                                         <div class="input-group">
@@ -116,6 +133,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Unit Induk</th>
+                                <th>Unit Pelaksana</th>
+                                <th>Unit Layanan</th>
                                 <th>Indikator Kinerja KPI</th>
                                 <th>Bobot</th>
                                 <th>Polaritas</th>
@@ -127,7 +147,7 @@
                                 <th>Nilai</th>
                                 <th>Status</th>
                                 <th>Penjelasan</th>
-                                <th>Action</th>
+                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -135,6 +155,9 @@
                                 @foreach ($indikators as $indikator)
                                     <tr>
                                         <td>{{ $i++ }}</td>
+                                        <td>{{ $indikator->nama_unit_induk }}</td>
+                                        <td>{{ $indikator->nama_unit_pelaksana }}</td>
+                                        <td>{{ $indikator->nama_unit_layanan_bagian }}</td>
                                         <td>{{ $indikator->indikator_kinerja }}</td>
                                         <td>{{ $indikator->bobot }}</td>
                                         <td>{{ $indikator->polaritas }}</td>
@@ -154,7 +177,7 @@
                                         <td>{{ $indikator->nilai }}</td>
                                         <td>{{ $indikator->status }}</td>
                                         <td>{{ $indikator->penjelasan }}</td>
-                                        <td>
+                                        <!-- <td>
                                             <div class="d-flex justify-content-center">
                                                 <a href='{{ route('realkpi.edit', $indikator->id) }}'
                                                     class="btn btn-sm btn-info btn-icon">
@@ -169,7 +192,7 @@
                                                     </button>
                                                 </form>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 @endforeach
 
@@ -188,9 +211,47 @@
             </div>
         </section>
     </div>
+
+     <!-- Modal Upload -->
+     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Import File Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <form action="{{ route('realkpi.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Pilih File</label>
+                            <input type="file" class="form-control" name="file" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".upload-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                let uploadModal = new bootstrap.Modal(document.getElementById("uploadModal"));
+                uploadModal.show();
+            });
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function(){

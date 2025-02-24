@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('id_rkm_realisasi');
             $table->string('id_pel');
             $table->string('uraian_nama');
+            $table->string('kontribusi');
             $table->date('tanggal');
             $table->timestamps();
         });

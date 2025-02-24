@@ -57,7 +57,6 @@
                                             <th>Unit Pelaksana</th>
                                             <th>Unit Layanan / Bagian</th>
                                             <th>Indikator Kinerja KPI</th>
-                                            <th>satuan KPI</th>
                                             <th>polaritas RKM</th>
                                             <th>Indikator RKM</th>
                                             <th>Satuan RKM</th>
@@ -72,7 +71,6 @@
                                                 <td>{{$indikator->nama_unit_pelaksana}}</td>
                                                 <td>{{$indikator->nama_unit_layanan_bagian}}</td>
                                                 <td>{{$indikator->indikator_kinerja}}</td>
-                                                <td>{{$indikator->nama_satuan_kpi}}</td>
                                                 <td>{{$indikator->polaritas_rkm}}</td>
                                                 <td>{{$indikator->indikator_rkm}}</td>
                                                 <td>{{$indikator->nama_satuan_rkm}}</td>
@@ -112,35 +110,6 @@
         </section>
     </div>
 
-    <!-- Modal Upload -->
-    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">Import File Excel</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
-                </div>
-                <form action="{{ route('rkm.import') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="hidden" name="indikator_id" id="indikator_id">
-                        <div class="mb-3" hidden>
-                            <label for="display_id" class="form-label">RKM ID</label>
-                            <input type="text" class="form-control" id="display_id" name="rkm_id">
-                        </div>
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Pilih File</label>
-                            <input type="file" class="form-control" name="file" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('scripts')
