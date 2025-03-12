@@ -22,4 +22,10 @@ class Realkpi extends Model
         'status',
         'penjelasan',
     ];
+
+     // Relasi ke Sub-KPI
+     public function Subkpi()
+     {
+         return $this->belongsTo(Subkpi::class, 'id_indikator_kpi');
+     }
 }

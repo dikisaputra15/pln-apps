@@ -11,6 +11,37 @@
     <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #d3d3d3;
+            font-weight: bold;
+        }
+        .category-header {
+            background-color: #b7b7b7;
+            font-weight: bold;
+            text-align: left;
+        }
+        .sub-header {
+            background-color: #e0e0e0;
+            font-weight: bold;
+            text-align: left;
+        }
+        .sub-indicator {
+            padding-left: 20px;
+            text-align: left;
+        }
+    </style>
 @endpush
 
 @section('main')
@@ -117,73 +148,92 @@
 
                                 <div class="clearfix mb-3"></div>
                                 <div class="table-responsive">
+                    <table class="table-striped table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Unit Induk</th>
+                                <th>Unit Pelaksana</th>
+                                <th>Unit Layanan</th>
+                                <th>Indikator Kinerja KPI</th>
+                                <th>Bobot</th>
+                                <th>Polaritas</th>
+                                <th>Tahun</th>
+                                <th>Bulan</th>
+                                <th>Target</th>
+                                <th>Realisasi</th>
+                                <th>Pencapaian</th>
+                                <th>Nilai</th>
+                                <th>Status</th>
+                                <th>Penjelasan</th>
+                                <!-- <th>Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $bulanMapping = [
+                                    '01' => 'JAN', '02' => 'FEB', '03' => 'MAR', '04' => 'APR',
+                                    '05' => 'MEI', '06' => 'JUN', '07' => 'JUL', '08' => 'AGU',
+                                    '09' => 'SEP', '10' => 'OKT', '11' => 'NOV', '12' => 'DES'
+                                ];
+                            @endphp
+                            @php($i = 1)
+                                @foreach ($indikators as $indikator)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $indikator->nama_unit_induk }}</td>
+                                        <td>{{ $indikator->nama_unit_pelaksana }}</td>
+                                        <td>{{ $indikator->nama_unit_layanan_bagian }}</td>
+                                        <td>{{ $indikator->indikator_kinerja }}</td>
+                                        <td>{{ $indikator->bobot }}</td>
+                                        <td>{{ $indikator->polaritas }}</td>
+                                        <td>{{ $indikator->tahun }}</td>
+                                        <td>{{ $bulanMapping[$indikator->bulan] }}</td>
+                                        <td>{{ $indikator->target }}</td>
+                                        <td>{{ $indikator->realisasi }}</td>
+                                        <td style="
+                                            @if($indikator->pencapaian < 95) background-color: red; color: white;
+                                            @elseif($indikator->pencapaian >= 95 && $indikator->pencapaian < 100) background-color: yellow; color: black;
+                                            @elseif($indikator->pencapaian >= 100 && $indikator->pencapaian < 109) background-color: lightgreen; color: black;
+                                            @elseif($indikator->pencapaian >= 110) background-color: darkgreen; color: white;
+                                            @endif">
+                                            {{ $indikator->pencapaian }}%
+                                        </td>
 
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th rowspan="2">No</th>
-                                                <th rowspan="2">Indikator Kinerja</th>
-                                                <th rowspan="2">Bulan</th>
-                                                <th colspan="4">Capaian</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Target</th>
-                                                <th>Realisasi</th>
-                                                <th>Pencapaian</th>
-                                                <th>Nilai</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php $no = 1; @endphp
-                                            @foreach ($kpis as $kategori => $jenisGroup)
-                                                <!-- Header Kategori Indikator -->
-                                                <tr class="category-header">
-                                                    <td colspan="7">{{ strtoupper($kategori) }}</td>
-                                                </tr>
+                                        <td>{{ $indikator->nilai }}</td>
+                                        <td>{{ $indikator->status }}</td>
+                                        <td>{{ $indikator->penjelasan }}</td>
+                                        <!-- <td>
+                                            <div class="d-flex justify-content-center">
+                                                <a href='{{ route('realkpi.edit', $indikator->id) }}'
+                                                    class="btn btn-sm btn-info btn-icon">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
 
-                                                @foreach ($jenisGroup->groupBy('jenis_indikator') as $jenisIndikator => $kpiGroup)
-                                                    <!-- Header Jenis Indikator -->
-                                                    <tr class="sub-header">
-                                                        <td colspan="7">{{ ucfirst($jenisIndikator) }}</td>
-                                                    </tr>
+                                                <form action="{{ route('realkpi.destroy', $indikator->id) }}" method="POST" class="ml-2">
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                        <i class="fas fa-times"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td> -->
+                                    </tr>
+                                @endforeach
 
-                                                    @foreach ($kpiGroup as $kpi)
-                                                        <!-- KPI Utama -->
-                                                        <tr>
-                                                            <td>{{ $no++ }}</td>
-                                                            <td colspan="6">{{ strtoupper($kpi->indikator_kinerja) }}</td>
-                                                        </tr>
+                        </tbody>
 
-                                                        @foreach ($kpi->subKpi as $sub)
-                                                            <!-- Sub-KPI -->
-                                                            <tr>
-                                                                <td></td>
-                                                                <td class="sub-indicator">{{ $sub->nama_sub_kpi }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12" class="text-right"><b>NKO</b></td>
+                                <td colspan="3">
+                                    <b>{{ $indikators->sum('nilai') }}</b>
+                                </td>
+                            </tr>
+                        </tfoot>
 
-                                                            @foreach ($sub->realisasi as $realisasi)
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>{{ strtoupper($realisasi->bulan) }}</td>
-                                                                    <td>{{ $realisasi->target }}</td>
-                                                                    <td>{{ $realisasi->realisasi }}</td>
-                                                                    <td>{{ number_format($realisasi->pencapaian, 2) }}%</td>
-                                                                    <td>{{ $realisasi->nilai }}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        @endforeach
-                                                    @endforeach
-                                                @endforeach
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-
+                    </table>
                 </div>
 
                             </div>

@@ -18,4 +18,9 @@ class Kpi extends Model
         'polaritas',
         'tahun',
     ];
+
+    public function Subkpi()
+    {
+        return $this->hasMany(Subkpi::class, 'id_kpi');
+    }
 }

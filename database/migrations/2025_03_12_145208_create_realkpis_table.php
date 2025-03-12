@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_unit_induk');
             $table->integer('id_pelaksana');
             $table->integer('id_layanan');
-            $table->integer('id_indikator_kpi');
+            $table->unsignedBigInteger('id_indikator_kpi');
             $table->string('bulan');
             $table->double('target');
             $table->double('realisasi');
@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->text('penjelasan')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_indikator_kpi')->references('id')->on('subkpis')->onDelete('cascade');
         });
     }
 
