@@ -10,6 +10,7 @@ use App\Imports\RealisasiKPIImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class RealkpiController extends Controller
 {
@@ -18,21 +19,26 @@ class RealkpiController extends Controller
      */
     public function index(Request $request)
     {
+        $default = 1;
         $unitinduks = DB::table('unitinduks')->get();
+        $currentmonth = Carbon::now()->format('m');
+        $currentyear = Carbon::now()->format('Y');
 
-        $indikators = DB::table('realkpis')
+        $query = DB::table('realkpis')
         ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
         ->join('unitinduks', 'unitinduks.id', '=', 'realkpis.id_unit_induk')
         ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'realkpis.id_pelaksana')
         ->join('unitlayanans', 'unitlayanans.id', '=', 'realkpis.id_layanan')
-        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.jenis_indikator', 'kpis.bobot', 'kpis.polaritas', 'kpis.tahun', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
-        ->when($request->input('name'), function($query, $name){
-            return $query->where('kpis.indikator_kinerja', 'like', '%'.$name.'%');
-        })
-        ->orderBy('realkpis.id', 'desc')
-        ->paginate(10);
+        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
+        ->where('realkpis.id_unit_induk', 1)
+        ->where('realkpis.id_pelaksana', 1)
+        ->where('realkpis.id_layanan', 1)
+        ->where('realkpis.bulan', $currentmonth)
+        ->where('kpis.tahun', $currentyear);
 
-        return view('pages.realkpis.index', compact('indikators','unitinduks'));
+        $indikators = $query->get();
+
+        return view('pages.realkpis.index', compact('indikators','unitinduks','default','currentmonth'));
     }
 
     /**
@@ -150,10 +156,15 @@ class RealkpiController extends Controller
 
     public function filter(Request $request)
     {
+        $default = 1;
         $unitinduks = DB::table('unitinduks')->get();
+        $currentmonth = Carbon::now()->format('m');
         $query = DB::table('realkpis')
         ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
-        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas');
+        ->join('unitinduks', 'unitinduks.id', '=', 'realkpis.id_unit_induk')
+        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'realkpis.id_pelaksana')
+        ->join('unitlayanans', 'unitlayanans.id', '=', 'realkpis.id_layanan')
+        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian');
 
         // Filter berdasarkan Unit Induk
         if ($request->filled('id_unit_induk')) {
@@ -183,7 +194,7 @@ class RealkpiController extends Controller
         // Eksekusi query
         $indikators = $query->get();
 
-        return view('pages.realkpis.filter', compact('indikators','unitinduks'));
+        return view('pages.realkpis.filter', compact('indikators','unitinduks','default','currentmonth'));
 
     }
 

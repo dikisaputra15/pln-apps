@@ -37,41 +37,40 @@
                     <div class="col-md-2">
                                 <label>Nama Unit Induk</label>
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
-                                        <option value="0">Semua</option>
+                                    <option value="1">Semua</option>
                                     @foreach ($unitinduks as $unitinduk)
-                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
+                                        <option value="{{$unitinduk->id}}" {{ $unitinduk->id == $default ? 'selected' : '' }}>{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <label>Nama Unit Pelaksana</label>
                                  <select class="form-control" name="id_pelaksana" id="unit_pelaksana">
-                                    <option value="0">Semua</option>
+                                    <option value="1">Semua</option>
                                  </select>
                             </div>
                             <div class="col-md-2">
                                 <label>Nama Unit Layanan</label>
                                  <select class="form-control" name="id_layanan" id="unit_layanan">
-                                    <option value="0">Semua</option>
+                                    <option value="1">Semua</option>
                                  </select>
                             </div>
 
                             <div class="col-md-2">
                         <label>Bulan</label>
                         <select id="bulan" name="bulan" class="form-control">
-                            <option value="">Semua</option>
-                            <option value="JAN">JAN</option>
-                            <option value="FEB">FEB</option>
-                            <option value="MAR">MAR</option>
-                            <option value="APR">APR</option>
-                            <option value="MEI">MEI</option>
-                            <option value="JUN">JUN</option>
-                            <option value="JUL">JUL</option>
-                            <option value="AGU">AGU</option>
-                            <option value="SEP">SEP</option>
-                            <option value="OKT">OKT</option>
-                            <option value="NOV">NOV</option>
-                            <option value="DES">DES</option>
+                            <option value="01" {{ $currentmonth == '01' ? 'selected' : '' }}>JAN</option>
+                            <option value="02" {{ $currentmonth == '02' ? 'selected' : '' }}>FEB</option>
+                            <option value="03" {{ $currentmonth == '03' ? 'selected' : '' }}>MAR</option>
+                            <option value="04" {{ $currentmonth == '04' ? 'selected' : '' }}>APR</option>
+                            <option value="05" {{ $currentmonth == '05' ? 'selected' : '' }}>MEI</option>
+                            <option value="06" {{ $currentmonth == '06' ? 'selected' : '' }}>JUN</option>
+                            <option value="07" {{ $currentmonth == '07' ? 'selected' : '' }}>JUL</option>
+                            <option value="08" {{ $currentmonth == '08' ? 'selected' : '' }}>AGU</option>
+                            <option value="09" {{ $currentmonth == '09' ? 'selected' : '' }}>SEP</option>
+                            <option value="10" {{ $currentmonth == '10' ? 'selected' : '' }}>OKT</option>
+                            <option value="11" {{ $currentmonth == '11' ? 'selected' : '' }}>NOV</option>
+                            <option value="12" {{ $currentmonth == '12' ? 'selected' : '' }}>DES</option>
                         </select>
                     </div>
 
@@ -104,6 +103,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Unit Induk</th>
+                                <th>Unit Pelaksana</th>
+                                <th>Unit Layanan</th>
                                 <th>Indikator Kinerja KPI</th>
                                 <th>Bobot</th>
                                 <th>Polaritas</th>
@@ -118,18 +120,35 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $bulanMapping = [
+                                '01' => 'JAN', '02' => 'FEB', '03' => 'MAR', '04' => 'APR',
+                                '05' => 'MEI', '06' => 'JUN', '07' => 'JUL', '08' => 'AGU',
+                                '09' => 'SEP', '10' => 'OKT', '11' => 'NOV', '12' => 'DES'
+                            ];
+                            @endphp
                             @php($i = 1)
                                 @foreach ($indikators as $indikator)
                                     <tr>
                                         <td>{{ $i++ }}</td>
+                                        <td>{{ $indikator->nama_unit_induk }}</td>
+                                        <td>{{ $indikator->nama_unit_pelaksana }}</td>
+                                        <td>{{ $indikator->nama_unit_layanan_bagian }}</td>
                                         <td>{{ $indikator->indikator_kinerja }}</td>
                                         <td>{{ $indikator->bobot }}</td>
                                         <td>{{ $indikator->polaritas }}</td>
                                         <td>{{ $indikator->tahun }}</td>
-                                        <td>{{ $indikator->bulan }}</td>
+                                        <td>{{ $bulanMapping[$indikator->bulan] }}</td>
                                         <td>{{ $indikator->target }}</td>
                                         <td>{{ $indikator->realisasi }}</td>
-                                        <td>{{ $indikator->pencapaian }}</td>
+                                        <td style="
+                                            @if($indikator->pencapaian < 95) background-color: red; color: white;
+                                            @elseif($indikator->pencapaian >= 95 && $indikator->pencapaian < 100) background-color: yellow; color: black;
+                                            @elseif($indikator->pencapaian >= 100 && $indikator->pencapaian < 109) background-color: lightgreen; color: black;
+                                            @elseif($indikator->pencapaian >= 110) background-color: darkgreen; color: white;
+                                            @endif">
+                                            {{ $indikator->pencapaian }}%
+                                        </td>
                                         <td>{{ $indikator->nilai }}</td>
                                         <td>{{ $indikator->status }}</td>
                                         <td>{{ $indikator->penjelasan }}</td>
@@ -139,8 +158,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="9" class="text-right"><b>NKO</b></td>
-                                <td colspan="4">
+                                <td colspan="12" class="text-right"><b>NKO</b></td>
+                                <td colspan="3">
                                     <b>{{ $indikators->sum('nilai') }}</b>
                                 </td>
                             </tr>
@@ -174,8 +193,8 @@
                 let id_unit_induk = $('#unit_induk').val();
 
                  // Set default "Semua" di Unit Pelaksana dan Unit Layanan
-                $('#unit_pelaksana').html('<option value="">Semua</option>');
-                $('#unit_layanan').html('<option value="">Semua</option>');
+                $('#unit_pelaksana').html('<option value="1">Semua</option>');
+                $('#unit_layanan').html('<option value="1">Semua</option>');
 
                 if(id_unit_induk != '')
                 {
@@ -199,7 +218,7 @@
                 let id_unit_pelaksana = $('#unit_pelaksana').val();
 
                  // Set default "Semua" di Unit Layanan
-                 $('#unit_layanan').html('<option value="">Semua</option>');
+                 $('#unit_layanan').html('<option value="1">Semua</option>');
 
                  if (id_unit_pelaksana !== '') {
                     $.ajax({

@@ -70,7 +70,7 @@ class IndikatorController extends Controller
             $lastInsertedId = $kpi->id;
             $units = DB::table('unitlayanans')->get();
 
-            $bulan_array = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGS', 'SEP', 'OKT', 'NOV', 'DES'];
+            $bulan_array = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
             $data_insert = [];
 
             $realisasi = 0;
