@@ -55,6 +55,10 @@
                     </li>
                     <li>
                         <a class="nav-link"
+                            href="{{ Route('subkpi.index') }}">Sub KPI</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
                             href="{{ Route('rkm.index') }}">RKM</a>
                     </li>
                 </ul>

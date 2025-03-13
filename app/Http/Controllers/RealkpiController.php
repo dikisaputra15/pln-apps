@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRealkpiRequest;
 use Illuminate\Http\Request;
 use App\Models\Realkpi;
+use App\Models\Kpi;
 use App\Exports\RealisasiKPIExport;
 use App\Imports\RealisasiKPIImport;
 use Illuminate\Support\Facades\DB;
@@ -37,17 +38,9 @@ class RealkpiController extends Controller
         // ->where('kpis.tahun', $currentyear);
         // $indikators = $query->get();
 
-       $indikators = Kpi::with(['Subkpi.realisasi'])
-                ->orderBy('jenis_indikator')
-                ->where('realkpis.id_unit_induk', 1)
-                ->where('realkpis.id_pelaksana', 1)
-                ->where('realkpis.id_layanan', 1)
-                ->where('realkpis.bulan', $currentmonth)
-                ->where('kpis.tahun', $currentyear)
-                ->get()
-                ->groupBy('jenis_indikator');
+       $kpis = Kpi::with(['subkpi.realisasi'])->get();
 
-        return view('pages.realkpis.index', compact('indikators','unitinduks','default','currentmonth'));
+        return view('pages.realkpis.index', compact('kpis','unitinduks','default','currentmonth'));
     }
 
     /**

@@ -20,9 +20,4 @@ class Subkpi extends Model
           return $this->belongsTo(Kpi::class, 'id_kpi');
       }
 
-      // Relasi ke Realisasi KPI
-    public function realisasi()
-    {
-        return $this->hasMany(Realkpi::class, 'id_indikator_kpi');
-    }
 }

@@ -118,15 +118,12 @@
                                 <div class="clearfix mb-3"></div>
                                 <div class="table-responsive">
 
-                                    <table>
-                                        <thead>
+                                    <table class="table table-bordered">
+                                        <thead class="table-dark">
                                             <tr>
-                                                <th rowspan="2">No</th>
-                                                <th rowspan="2">Indikator Kinerja</th>
-                                                <th rowspan="2">Bulan</th>
-                                                <th colspan="4">Capaian</th>
-                                            </tr>
-                                            <tr>
+                                                <th>No</th>
+                                                <th>Indikator Kinerja</th>
+                                                <th>Bulan</th>
                                                 <th>Target</th>
                                                 <th>Realisasi</th>
                                                 <th>Pencapaian</th>
@@ -135,57 +132,40 @@
                                         </thead>
                                         <tbody>
                                             @php $no = 1; @endphp
-                                            @foreach ($kpis as $kategori => $jenisGroup)
-                                                <!-- Header Kategori Indikator -->
-                                                <tr class="category-header">
-                                                    <td colspan="7">{{ strtoupper($kategori) }}</td>
+                                            @foreach ($kpis as $kpi)
+                                                <tr class="bg-primary text-white">
+                                                    <td>{{ $no++ }}</td>
+                                                    <td colspan="6"><strong>{{ strtoupper($kpi->jenis_indikator) }}</strong></td>
                                                 </tr>
 
-                                                @foreach ($jenisGroup->groupBy('jenis_indikator') as $jenisIndikator => $kpiGroup)
-                                                    <!-- Header Jenis Indikator -->
-                                                    <tr class="sub-header">
-                                                        <td colspan="7">{{ ucfirst($jenisIndikator) }}</td>
+                                                <tr class="bg-warning">
+                                                    <td></td>
+                                                    <td colspan="6"><strong>{{ $kpi->indikator_kinerja }}</strong></td>
+                                                </tr>
+
+                                                @foreach ($kpi->subkpis as $subkpi)
+                                                    <tr class="bg-light">
+                                                        <td></td>
+                                                        <td><strong>{{ $subkpi->nama_subkpi }}</strong></td>
+                                                        <td colspan="4"></td>
                                                     </tr>
 
-                                                    @foreach ($kpiGroup as $kpi)
-                                                        <!-- KPI Utama -->
+                                                    @foreach ($subkpi->realkpis as $realisasi)
                                                         <tr>
-                                                            <td>{{ $no++ }}</td>
-                                                            <td colspan="6">{{ strtoupper($kpi->indikator_kinerja) }}</td>
+                                                            <td></td>
+                                                            <td>{{ $realisasi->bulan }}</td>
+                                                            <td>{{ $realisasi->target }}</td>
+                                                            <td>{{ $realisasi->realisasi }}</td>
+                                                            <td>{{ $realisasi->pencapaian }}%</td>
+                                                            <td>{{ $realisasi->nilai }}</td>
                                                         </tr>
-
-                                                        @foreach ($kpi->subKpi as $sub)
-                                                            <!-- Sub-KPI -->
-                                                            <tr>
-                                                                <td></td>
-                                                                <td class="sub-indicator">{{ $sub->nama_sub_kpi }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-
-                                                            @foreach ($sub->realisasi as $realisasi)
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>{{ strtoupper($realisasi->bulan) }}</td>
-                                                                    <td>{{ $realisasi->target }}</td>
-                                                                    <td>{{ $realisasi->realisasi }}</td>
-                                                                    <td>{{ number_format($realisasi->pencapaian, 2) }}%</td>
-                                                                    <td>{{ $realisasi->nilai }}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        @endforeach
                                                     @endforeach
                                                 @endforeach
                                             @endforeach
                                         </tbody>
                                     </table>
 
-                </div>
-
+                                </div>
                             </div>
                         </div>
                     </div>

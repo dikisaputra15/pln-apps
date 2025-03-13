@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text('penjelasan')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_indikator_kpi')->references('id')->on('subkpis')->onDelete('cascade');
+            $table->foreign('id_indikator_kpi')->references('id')->on('kpis')->onDelete('cascade');
         });
     }
 

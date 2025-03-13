@@ -12,36 +12,6 @@
     <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #d3d3d3;
-            font-weight: bold;
-        }
-        .category-header {
-            background-color: #b7b7b7;
-            font-weight: bold;
-            text-align: left;
-        }
-        .sub-header {
-            background-color: #e0e0e0;
-            font-weight: bold;
-            text-align: left;
-        }
-        .sub-indicator {
-            padding-left: 20px;
-            text-align: left;
-        }
-    </style>
 @endpush
 
 @section('main')
