@@ -16,8 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kpi');
             $table->string('nama_sub_kpi');
             $table->timestamps();
-
-            $table->foreign('id_kpi')->references('id')->on('kpis')->onDelete('cascade');
         });
     }
 

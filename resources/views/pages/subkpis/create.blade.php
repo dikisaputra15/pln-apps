@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>KPi</label>
-                                <select class="form-control" name="id_unit_induk">
+                                <select class="form-control" name="id_kpi">
                                         <option value="0">-Pilih KPI-</option>
                                     @foreach ($kpis as $kpi)
                                         <option value="{{$kpi->id}}">{{$kpi->indikator_kinerja}}</option>

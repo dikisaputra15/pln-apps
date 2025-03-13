@@ -19,13 +19,5 @@ class Kpi extends Model
         'tahun',
     ];
 
-    public function subkpi()
-    {
-        return $this->hasMany(Subkpi::class, 'id_kpi');
-    }
 
-    public function realkpi()
-    {
-        return $this->hasMany(Realkpi::class, 'id_indikator_kpi');
-    }
 }

@@ -38,7 +38,11 @@ class SubkpiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Subkpi::create([
+            'id_kpi' => $request->id_kpi,
+            'nama_sub_kpi' => $request->nama_sub_kpi
+        ]);
+        return redirect()->route('subkpi.index')->with('success', 'Data successfully created');
     }
 
     /**

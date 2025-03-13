@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRealkpiRequest;
 use Illuminate\Http\Request;
 use App\Models\Realkpi;
 use App\Models\Kpi;
+use App\Models\Subkpi;
 use App\Exports\RealisasiKPIExport;
 use App\Imports\RealisasiKPIImport;
 use Illuminate\Support\Facades\DB;
@@ -25,22 +26,20 @@ class RealkpiController extends Controller
         $currentmonth = Carbon::now()->format('m');
         $currentyear = Carbon::now()->format('Y');
 
-        // $query = DB::table('realkpis')
-        // ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
-        // ->join('unitinduks', 'unitinduks.id', '=', 'realkpis.id_unit_induk')
-        // ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'realkpis.id_pelaksana')
-        // ->join('unitlayanans', 'unitlayanans.id', '=', 'realkpis.id_layanan')
-        // ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
-        // ->where('realkpis.id_unit_induk', 1)
-        // ->where('realkpis.id_pelaksana', 1)
-        // ->where('realkpis.id_layanan', 1)
-        // ->where('realkpis.bulan', $currentmonth)
-        // ->where('kpis.tahun', $currentyear);
-        // $indikators = $query->get();
+        $query = DB::table('realkpis')
+        ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
+        ->join('unitinduks', 'unitinduks.id', '=', 'realkpis.id_unit_induk')
+        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'realkpis.id_pelaksana')
+        ->join('unitlayanans', 'unitlayanans.id', '=', 'realkpis.id_layanan')
+        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
+        ->where('realkpis.id_unit_induk', 1)
+        ->where('realkpis.id_pelaksana', 1)
+        ->where('realkpis.id_layanan', 1)
+        ->where('realkpis.bulan', $currentmonth)
+        ->where('kpis.tahun', $currentyear);
+        $indikators = $query->get();
 
-       $kpis = Kpi::with(['subkpi.realisasi'])->get();
-
-        return view('pages.realkpis.index', compact('kpis','unitinduks','default','currentmonth'));
+        return view('pages.realkpis.index', compact('indikators','unitinduks','default','currentmonth'));
     }
 
     /**

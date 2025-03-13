@@ -14,10 +14,4 @@ class Subkpi extends Model
         'nama_sub_kpi',
     ];
 
-      // Relasi ke KPI utama
-      public function kpi()
-      {
-          return $this->belongsTo(Kpi::class, 'id_kpi');
-      }
-
 }

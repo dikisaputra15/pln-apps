@@ -14,7 +14,7 @@
             <div class="section-header">
                 <h1>Sub KPI</h1>
                 <div class="section-header-button">
-                    <a href="{{route('satuan.create')}}"
+                    <a href="{{route('subkpi.create')}}"
                         class="btn btn-primary">Add New</a>
                 </div>
             </div>
