@@ -18,10 +18,10 @@
         <section class="section">
             <div class="section-header">
                 <h1>Realisasi KPI</h1>
-                <div class="section-header-button">
+                <!-- <div class="section-header-button">
                     <a href="{{route('realkpi.create')}}"
                         class="btn btn-primary">Add New</a>
-                </div>
+                </div> -->
 
             </div>
             <div class="section-body">

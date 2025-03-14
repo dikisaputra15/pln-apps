@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('subkpis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_kpi');
-            $table->string('nama_sub_kpi');
+            $table->string('nama_sub_kpi')->nullable();;
             $table->timestamps();
         });
     }

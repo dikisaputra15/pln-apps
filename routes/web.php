@@ -10,7 +10,6 @@ use App\Http\Controllers\SatrkmController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\AspirasiController;
 use App\Http\Controllers\IndikatorController;
-use App\Http\Controllers\SubkpiController;
 use App\Http\Controllers\NkoController;
 use App\Http\Controllers\RkmController;
 use App\Http\Controllers\RkmdetailController;
@@ -56,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kategori', KategoriController::class);
     Route::resource('aspirasi', AspirasiController::class);
     Route::resource('indikator', IndikatorController::class);
-    Route::resource('subkpi', SubkpiController::class);
     Route::resource('nko', NkoController::class);
     Route::resource('rkm', RkmController::class);
     Route::resource('rkmrealisasi', RkmrealisasiController::class);

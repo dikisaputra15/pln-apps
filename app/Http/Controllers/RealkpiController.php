@@ -26,20 +26,46 @@ class RealkpiController extends Controller
         $currentmonth = Carbon::now()->format('m');
         $currentyear = Carbon::now()->format('Y');
 
-        $query = DB::table('realkpis')
-        ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
-        ->join('unitinduks', 'unitinduks.id', '=', 'realkpis.id_unit_induk')
-        ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'realkpis.id_pelaksana')
-        ->join('unitlayanans', 'unitlayanans.id', '=', 'realkpis.id_layanan')
-        ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
-        ->where('realkpis.id_unit_induk', 1)
-        ->where('realkpis.id_pelaksana', 1)
-        ->where('realkpis.id_layanan', 1)
-        ->where('realkpis.bulan', $currentmonth)
-        ->where('kpis.tahun', $currentyear);
-        $indikators = $query->get();
+        // $query = DB::table('realkpis')
+        // ->join('kpis', 'kpis.id', '=', 'realkpis.id_indikator_kpi')
+        // ->join('unitinduks', 'unitinduks.id', '=', 'realkpis.id_unit_induk')
+        // ->join('unitpelaksanas', 'unitpelaksanas.id', '=', 'realkpis.id_pelaksana')
+        // ->join('unitlayanans', 'unitlayanans.id', '=', 'realkpis.id_layanan')
+        // ->select('realkpis.*', 'kpis.indikator_kinerja', 'kpis.tahun', 'kpis.bobot', 'kpis.polaritas', 'unitinduks.nama_unit_induk', 'unitpelaksanas.nama_unit_pelaksana', 'unitlayanans.nama_unit_layanan_bagian')
+        // ->where('realkpis.id_unit_induk', 1)
+        // ->where('realkpis.id_pelaksana', 1)
+        // ->where('realkpis.id_layanan', 1)
+        // ->where('realkpis.bulan', $currentmonth)
+        // ->where('kpis.tahun', $currentyear);
+        // $indikators = $query->get();
 
-        return view('pages.realkpis.index', compact('indikators','unitinduks','default','currentmonth'));
+        $data = DB::table('kpis')
+                    ->leftJoin('subkpis', 'kpis.id', '=', 'subkpis.id_kpi')
+                    ->leftJoin('realkpis as realkpi', function ($join) {
+                        $join->on('kpis.id', '=', 'realkpi.id_indikator_kpi');
+                        // Jangan ikutkan kondisi sub_kpi agar KPI utama tetap muncul
+                    })
+                ->select(
+                    'realkpi.*',
+                    'kpis.id as kpi_id',
+                    'kpis.indikator_kinerja',
+                    'kpis.jenis_indikator',
+                    'kpis.bobot',
+                    'kpis.polaritas',
+                    'kpis.tahun',
+                    'subkpis.id as sub_kpi_id',
+                    'subkpis.nama_sub_kpi'
+                )
+                ->where('realkpi.id_unit_induk', 1)
+                ->where('realkpi.id_pelaksana', 1)
+                ->where('realkpi.id_layanan', 1)
+                ->where('realkpi.bulan', $currentmonth)
+                ->where('kpis.tahun', $currentyear)
+                ->orderBy('kpis.id')
+                ->orderBy('subkpis.id')
+                ->get();
+
+        return view('pages.realkpis.index', compact('data','unitinduks','default','currentmonth'));
     }
 
     /**

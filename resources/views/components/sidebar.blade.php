@@ -33,18 +33,18 @@
                         <a class="nav-link"
                             href="{{ Route('satuan.index') }}">Satuan</a>
                     </li>
-                    {{-- <li>
+                    <!-- <li>
                         <a class="nav-link"
                             href="{{ Route('satrkm.index') }}">Satuan RKM</a>
-                    </li> --}}
+                    </li>  -->
                     <li>
                         <a class="nav-link"
                             href="{{ Route('kategori.index') }}">Kategori</a>
                     </li>
-                    {{-- <li>
+                    <!-- <li>
                         <a class="nav-link"
                             href="{{ Route('aspirasi.index') }}">Aspirasi</a>
-                    </li> --}}
+                    </li>  -->
                     <li>
                         <a class="nav-link"
                             href="{{ Route('user.index') }}">Users</a>
@@ -52,10 +52,6 @@
                     <li>
                         <a class="nav-link"
                             href="{{ Route('indikator.index') }}">KPI</a>
-                    </li>
-                    <li>
-                        <a class="nav-link"
-                            href="{{ Route('subkpi.index') }}">Sub KPI</a>
                     </li>
                     <li>
                         <a class="nav-link"
@@ -88,19 +84,19 @@
                     class="nav-link"><i class="fas fa-plug"></i><span>Realisasi KPI</span></a>
             </li>
 
-            {{-- <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="{{ Route('nko.index') }}"
                     class="nav-link"><i class="fas fa-plug"></i><span>NKO</span></a>
-            </li> --}}
+            </li>
 
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{ Route('rekapkinerja.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Rekap Kinerja</span></a>
-            </li> --}}
+            </li>
 
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{ Route('rekaprkm.index') }}"
                     class="nav-link"><i class="fas fa-columns"></i><span>Rekap RKM</span></a>
-            </li> --}}
+            </li>  -->
 
             <li class="nav-item">
                 <a href="{{ Route('rkmrealisasi.index') }}" class="nav-link"><i class="fas fa-th-large"></i><span>Realisasi RKM</span></a>

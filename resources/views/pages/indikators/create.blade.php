@@ -32,7 +32,7 @@
                         <div class="card-body">
 
                             <div class="form-group">
-                                <label>Indikator Kinerja</label>
+                                <label>Indikator Kinerja / KPI</label>
                                 <input type="text"
                                     class="form-control @error('indikator_kinerja')
                                 is-invalid
@@ -112,6 +112,17 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label>Sub KPI</label>
+                                <div id="subKPIContainer">
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" name="sub_kpi[]" placeholder="Masukkan Sub KPI">
+                                        <button class="btn btn-danger" type="button" onclick="removeSubKPI(this)">-</button>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" type="button" onclick="addSubKPI()">+</button>
+                            </div>
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>
@@ -125,6 +136,23 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    function addSubKPI() {
+        let container = document.getElementById('subKPIContainer');
+        let inputGroup = document.createElement('div');
+        inputGroup.className = 'input-group mb-2';
+        inputGroup.innerHTML = `
+            <input type="text" class="form-control" name="sub_kpi[]" placeholder="Masukkan Sub KPI">
+            <button class="btn btn-danger" type="button" onclick="removeSubKPI(this)">-</button>
+        `;
+        container.appendChild(inputGroup);
+    }
+
+    function removeSubKPI(button) {
+        button.parentElement.remove();
+    }
+</script>
 
 <script>
     $(document).ready(function(){

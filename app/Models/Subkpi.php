@@ -13,5 +13,4 @@ class Subkpi extends Model
         'id_kpi',
         'nama_sub_kpi',
     ];
-
 }

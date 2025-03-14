@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreIndikatorRequest;
 use App\Http\Requests\UpdateIndikatorRequest;
 use App\Models\Kpi;
+use App\Models\Subkpi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -104,6 +105,23 @@ class IndikatorController extends Controller
             }
 
             DB::table('realkpis')->insert($data_insert);
+
+            if ($request->has('sub_kpi') && !empty(array_filter($request->sub_kpi))) {
+                foreach ($request->sub_kpi as $sub) {
+                    if (!empty($sub)) { // Hanya simpan jika sub_kpi tidak kosong
+                        Subkpi::create([
+                            'id_kpi' => $kpi->id,
+                            'nama_sub_kpi' => $sub
+                        ]);
+                    }
+                }
+            } else {
+                // Jika tidak ada sub_kpi, buat satu entri kosong
+                Subkpi::create([
+                    'id_kpi' => $kpi->id,
+                    'nama_sub_kpi' => NULL
+                ]);
+            }
         }
 
         return redirect()->route('indikator.index')->with('success', 'Data successfully created');
