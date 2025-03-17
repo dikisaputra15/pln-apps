@@ -282,6 +282,19 @@
 
 @push('scripts')
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".upload-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                let uploadModal = new bootstrap.Modal(document.getElementById("uploadModal"));
+                uploadModal.show();
+            });
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function(){
 
