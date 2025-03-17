@@ -39,7 +39,7 @@
                                 <select class="form-control" name="id_unit_induk" id="unit_induk">
                                     <option value="1">Semua</option>
                                     @foreach ($unitinduks as $unitinduk)
-                                        <option value="{{$unitinduk->id}}" {{ $unitinduk->id == $default ? 'selected' : '' }}>{{$unitinduk->nama_unit_induk}}</option>
+                                        <option value="{{$unitinduk->id}}">{{$unitinduk->nama_unit_induk}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -97,75 +97,144 @@
                             </div>
                             <div class="card-body">
 
+                                <div class="mb-3">
+                                    <a href="{{ route('realkpi.export') }}" class="btn btn-success"><i class="fas fa-download"></i> Export Excel</a>
+
+                                    <button class="btn btn-warning btn-icon upload-btn d-inline ml-2">
+                                        <i class="fas fa-upload"></i> Import Excel
+                                    </button>
+                                </div>
+
                                 <div class="clearfix mb-3"></div>
                                 <div class="table-responsive">
-                    <table class="table-striped table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Unit Induk</th>
-                                <th>Unit Pelaksana</th>
-                                <th>Unit Layanan</th>
-                                <th>Indikator Kinerja KPI</th>
-                                <th>Bobot</th>
-                                <th>Polaritas</th>
-                                <th>Tahun</th>
-                                <th>Bulan</th>
-                                <th>Target</th>
-                                <th>Realisasi</th>
-                                <th>Pencapaian</th>
-                                <th>Nilai</th>
-                                <th>Status</th>
-                                <th>Penjelasan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $bulanMapping = [
-                                '01' => 'JAN', '02' => 'FEB', '03' => 'MAR', '04' => 'APR',
-                                '05' => 'MEI', '06' => 'JUN', '07' => 'JUL', '08' => 'AGU',
-                                '09' => 'SEP', '10' => 'OKT', '11' => 'NOV', '12' => 'DES'
-                            ];
-                            @endphp
-                            @php($i = 1)
-                                @foreach ($indikators as $indikator)
-                                    <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $indikator->nama_unit_induk }}</td>
-                                        <td>{{ $indikator->nama_unit_pelaksana }}</td>
-                                        <td>{{ $indikator->nama_unit_layanan_bagian }}</td>
-                                        <td>{{ $indikator->indikator_kinerja }}</td>
-                                        <td>{{ $indikator->bobot }}</td>
-                                        <td>{{ $indikator->polaritas }}</td>
-                                        <td>{{ $indikator->tahun }}</td>
-                                        <td>{{ $bulanMapping[$indikator->bulan] }}</td>
-                                        <td>{{ $indikator->target }}</td>
-                                        <td>{{ $indikator->realisasi }}</td>
-                                        <td style="
-                                            @if($indikator->pencapaian < 95) background-color: red; color: white;
-                                            @elseif($indikator->pencapaian >= 95 && $indikator->pencapaian < 100) background-color: yellow; color: black;
-                                            @elseif($indikator->pencapaian >= 100 && $indikator->pencapaian < 109) background-color: lightgreen; color: black;
-                                            @elseif($indikator->pencapaian >= 110) background-color: darkgreen; color: white;
-                                            @endif">
-                                            {{ $indikator->pencapaian }}%
-                                        </td>
-                                        <td>{{ $indikator->nilai }}</td>
-                                        <td>{{ $indikator->status }}</td>
-                                        <td>{{ $indikator->penjelasan }}</td>
-                                    </tr>
-                                @endforeach
+                                    <table class="table-striped table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Unit Induk</th>
+                                                <th>Unit Pelaksana</th>
+                                                <th>Unit Layanan</th>
+                                                <th>KPI / Sub KPI</th>
+                                                <th>Bobot</th>
+                                                <th>Polaritas</th>
+                                                <th>Tahun</th>
+                                                <th>Bulan</th>
+                                                <th>Target</th>
+                                                <th>Realisasi</th>
+                                                <th>Pencapaian</th>
+                                                <th>Nilai</th>
+                                                <th>Status</th>
+                                                <th>Penjelasan</th>
+                                                <!-- <th>Action</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $bulanMapping = [
+                                                    '01' => 'JAN', '02' => 'FEB', '03' => 'MAR', '04' => 'APR',
+                                                    '05' => 'MEI', '06' => 'JUN', '07' => 'JUL', '08' => 'AGU',
+                                                    '09' => 'SEP', '10' => 'OKT', '11' => 'NOV', '12' => 'DES'
+                                                ];
+                                            @endphp
 
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="12" class="text-right"><b>NKO</b></td>
-                                <td colspan="3">
-                                    <b>{{ $indikators->sum('nilai') }}</b>
-                                </td>
-                            </tr>
-                        </tfoot>
+                                            @php
+                                                $no = 1;
+                                            @endphp
+                                            @foreach ($data as $jenisIndikator => $kpiGroupByJenis)
 
-                    </table>
+                                             {{-- Header Jenis Indikator --}}
+                                            <tr style="background: #d1ecf1; font-weight: bold;">
+                                                <td colspan="15">{{ $jenisIndikator }}</td>
+                                            </tr>
+
+                                            @foreach ($kpiGroupByJenis as $kpi_id => $kpiGroup)
+                                                @php
+                                                     $firstKpi = $kpiGroup->first();
+                                                    $hasSubKpi = $kpiGroup->contains(function ($item) {
+                                                        return !empty($item->nama_sub_kpi) && !is_null($item->nama_sub_kpi);
+                                                    });
+                                                @endphp
+
+                                                <!-- Tampilkan KPI Utama  -->
+                                                    <tr>
+                                                        <td>{{ $no++ }}</td>
+                                                        <td>{{ $firstKpi->unit_induk }}</td>
+                                                        <td>{{ $firstKpi->unit_pelaksana }}</td>
+                                                        <td>{{ $firstKpi->unit_layanan }}</td>
+                                                        <td>{{ $firstKpi->indikator_kinerja }}</td>
+                                                        <td>{{ $firstKpi->bobot }}</td>
+                                                        <td>{{ $firstKpi->polaritas }}</td>
+                                                        <td>{{ $firstKpi->tahun }}</td>
+                                                        <td>{{ $bulanMapping[$firstKpi->bulan] }}</td>
+                                                        <td>{{ $firstKpi->target }}</td>
+                                                        <td>{{ $firstKpi->realisasi }}</td>
+                                                        <td style="
+                                                            @if($firstKpi->pencapaian < 95) background-color: red; color: white;
+                                                            @elseif($firstKpi->pencapaian >= 95 && $indikator->pencapaian < 100) background-color: yellow; color: black;
+                                                            @elseif($firstKpi->pencapaian >= 100 && $indikator->pencapaian < 109) background-color: lightgreen; color: black;
+                                                            @elseif($firstKpi->pencapaian >= 110) background-color: darkgreen; color: white;
+                                                            @endif">
+                                                            {{ $firstKpi->pencapaian }}%
+                                                        </td>
+
+                                                        <td>{{ $firstKpi->nilai }}</td>
+                                                        <td>{{ $firstKpi->status }}</td>
+                                                        <td>{{ $firstKpi->penjelasan }}</td>
+
+                                                    </tr>
+
+                                                    @if ($hasSubKpi)
+                                                        @php
+                                                            $letters = range('a', 'z'); // Membuat array huruf a-z
+                                                            $index = 0; // Inisialisasi index
+                                                        @endphp
+                                                        @foreach ($kpiGroup as $row)
+                                                         @if (!is_null($row->nama_sub_kpi) && !empty($row->nama_sub_kpi))
+
+                                                            <!-- Tampilkan Sub-KPI hanya jika ada -->
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>{{ $letters[$index] }}. {{ $row->nama_sub_kpi }}</td>
+                                                        <td>{{ $row->bobot }}</td>
+                                                        <td>{{ $row->polaritas }}</td>
+                                                        <td>{{ $row->tahun }}</td>
+                                                        <td>{{ $bulanMapping[$row->bulan] }}</td>
+                                                        <td>{{ $row->target }}</td>
+                                                        <td>{{ $row->realisasi }}</td>
+                                                        <td style="
+                                                            @if($row->pencapaian < 95) background-color: red; color: white;
+                                                            @elseif($row->pencapaian >= 95 && $indikator->pencapaian < 100) background-color: yellow; color: black;
+                                                            @elseif($row->pencapaian >= 100 && $indikator->pencapaian < 109) background-color: lightgreen; color: black;
+                                                            @elseif($row->pencapaian >= 110) background-color: darkgreen; color: white;
+                                                            @endif">
+                                                            {{ $row->pencapaian }}%
+                                                        </td>
+
+                                                        <td>{{ $row->nilai }}</td>
+                                                        <td>{{ $row->status }}</td>
+                                                        <td>{{ $row->penjelasan }}</td>
+
+                                                    </tr>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                        @endforeach
+                                        </tbody>
+
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="12" class="text-right"><b>NKO</b></td>
+                                                <td colspan="3">
+                                                    <b>{{ $data->sum('nilai') }}</b>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
                 </div>
 
 
@@ -176,6 +245,32 @@
             </div>
         </section>
     </div>
+
+     <!-- Modal Upload -->
+     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Import File Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <form action="{{ route('realkpi.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Pilih File</label>
+                            <input type="file" class="form-control" name="file" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')

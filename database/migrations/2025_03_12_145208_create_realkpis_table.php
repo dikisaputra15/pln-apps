@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('id_pelaksana');
             $table->integer('id_layanan');
             $table->unsignedBigInteger('id_indikator_kpi');
+            $table->string('nama_sub_kpi')->nullable();
             $table->string('bulan');
             $table->double('target');
             $table->double('realisasi');

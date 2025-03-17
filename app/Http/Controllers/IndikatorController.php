@@ -44,18 +44,6 @@ class IndikatorController extends Controller
      */
     public function store(StoreIndikatorRequest $request)
     {
-        // $pencapaian = ($request->realisasi/$request->target)*100;
-        // $nilai = ($pencapaian*$request->bobot)/100;
-
-        // if($request->realisasi == 0){
-        //     $status = 'belum';
-        // }else if($pencapaian >= 100){
-        //     $status = 'baik';
-        // }else if($pencapaian >= 95){
-        //     $status = 'hati-hati';
-        // }else{
-        //     $status = 'masalah';
-        // }
 
        $kpi = Kpi::create([
             'indikator_kinerja' => $request->indikator_kinerja,
@@ -88,40 +76,27 @@ class IndikatorController extends Controller
 
             foreach ($units as $unit) {
                 foreach ($bulan_array as $bulan) {
-                    $data_insert[] = [
-                        'id_unit_induk' => $unit->id_unit_induk,
-                        'id_pelaksana' => $unit->id_pelaksana,
-                        'id_layanan' => $unit->id,
-                        'id_indikator_kpi' => $lastInsertedId,
-                        'bulan' => $bulan,
-                        'target' => 0,
-                        'realisasi' => $realisasi,
-                        'pencapaian' => 0,
-                        'nilai' => 0,
-                        'status' => $status,
-                        'penjelasan' => ''
-                    ];
+                    foreach ($request->sub_kpi as $sub) {
+                        $data_insert[] = [
+                            'id_unit_induk' => $unit->id_unit_induk,
+                            'id_pelaksana' => $unit->id_pelaksana,
+                            'id_layanan' => $unit->id,
+                            'id_indikator_kpi' => $lastInsertedId,
+                            'nama_sub_kpi' => $sub,
+                            'bulan' => $bulan,
+                            'target' => 0,
+                            'realisasi' => $realisasi,
+                            'pencapaian' => 0,
+                            'nilai' => 0,
+                            'status' => $status,
+                            'penjelasan' => ''
+                        ];
+                    }
                 }
             }
 
             DB::table('realkpis')->insert($data_insert);
 
-            if ($request->has('sub_kpi') && !empty(array_filter($request->sub_kpi))) {
-                foreach ($request->sub_kpi as $sub) {
-                    if (!empty($sub)) { // Hanya simpan jika sub_kpi tidak kosong
-                        Subkpi::create([
-                            'id_kpi' => $kpi->id,
-                            'nama_sub_kpi' => $sub
-                        ]);
-                    }
-                }
-            } else {
-                // Jika tidak ada sub_kpi, buat satu entri kosong
-                Subkpi::create([
-                    'id_kpi' => $kpi->id,
-                    'nama_sub_kpi' => NULL
-                ]);
-            }
         }
 
         return redirect()->route('indikator.index')->with('success', 'Data successfully created');

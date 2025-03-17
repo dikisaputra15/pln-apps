@@ -98,21 +98,6 @@
 
                             <div class="card-body">
 
-                            <div class="mb-3">
-                                <a href="{{ route('realkpi.export') }}" class="btn btn-success"><i class="fas fa-download"></i> Export Excel</a>
-
-                                <!-- <form action="{{ route('realkpi.import') }}" method="POST" enctype="multipart/form-data" class="d-inline">
-                                    @csrf
-                                    <input type="file" name="file" required>
-                                    <button type="submit" class="btn btn-primary">Import Excel</button>
-                                </form> -->
-
-                                <button class="btn btn-warning btn-icon upload-btn d-inline ml-2">
-                                    <i class="fas fa-upload"></i> Import Excel
-                                </button>
-                            </div>
-
-
                             <p>Realisasi dibuat otomatis ketika KPI di buat dan bisa diupdate dengan cara export excel dan akan update ketika data excel diimport</p>
 
 
@@ -122,6 +107,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Unit Induk</th>
+                                <th>Unit Pelaksana</th>
+                                <th>Unit Layanan</th>
                                 <th>KPI / Sub KPI</th>
                                 <th>Bobot</th>
                                 <th>Polaritas</th>
@@ -145,21 +133,31 @@
                                 ];
                             @endphp
 
-                            @php $no = 1; @endphp
-                            @foreach ($data->groupBy('kpi_id') as $kpi_id => $kpiGroup)
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($data as $jenisIndikator => $kpiGroupByJenis)
+
+                             {{-- Header Jenis Indikator --}}
+                            <tr style="background: #d1ecf1; font-weight: bold;">
+                                <td colspan="15">{{ $jenisIndikator }}</td>
+                            </tr>
+
+                            @foreach ($kpiGroupByJenis as $kpi_id => $kpiGroup)
                                 @php
-                                    $firstKpi = $kpiGroup->first();
+                                     $firstKpi = $kpiGroup->first();
                                     $hasSubKpi = $kpiGroup->contains(function ($item) {
-                                                    return !empty($item->sub_kpi_id) && !is_null($item->sub_kpi_id);
-                                                });
+                                        return !empty($item->nama_sub_kpi) && !is_null($item->nama_sub_kpi);
+                                    });
                                 @endphp
 
                                 <!-- Tampilkan KPI Utama  -->
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>
-                                           {{ $firstKpi->indikator_kinerja }}
-                                        </td>
+                                        <td>{{ $firstKpi->unit_induk }}</td>
+                                        <td>{{ $firstKpi->unit_pelaksana }}</td>
+                                        <td>{{ $firstKpi->unit_layanan }}</td>
+                                        <td>{{ $firstKpi->indikator_kinerja }}</td>
                                         <td>{{ $firstKpi->bobot }}</td>
                                         <td>{{ $firstKpi->polaritas }}</td>
                                         <td>{{ $firstKpi->tahun }}</td>
@@ -182,15 +180,22 @@
                                     </tr>
 
                                     @if ($hasSubKpi)
+
+                                    @php
+                                        $letters = range('a', 'z'); // Membuat array huruf a-z
+                                        $index = 0; // Inisialisasi index
+                                    @endphp
+
                                         @foreach ($kpiGroup as $row)
-                                            @if (!is_null($row->sub_kpi_id) && !empty($row->nama_sub_kpi))
+                                         @if (!is_null($row->nama_sub_kpi) && !empty($row->nama_sub_kpi))
 
                                             <!-- Tampilkan Sub-KPI hanya jika ada -->
                                     <tr>
                                         <td></td>
-                                        <td>
-                                          - {{ $row->nama_sub_kpi }}
-                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ $letters[$index] }}. {{ $row->nama_sub_kpi }}</td>
                                         <td>{{ $row->bobot }}</td>
                                         <td>{{ $row->polaritas }}</td>
                                         <td>{{ $row->tahun }}</td>
@@ -230,6 +235,7 @@
                                 @endforeach
                             @endif
                         @endforeach
+                        @endforeach
                         </tbody>
 
                         <tfoot>
@@ -252,30 +258,6 @@
         </section>
     </div>
 
-     <!-- Modal Upload -->
-     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">Import File Excel</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
-                </div>
-                <form action="{{ route('realkpi.import') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Pilih File</label>
-                            <input type="file" class="form-control" name="file" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('scripts')
