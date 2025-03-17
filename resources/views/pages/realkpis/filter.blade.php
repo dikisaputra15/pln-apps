@@ -98,7 +98,14 @@
                             <div class="card-body">
 
                                 <div class="mb-3">
-                                    <a href="{{ route('realkpi.export') }}" class="btn btn-success"><i class="fas fa-download"></i> Export Excel</a>
+
+                                    <a href="{{ route('realkpi.export', [
+                                        'id_unit_induk' => request('id_unit_induk'),
+                                        'id_pelaksana' => request('id_pelaksana'),
+                                        'id_layanan' => request('id_layanan'),
+                                        'bulan' => request('bulan'),
+                                        'tahun' => request('tahun'),
+                                    ]) }}" class="btn btn-success"><i class="fas fa-download"></i> Export Excel</a>
 
                                     <button class="btn btn-warning btn-icon upload-btn d-inline ml-2">
                                         <i class="fas fa-upload"></i> Import Excel

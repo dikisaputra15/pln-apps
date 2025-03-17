@@ -230,6 +230,12 @@ class RealkpiController extends Controller
 
     public function export(Request $request)
     {
+        $id_unit_induk = $request->id_unit_induk;
+        $id_pelaksana = $request->id_pelaksana;
+        $id_layanan = $request->id_layanan;
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
         $query = DB::table('kpis')
             ->leftJoin('realkpis as realkpi', 'kpis.id', '=', 'realkpi.id_indikator_kpi')
             ->leftJoin('unitinduks as ui', 'realkpi.id_unit_induk', '=', 'ui.id')
@@ -250,19 +256,19 @@ class RealkpiController extends Controller
 
            // Filter berdasarkan request
         if ($request->filled('id_unit_induk')) {
-            $query->where('realkpi.id_unit_induk', $request->id_unit_induk);
+            $query->where('realkpi.id_unit_induk', $id_unit_induk);
         }
         if ($request->filled('id_pelaksana')) {
-            $query->where('realkpi.id_pelaksana', $request->id_pelaksana);
+            $query->where('realkpi.id_pelaksana', $id_pelaksana);
         }
         if ($request->filled('id_layanan')) {
-            $query->where('realkpi.id_layanan', $request->id_layanan);
+            $query->where('realkpi.id_layanan', $id_layanan);
         }
         if ($request->filled('bulan')) {
-            $query->where('realkpi.bulan', $request->bulan);
+            $query->where('realkpi.bulan', $bulan);
         }
         if ($request->filled('tahun')) {
-            $query->where('kpis.tahun', $request->tahun);
+            $query->where('kpis.tahun', $tahun);
         }
 
         // ✅ Eksekusi Query dengan Grouping
