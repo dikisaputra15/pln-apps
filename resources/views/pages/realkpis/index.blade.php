@@ -98,6 +98,12 @@
 
                             <div class="card-body">
 
+                                <div class="mb-3">
+                                    <button class="btn btn-warning btn-icon upload-btn d-inline ml-2">
+                                        <i class="fas fa-upload"></i> Import Excel
+                                    </button>
+                                </div>
+
                             <p>Realisasi dibuat otomatis ketika KPI di buat dan bisa diupdate dengan cara export excel dan akan update ketika data excel diimport</p>
 
 
@@ -258,9 +264,47 @@
         </section>
     </div>
 
+      <!-- Modal Upload -->
+      <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Import File Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <form action="{{ route('realkpi.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Pilih File</label>
+                            <input type="file" class="form-control" name="file" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".upload-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                let uploadModal = new bootstrap.Modal(document.getElementById("uploadModal"));
+                uploadModal.show();
+            });
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function(){

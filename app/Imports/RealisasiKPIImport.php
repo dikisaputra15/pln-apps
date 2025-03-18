@@ -19,6 +19,7 @@ class RealisasiKPIImport implements ToModel, WithHeadingRow
                 'id_pelaksana' => $row['id_pelaksana'],
                 'id_layanan' => $row['id_layanan'],
                 'id_indikator_kpi' => $row['id_indikator_kpi'],
+                'nama_sub_kpi' => $row['nama_sub_kpi'],
                 'bulan' => $row['bulan'],
                 'target' => $row['target'],
                 'realisasi' => $row['realisasi'],

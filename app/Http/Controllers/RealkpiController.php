@@ -272,11 +272,7 @@ class RealkpiController extends Controller
         }
 
         // ✅ Eksekusi Query dengan Grouping
-        $data = $query->get()
-            ->groupBy('jenis_indikator') // Grouping berdasarkan jenis_indikator
-            ->map(function ($group) {
-                return $group->groupBy('kpi_id'); // Kelompokkan lagi berdasarkan KPI utama
-            });
+        $data = $query->get();
 
         return Excel::download(new RealisasiKPIExport($data), 'realisasi_kpi.xlsx');
     }
