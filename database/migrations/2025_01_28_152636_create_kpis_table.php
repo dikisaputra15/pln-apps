@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_kategori');
             $table->integer('id_satuan');
             $table->double('bobot');
-            $table->integer('polaritas');
+            $table->string('polaritas');
             $table->string('tahun');
             $table->timestamps();
         });
