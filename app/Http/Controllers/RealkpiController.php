@@ -56,7 +56,31 @@ class RealkpiController extends Controller
                     return $group->groupBy('kpi_id'); // Kelompokkan lagi berdasarkan KPI utama
                 });
 
-        return view('pages.realkpis.index', compact('data','unitinduks','default','currentmonth'));
+        $totalNilai = DB::table('kpis')
+                ->leftJoin('realkpis as realkpi', 'kpis.id', '=', 'realkpi.id_indikator_kpi')
+                ->leftJoin('unitinduks as ui', 'realkpi.id_unit_induk', '=', 'ui.id')
+                ->leftJoin('unitpelaksanas as up', 'realkpi.id_pelaksana', '=', 'up.id')
+                ->leftJoin('unitlayanans as ul', 'realkpi.id_layanan', '=', 'ul.id')
+                ->select(
+                    'realkpi.*',
+                    'kpis.id as kpi_id',
+                    'kpis.indikator_kinerja',
+                    'kpis.jenis_indikator',
+                    'kpis.bobot',
+                    'kpis.polaritas',
+                    'kpis.tahun',
+                    'ui.nama_unit_induk as unit_induk',
+                    'up.nama_unit_pelaksana as unit_pelaksana',
+                    'ul.nama_unit_layanan_bagian as unit_layanan'
+                )
+                ->where('realkpi.id_unit_induk', 1)
+                ->where('realkpi.id_pelaksana', 1)
+                ->where('realkpi.id_layanan', 1)
+                ->where('realkpi.bulan', $currentmonth)
+                ->where('kpis.tahun', $currentyear)
+                ->sum('realkpi.nilai');
+
+        return view('pages.realkpis.index', compact('data','unitinduks','default','currentmonth', 'totalNilai'));
     }
 
     /**
@@ -224,7 +248,17 @@ class RealkpiController extends Controller
             return $group->groupBy('kpi_id'); // Kelompokkan lagi berdasarkan KPI utama
         });
 
-        return view('pages.realkpis.filter', compact('data','unitinduks','default','currentmonth'));
+        $totalNilai = 0;
+
+        foreach ($data as $jenisGroup) {
+            foreach ($jenisGroup as $kpiGroup) {
+                foreach ($kpiGroup as $item) {
+                    $totalNilai += $item->nilai;
+                }
+            }
+        }
+
+        return view('pages.realkpis.filter', compact('data','unitinduks','default','currentmonth', 'totalNilai'));
 
     }
 
@@ -282,6 +316,24 @@ class RealkpiController extends Controller
         Excel::import(new RealisasiKPIImport, $request->file('file'));
 
         return redirect()->back()->with('success', 'Data berhasil diimport dan diperbarui!');
+    }
+
+    public function editsubkpi($id)
+    {
+        $realkpi = \App\Models\Realkpi::findOrFail($id);
+        return view('pages.realkpis.editsubkpi', compact('realkpi'));
+    }
+
+    public function updatesubkpi(Request $request)
+    {
+        $id = $request->id;
+
+        DB::table('realkpis')->where('id',$id)->update([
+            'nama_sub_kpi' => $request->nama_sub_kpi,
+            'bobot_subkpi' => $request->bobot_subkpi
+		]);
+
+        return redirect()->route('realkpi.index')->with('success', 'Data successfully updated');
     }
 
 }

@@ -117,6 +117,7 @@
                                 <div id="subKPIContainer">
                                     <div class="input-group mb-2">
                                         <input type="text" class="form-control" name="sub_kpi[]" placeholder="Masukkan Sub KPI">
+                                        <input type="text" class="form-control" name="bobot_sub_kpi[]" placeholder="Bobot Sub KPI">
                                         <button class="btn btn-danger" type="button" onclick="removeSubKPI(this)">-</button>
                                     </div>
                                 </div>
@@ -144,6 +145,7 @@
         inputGroup.className = 'input-group mb-2';
         inputGroup.innerHTML = `
             <input type="text" class="form-control" name="sub_kpi[]" placeholder="Masukkan Sub KPI">
+            <input type="text" class="form-control" name="bobot_sub_kpi[]" placeholder="Bobot Sub KPI">
             <button class="btn btn-danger" type="button" onclick="removeSubKPI(this)">-</button>
         `;
         container.appendChild(inputGroup);

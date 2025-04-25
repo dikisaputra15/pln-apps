@@ -179,7 +179,7 @@
                                             {{ $firstKpi->pencapaian }}%
                                         </td>
 
-                                        <td>{{ $firstKpi->nilai }}</td>
+                                        <td></td>
                                         <td>{{ $firstKpi->status }}</td>
                                         <td>{{ $firstKpi->penjelasan }}</td>
 
@@ -201,8 +201,8 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>{{ $letters[$index] }}. {{ $row->nama_sub_kpi }}</td>
-                                        <td>{{ $row->bobot }}</td>
+                                        <td><a href="/subkpi/{{$row->id}}/edit">{{ $letters[$index] }}. {{ $row->nama_sub_kpi }}</a></td>
+                                        <td>{{ $row->bobot_subkpi }}</td>
                                         <td>{{ $row->polaritas }}</td>
                                         <td>{{ $row->tahun }}</td>
                                         <td>{{ $bulanMapping[$row->bulan] }}</td>
@@ -248,7 +248,7 @@
                             <tr>
                                 <td colspan="12" class="text-right"><b>NKO</b></td>
                                 <td colspan="3">
-                                    <b>{{ $data->sum('nilai') }}</b>
+                                    <b>{{ $totalNilai }}</b>
                                 </td>
                             </tr>
                         </tfoot>

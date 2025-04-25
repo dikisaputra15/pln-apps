@@ -76,13 +76,16 @@ class IndikatorController extends Controller
 
             foreach ($units as $unit) {
                 foreach ($bulan_array as $bulan) {
-                    foreach ($request->sub_kpi as $sub) {
+                    foreach ($request->sub_kpi as $index => $sub) {
+                        $bobot_subkpi = $request->bobot_sub_kpi[$index] ?? 0;
+
                         $data_insert[] = [
                             'id_unit_induk' => $unit->id_unit_induk,
                             'id_pelaksana' => $unit->id_pelaksana,
                             'id_layanan' => $unit->id,
                             'id_indikator_kpi' => $lastInsertedId,
                             'nama_sub_kpi' => $sub,
+                            'bobot_subkpi' => $bobot_subkpi,
                             'bulan' => $bulan,
                             'target' => 0,
                             'realisasi' => $realisasi,
