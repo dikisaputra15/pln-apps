@@ -62,8 +62,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rekaprkm', RekaprkmController::class);
     Route::resource('realkpi', RealkpiController::class);
     Route::post('/filter', [App\Http\Controllers\RealkpiController::class, 'filter']);
-    Route::get('/subkpi/{id}/edit', [App\Http\Controllers\RealkpiController::class, 'editsubkpi']);
-    Route::post('/subkpi/update', [App\Http\Controllers\RealkpiController::class, 'updatesubkpi']);
     Route::get('/realkpiexport', [RealkpiController::class, 'export'])->name('realkpi.export');
     Route::post('/realkpiimport', [RealkpiController::class, 'import'])->name('realkpi.import');
     Route::get('/upel', [App\Http\Controllers\UpelController::class, 'index']);

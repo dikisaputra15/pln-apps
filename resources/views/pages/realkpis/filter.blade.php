@@ -202,7 +202,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td>{{ $letters[$index] }}. {{ $row->nama_sub_kpi }}</td>
-                                                        <td><a href="/subkpi/{{$row->id}}/edit">{{ $row->bobot_subkpi }}</a></td>
+                                                        <td>{{ $row->bobot_subkpi }}</td>
                                                         <td>{{ $row->polaritas }}</td>
                                                         <td>{{ $row->tahun }}</td>
                                                         <td>{{ $bulanMapping[$row->bulan] }}</td>

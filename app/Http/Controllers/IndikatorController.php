@@ -36,6 +36,7 @@ class IndikatorController extends Controller
     {
         $kategoris = DB::table('kategoris')->get();
         $satuans = DB::table('satuans')->get();
+
         return view('pages.indikators.create', compact('kategoris','satuans'));
     }
 

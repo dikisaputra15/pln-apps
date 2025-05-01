@@ -127,7 +127,6 @@
                                 <th>Nilai</th>
                                 <th>Status</th>
                                 <th>Penjelasan</th>
-                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -201,7 +200,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td><a href="/subkpi/{{$row->id}}/edit">{{ $letters[$index] }}. {{ $row->nama_sub_kpi }}</a></td>
+                                        <td>{{ $letters[$index] }}. {{ $row->nama_sub_kpi }}</td>
                                         <td>{{ $row->bobot_subkpi }}</td>
                                         <td>{{ $row->polaritas }}</td>
                                         <td>{{ $row->tahun }}</td>
@@ -220,22 +219,7 @@
                                         <td>{{ $row->nilai }}</td>
                                         <td>{{ $row->status }}</td>
                                         <td>{{ $row->penjelasan }}</td>
-                                        <!-- <td>
-                                            <div class="d-flex justify-content-center">
-                                                <a href='{{ route('realkpi.edit', $row->id) }}'
-                                                    class="btn btn-sm btn-info btn-icon">
-                                                    <i class="fas fa-edit"></i> Edit
-                                                </a>
 
-                                                <form action="{{ route('realkpi.destroy', $row->id) }}" method="POST" class="ml-2">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="DELETE" />
-                                                    <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                        <i class="fas fa-times"></i> Delete
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td> -->
                                     </tr>
                                     @endif
                                 @endforeach

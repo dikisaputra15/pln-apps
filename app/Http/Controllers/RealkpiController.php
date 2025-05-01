@@ -318,22 +318,5 @@ class RealkpiController extends Controller
         return redirect()->back()->with('success', 'Data berhasil diimport dan diperbarui!');
     }
 
-    public function editsubkpi($id)
-    {
-        $realkpi = \App\Models\Realkpi::findOrFail($id);
-        return view('pages.realkpis.editsubkpi', compact('realkpi'));
-    }
-
-    public function updatesubkpi(Request $request)
-    {
-        $id = $request->id;
-
-        DB::table('realkpis')->where('id',$id)->update([
-            'nama_sub_kpi' => $request->nama_sub_kpi,
-            'bobot_subkpi' => $request->bobot_subkpi
-		]);
-
-        return redirect()->route('realkpi.index')->with('success', 'Data successfully updated');
-    }
 
 }
